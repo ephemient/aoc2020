@@ -4,3 +4,6 @@
 Development occurs on language-specific directories:
 
   - [Haskell](https://github.com/ephemient/aoc2020/tree/main/hs)
+  - [Kotlin](https://github.com/ephemient/aoc2020/tree/main/kt)
+  - [Python](https://github.com/ephemient/aoc2020/tree/main/py)
+  - [Rust](https://github.com/ephemient/aoc2020/tree/main/rs)
