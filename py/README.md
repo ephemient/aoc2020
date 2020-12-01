@@ -1,7 +1,7 @@
 # [Advent of Code 2020](https://adventofcode.com/2020)
 ### my answers in [Python](https://www.python.org/)
 
-This project builds with [Pipenv](https://pipenv.kennethreitz.org/).
+This project builds with [Pipenv](https://pipenv.pypa.io/).
 
 Setup:
 
