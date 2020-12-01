@@ -3,13 +3,17 @@ package io.github.ephemient.aoc2020
 class Day1(lines: List<String>) {
     private val nums = IntArray(lines.size) { lines[it].toInt() }
 
-    fun part1(): Int = choose(2)
-        .first { (x, y) -> x + y == 2020 }
-        .let { (x, y) -> x * y }
+    fun part1(): Int {
+        val numsSet = nums.toSet()
+        val x = nums.first { x -> 2020 - x in numsSet }
+        return x * (2020 - x)
+    }
 
-    fun part2(): Int = choose(3)
-        .first { (x, y, z) -> x + y + z == 2020 }
-        .let { (x, y, z) -> x * y * z }
+    fun part2(): Int {
+        val numsSet = nums.toSet()
+        val (x, y) = choose(2).first { (x, y) -> 2020 - (x + y) in numsSet }
+        return x * y * (2020 - (x + y))
+    }
 
     private fun choose(n: Int): Sequence<IntArray> = if (n <= 0) {
         sequenceOf(intArrayOf())
