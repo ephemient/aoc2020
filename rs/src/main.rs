@@ -1,10 +1,11 @@
+#![feature(min_const_generics)]
+
 #[macro_use]
 extern crate build_const;
 
 use std::collections::HashSet;
 use std::env;
 use std::io;
-use std::iter::FromIterator;
 
 mod day1;
 mod util;
@@ -12,7 +13,7 @@ mod util;
 build_const!("aoc2020.rs");
 
 fn main() -> io::Result<()> {
-    let args: HashSet<_> = HashSet::from_iter(env::args().skip(1));
+    let args = env::args().skip(1).collect::<HashSet<_>>();
 
     if args.is_empty() || args.contains("1") {
         println!("Day 1");

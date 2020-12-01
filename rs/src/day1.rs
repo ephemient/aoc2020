@@ -7,14 +7,16 @@ where
     S: AsRef<str> + 'a,
 {
     let nums = util::parse_many::<'a, i32, _, _>(lines)?;
-    for (i, x) in nums.iter().enumerate() {
-        for y in nums[..i].iter() {
-            if x + y == 2020 {
-                return Ok(x * y);
+    util::choose(&nums[..])
+        .filter_map(|choice: [_; 2]| {
+            if choice.iter().copied().sum::<i32>() == 2020 {
+                Some(choice.iter().copied().product::<i32>())
+            } else {
+                None
             }
-        }
-    }
-    Err(util::Error.into())
+        })
+        .next()
+        .ok_or_else(|| util::Error.into())
 }
 
 pub fn part2<'a, I, S>(lines: I) -> Result<i32, Box<dyn Error + Send + Sync>>
@@ -23,14 +25,14 @@ where
     S: AsRef<str> + 'a,
 {
     let nums = util::parse_many::<'a, i32, _, _>(lines)?;
-    for (i, x) in nums.iter().enumerate() {
-        for (j, y) in nums[..i].iter().enumerate() {
-            for z in nums[..j].iter() {
-                if x + y + z == 2020 {
-                    return Ok(x * y * z);
-                }
+    util::choose(&nums[..])
+        .filter_map(|choice: [_; 3]| {
+            if choice.iter().copied().sum::<i32>() == 2020 {
+                Some(choice.iter().copied().product::<i32>())
+            } else {
+                None
             }
-        }
-    }
-    Err(util::Error.into())
+        })
+        .next()
+        .ok_or_else(|| util::Error.into())
 }

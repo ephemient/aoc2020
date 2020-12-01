@@ -5,7 +5,6 @@ name = "aoc2020"
 version = "0.1.0"
 dependencies = [
  "build_const",
- "collecting-hashmap",
 ]
 
 [[package]]
@@ -13,9 +12,3 @@ name = "build_const"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "85261c4c3f28f8f2061dd9c41a949793ef98be624879d9c1315e439e971d5401"
-
-[[package]]
-name = "collecting-hashmap"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "46341f0b4913928a5393f4250eb277c04fd0ba16864e340a31dbf8fbccc08ea9"
