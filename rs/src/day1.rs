@@ -7,14 +7,9 @@ where
     S: AsRef<str> + 'a,
 {
     let nums = util::parse_many::<'a, i32, _, _>(lines)?;
-    util::choose(&nums[..])
-        .filter_map(|choice: [_; 2]| {
-            if choice.iter().copied().sum::<i32>() == 2020 {
-                Some(choice.iter().copied().product::<i32>())
-            } else {
-                None
-            }
-        })
+    util::choose::<_, 2>(&nums[..])
+        .filter(|choice| choice.iter().copied().sum::<i32>() == 2020)
+        .map(|choice| choice.iter().copied().product::<i32>())
         .next()
         .ok_or_else(|| util::Error.into())
 }
@@ -25,14 +20,9 @@ where
     S: AsRef<str> + 'a,
 {
     let nums = util::parse_many::<'a, i32, _, _>(lines)?;
-    util::choose(&nums[..])
-        .filter_map(|choice: [_; 3]| {
-            if choice.iter().copied().sum::<i32>() == 2020 {
-                Some(choice.iter().copied().product::<i32>())
-            } else {
-                None
-            }
-        })
+    util::choose::<_, 3>(&nums[..])
+        .filter(|choice| choice.iter().copied().sum::<i32>() == 2020)
+        .map(|choice| choice.iter().copied().product::<i32>())
         .next()
         .ok_or_else(|| util::Error.into())
 }
