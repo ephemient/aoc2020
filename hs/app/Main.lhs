@@ -57,7 +57,7 @@ import Day1 (day1a, day1b)
 ---
 
 ```haskell
-import Control.Monad (when)
+import Control.Monad ((<=<), when)
 import Data.Maybe (mapMaybe)
 import Paths_aoc2020 (getDataFileName)
 import System.Environment (getArgs)
@@ -65,6 +65,9 @@ import Text.Read (readMaybe)
 
 getDayInput :: Int -> IO String
 getDayInput i = getDataFileName ("day" ++ show i ++ ".txt") >>= readFile
+
+justOrFail :: (MonadFail m) => Maybe a -> m a
+justOrFail = maybe (fail "(⊥)") return
 
 run :: Int -> (a -> IO ()) -> [String -> a] -> IO ()
 run day showIO funcs = do
@@ -77,5 +80,5 @@ run day showIO funcs = do
 
 main :: IO ()
 main = do
-    run 1 print [day1a, day1b]
+    run 1 (print <=< justOrFail) [day1a, day1b]
 ```
