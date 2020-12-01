@@ -1,0 +1,19 @@
+Benchmark                        Mode    Cnt   Score   Error  Units
+Day1Bench.part1                sample  25219   0.198 ± 0.002  ms/op
+Day1Bench.part1:part1·p0.00    sample          0.148          ms/op
+Day1Bench.part1:part1·p0.50    sample          0.166          ms/op
+Day1Bench.part1:part1·p0.90    sample          0.307          ms/op
+Day1Bench.part1:part1·p0.95    sample          0.317          ms/op
+Day1Bench.part1:part1·p0.99    sample          0.340          ms/op
+Day1Bench.part1:part1·p0.999   sample          0.487          ms/op
+Day1Bench.part1:part1·p0.9999  sample          3.901          ms/op
+Day1Bench.part1:part1·p1.00    sample          4.424          ms/op
+Day1Bench.part2                sample    316  15.984 ± 0.622  ms/op
+Day1Bench.part2:part2·p0.00    sample         13.844          ms/op
+Day1Bench.part2:part2·p0.50    sample         14.680          ms/op
+Day1Bench.part2:part2·p0.90    sample         20.588          ms/op
+Day1Bench.part2:part2·p0.95    sample         24.643          ms/op
+Day1Bench.part2:part2·p0.99    sample         28.191          ms/op
+Day1Bench.part2:part2·p0.999   sample         36.766          ms/op
+Day1Bench.part2:part2·p0.9999  sample         36.766          ms/op
+Day1Bench.part2:part2·p1.00    sample         36.766          ms/op
