@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
+aoc2020 = {path = "."}
 
 [packages]
 aoc2020 = {editable = true,path = "."}
