@@ -14,3 +14,5 @@ build_const = "0.1"
 
 [dependencies]
 build_const = "0.1"
+lazy_static = "1"
+regex = "1"
