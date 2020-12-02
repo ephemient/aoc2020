@@ -54,6 +54,11 @@ module Main (main) where
 import Day1 (day1a, day1b)
 ```
 
+## [Day 2: Password Philosophy](/src/Day2.hs)
+```haskell
+import Day2 (day2a, day2b)
+```
+
 ---
 
 ```haskell
@@ -61,6 +66,7 @@ import Control.Monad ((<=<), when)
 import Data.Maybe (mapMaybe)
 import Paths_aoc2020 (getDataFileName)
 import System.Environment (getArgs)
+import Text.Megaparsec (ParseErrorBundle, ShowErrorComponent, Stream, errorBundlePretty)
 import Text.Read (readMaybe)
 
 getDayInput :: Int -> IO String
@@ -68,6 +74,10 @@ getDayInput i = getDataFileName ("day" ++ show i ++ ".txt") >>= readFile
 
 justOrFail :: (MonadFail m) => Maybe a -> m a
 justOrFail = maybe (fail "(⊥)") return
+
+rightOrFail :: (ShowErrorComponent e, Stream s, MonadFail m) =>
+    Either (ParseErrorBundle s e) a -> m a
+rightOrFail = either (fail . errorBundlePretty) return
 
 run :: Int -> (a -> IO ()) -> [String -> a] -> IO ()
 run day showIO funcs = do
@@ -81,4 +91,5 @@ run day showIO funcs = do
 main :: IO ()
 main = do
     run 1 (print <=< justOrFail) [day1a, day1b]
+    run 2 (print <=< rightOrFail) [day2a, day2b]
 ```
