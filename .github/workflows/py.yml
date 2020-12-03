@@ -1,0 +1,31 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore: [ docs/** ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('**/Pipfile*') }}
+          path: |
+            ~/.local/share/virtualenv
+            ~/.local/share/virtualenvs
+      - run: python -m pip install --upgrade pipenv
+      - run: |
+          pipenv install -d
+          pipenv run pytest
+        working-directory: py
