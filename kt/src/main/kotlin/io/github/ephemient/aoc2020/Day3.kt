@@ -1,18 +1,17 @@
 package io.github.ephemient.aoc2020
 
-class Day3(lines: List<String>) {
-    private val g = lines.map { line ->
-        line.map { it == '#' }.toBooleanArray()
-    }
+class Day3(private val lines: List<String>) {
+    fun part1(): Long = count(3 to 1)
 
-    fun part1(): Int = countTrees(3)
+    fun part2(): Long = count(1 to 1, 3 to 1, 5 to 1, 7 to 1, 1 to 2)
 
-    fun part2(): Long =
-        countTrees(1) * countTrees(3) * countTrees(5) * countTrees(7) * countTrees(1, 2).toLong()
-
-    private fun countTrees(over: Int, down: Int = 1): Int =
-        g.indices.step(down).withIndex().count { (i, j) ->
-            val line = g[j]
-            line[i * over % line.size]
+    private fun count(vararg ratios: Pair<Int, Int>): Long {
+        val trees = IntArray(ratios.size)
+        lines.forEachIndexed { i, line ->
+            ratios.forEachIndexed { j, (over, down) ->
+                if (i % down == 0 && line[i / down * over % line.length] == '#') trees[j]++
+            }
         }
+        return trees.fold(1L) { acc, elem -> acc * elem }
+    }
 }
