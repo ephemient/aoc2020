@@ -59,6 +59,11 @@ import Day1 (day1a, day1b)
 import Day2 (day2a, day2b)
 ```
 
+## [Day 3: Toboggan Trajectory](/src/Day3.hs)
+```haskell
+import Day3 (day3a, day3b)
+```
+
 ---
 
 ```haskell
@@ -92,4 +97,5 @@ main :: IO ()
 main = do
     run 1 (print <=< justOrFail) [day1a, day1b]
     run 2 (print <=< rightOrFail) [day2a, day2b]
+    run 3 print [day3a, day3b]
 ```
