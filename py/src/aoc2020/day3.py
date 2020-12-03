@@ -1,9 +1,15 @@
 import fileinput
+import math
 
 
-def count(lines, over, down=1):
-    return sum(line[i * over % len(line)] == '#' for i, line in enumerate(
-        map(lambda *x: x[0].strip(), *((iter(lines), ) * down))))
+def count(lines, *slopes):
+    lines = [line.strip() for line in lines]
+    trees = [0] * len(slopes)
+    for i, line in enumerate(lines):
+        for j, (over, down) in enumerate(slopes):
+            if not (i % down) and line[i // down * over % len(line)] == '#':
+                trees[j] += 1
+    return math.prod(trees)
 
 
 def part1(lines):
@@ -11,7 +17,7 @@ def part1(lines):
     >>> part1(['..##.......', '#...#...#..', '.#....#..#.', '..#.#...#.#', '.#...##..#.', '..#.##.....', '.#.#.#....#', '.#........#', '#.##...#...', '#...##....#', '.#..#...#.#'])
     7
     '''
-    return count(lines, 3)
+    return count(lines, (3, 1))
 
 
 def part2(lines):
@@ -19,8 +25,7 @@ def part2(lines):
     >>> part2(['..##.......', '#...#...#..', '.#....#..#.', '..#.#...#.#', '.#...##..#.', '..#.##.....', '.#.#.#....#', '.#........#', '#.##...#...', '#...##....#', '.#..#...#.#'])
     336
     '''
-    return (count(lines, 1) * count(lines, 3) * count(lines, 5) *
-            count(lines, 7) * count(lines, 1, 2))
+    return count(lines, (1, 1), (3, 1), (5, 1), (7, 1), (1, 2))
 
 
 parts = (part1, part2)
