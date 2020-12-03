@@ -1,12 +1,18 @@
-fn count(g: &Vec<Vec<bool>>, over: usize, down: usize) -> usize {
-    (0..g.len())
-        .step_by(down)
-        .enumerate()
-        .filter(|(i, j)| {
-            let line = &g[*j];
-            line[*i * over % line.len()]
-        })
-        .count()
+fn count<'a, I, S>(lines: I, ratios: &[(usize, usize)]) -> usize
+where
+    I: IntoIterator<Item = &'a S>,
+    S: AsRef<str> + 'a,
+{
+    let mut trees = vec![0usize; ratios.len()];
+    for (i, line) in lines.into_iter().enumerate() {
+        let chars = line.as_ref().chars().collect::<Vec<_>>();
+        for (j, (over, down)) in ratios.iter().enumerate() {
+            if i % down == 0 && chars[i / down * over % chars.len()] == '#' {
+                trees[j] += 1
+            }
+        }
+    }
+    trees.iter().product()
 }
 
 pub fn part1<'a, I, S>(lines: I) -> usize
@@ -14,11 +20,7 @@ where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
 {
-    let g = lines
-        .into_iter()
-        .map(|line| line.as_ref().chars().map(|c| c == '#').collect::<Vec<_>>())
-        .collect::<Vec<_>>();
-    count(&g, 3, 1)
+    count(lines, &[(3, 1)])
 }
 
 pub fn part2<'a, I, S>(lines: I) -> usize
@@ -26,9 +28,5 @@ where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
 {
-    let g = lines
-        .into_iter()
-        .map(|line| line.as_ref().chars().map(|c| c == '#').collect::<Vec<_>>())
-        .collect::<Vec<_>>();
-    count(&g, 1, 1) * count(&g, 3, 1) * count(&g, 5, 1) * count(&g, 7, 1) * count(&g, 1, 2)
+    count(lines, &[(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)])
 }
