@@ -3,9 +3,10 @@ name: Python CI
 on:
   push:
     branches: [ main ]
-    paths-ignore: [ docs/** ]
+    paths: [ py/** ]
   pull_request:
     branches: [ main ]
+    paths: [ py/** ]
 
   workflow_dispatch:
 

@@ -3,9 +3,10 @@ name: Haskell CI
 on:
   push:
     branches: [ main ]
-    paths-ignore: [ docs/** ]
+    paths: [ hs/** ]
   pull_request:
     branches: [ main ]
+    paths: [ hs/** ]
 
   workflow_dispatch:
 
