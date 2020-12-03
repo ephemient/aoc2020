@@ -1,5 +1,5 @@
 # [Advent of Code 2020](https://adventofcode.com/2020)
-### my answers in [Python](https://www.python.org/)
+### my answers in [Python](https://www.python.org/) ![Python CI](https://github.com/ephemient/aoc2020/workflows/Python%20CI/badge.svg)
 
 This project builds with [Pipenv](https://pipenv.pypa.io/).
 

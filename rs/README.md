@@ -1,5 +1,5 @@
 # [Advent of Code 2020](https://adventofcode.com/2020)
-### my answers in [Rust](https://www.rust-lang.org/)
+### my answers in [Rust](https://www.rust-lang.org/) ![Rust CI](https://github.com/ephemient/aoc2020/workflows/Rust%20CI/badge.svg)
 
 This project builds with [Cargo](https://docs.rust-lang.org/cargo).
 
