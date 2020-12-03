@@ -1,55 +1,55 @@
 Benchmark                        Mode     Cnt  Score    Error  Units
-Day1Bench.part1                sample  106041  0.007 ±  0.001  ms/op
+Day1Bench.part1                sample  167532  0.007 ±  0.001  ms/op
 Day1Bench.part1:part1·p0.00    sample          0.006           ms/op
-Day1Bench.part1:part1·p0.50    sample          0.006           ms/op
-Day1Bench.part1:part1·p0.90    sample          0.008           ms/op
+Day1Bench.part1:part1·p0.50    sample          0.007           ms/op
+Day1Bench.part1:part1·p0.90    sample          0.009           ms/op
 Day1Bench.part1:part1·p0.95    sample          0.012           ms/op
-Day1Bench.part1:part1·p0.99    sample          0.024           ms/op
-Day1Bench.part1:part1·p0.999   sample          0.034           ms/op
-Day1Bench.part1:part1·p0.9999  sample          1.126           ms/op
-Day1Bench.part1:part1·p1.00    sample          2.138           ms/op
-Day1Bench.part2                sample   21501  0.232 ±  0.001  ms/op
-Day1Bench.part2:part2·p0.00    sample          0.206           ms/op
-Day1Bench.part2:part2·p0.50    sample          0.220           ms/op
-Day1Bench.part2:part2·p0.90    sample          0.256           ms/op
-Day1Bench.part2:part2·p0.95    sample          0.284           ms/op
-Day1Bench.part2:part2·p0.99    sample          0.388           ms/op
-Day1Bench.part2:part2·p0.999   sample          1.167           ms/op
-Day1Bench.part2:part2·p0.9999  sample          1.967           ms/op
-Day1Bench.part2:part2·p1.00    sample          3.699           ms/op
-Day2Bench.part1                sample   17575  0.284 ±  0.001  ms/op
-Day2Bench.part1:part1·p0.00    sample          0.245           ms/op
-Day2Bench.part1:part1·p0.50    sample          0.269           ms/op
-Day2Bench.part1:part1·p0.90    sample          0.319           ms/op
-Day2Bench.part1:part1·p0.95    sample          0.357           ms/op
-Day2Bench.part1:part1·p0.99    sample          0.516           ms/op
-Day2Bench.part1:part1·p0.999   sample          1.332           ms/op
-Day2Bench.part1:part1·p0.9999  sample          1.766           ms/op
-Day2Bench.part1:part1·p1.00    sample          1.845           ms/op
-Day2Bench.part2                sample   18251  0.274 ±  0.002  ms/op
-Day2Bench.part2:part2·p0.00    sample          0.240           ms/op
-Day2Bench.part2:part2·p0.50    sample          0.260           ms/op
-Day2Bench.part2:part2·p0.90    sample          0.301           ms/op
-Day2Bench.part2:part2·p0.95    sample          0.332           ms/op
-Day2Bench.part2:part2·p0.99    sample          0.485           ms/op
-Day2Bench.part2:part2·p0.999   sample          1.377           ms/op
-Day2Bench.part2:part2·p0.9999  sample          3.134           ms/op
-Day2Bench.part2:part2·p1.00    sample          3.834           ms/op
-Day3Bench.part1                sample   63319  0.079 ±  0.001  ms/op
-Day3Bench.part1:part1·p0.00    sample          0.071           ms/op
-Day3Bench.part1:part1·p0.50    sample          0.074           ms/op
-Day3Bench.part1:part1·p0.90    sample          0.094           ms/op
-Day3Bench.part1:part1·p0.95    sample          0.107           ms/op
-Day3Bench.part1:part1·p0.99    sample          0.130           ms/op
-Day3Bench.part1:part1·p0.999   sample          0.163           ms/op
-Day3Bench.part1:part1·p0.9999  sample          1.188           ms/op
-Day3Bench.part1:part1·p1.00    sample          1.225           ms/op
-Day3Bench.part2                sample   54549  0.092 ±  0.001  ms/op
-Day3Bench.part2:part2·p0.00    sample          0.082           ms/op
-Day3Bench.part2:part2·p0.50    sample          0.086           ms/op
-Day3Bench.part2:part2·p0.90    sample          0.108           ms/op
-Day3Bench.part2:part2·p0.95    sample          0.122           ms/op
-Day3Bench.part2:part2·p0.99    sample          0.160           ms/op
-Day3Bench.part2:part2·p0.999   sample          0.192           ms/op
-Day3Bench.part2:part2·p0.9999  sample          1.263           ms/op
-Day3Bench.part2:part2·p1.00    sample          1.696           ms/op
+Day1Bench.part1:part1·p0.99    sample          0.023           ms/op
+Day1Bench.part1:part1·p0.999   sample          0.032           ms/op
+Day1Bench.part1:part1·p0.9999  sample          0.075           ms/op
+Day1Bench.part1:part1·p1.00    sample          3.191           ms/op
+Day1Bench.part2                sample   22492  0.222 ±  0.001  ms/op
+Day1Bench.part2:part2·p0.00    sample          0.196           ms/op
+Day1Bench.part2:part2·p0.50    sample          0.209           ms/op
+Day1Bench.part2:part2·p0.90    sample          0.245           ms/op
+Day1Bench.part2:part2·p0.95    sample          0.273           ms/op
+Day1Bench.part2:part2·p0.99    sample          0.369           ms/op
+Day1Bench.part2:part2·p0.999   sample          0.541           ms/op
+Day1Bench.part2:part2·p0.9999  sample          2.379           ms/op
+Day1Bench.part2:part2·p1.00    sample          3.785           ms/op
+Day2Bench.part1                sample   17413  0.287 ±  0.002  ms/op
+Day2Bench.part1:part1·p0.00    sample          0.249           ms/op
+Day2Bench.part1:part1·p0.50    sample          0.273           ms/op
+Day2Bench.part1:part1·p0.90    sample          0.321           ms/op
+Day2Bench.part1:part1·p0.95    sample          0.351           ms/op
+Day2Bench.part1:part1·p0.99    sample          0.487           ms/op
+Day2Bench.part1:part1·p0.999   sample          1.358           ms/op
+Day2Bench.part1:part1·p0.9999  sample          2.211           ms/op
+Day2Bench.part1:part1·p1.00    sample          2.785           ms/op
+Day2Bench.part2                sample   18829  0.265 ±  0.001  ms/op
+Day2Bench.part2:part2·p0.00    sample          0.234           ms/op
+Day2Bench.part2:part2·p0.50    sample          0.253           ms/op
+Day2Bench.part2:part2·p0.90    sample          0.295           ms/op
+Day2Bench.part2:part2·p0.95    sample          0.320           ms/op
+Day2Bench.part2:part2·p0.99    sample          0.436           ms/op
+Day2Bench.part2:part2·p0.999   sample          1.352           ms/op
+Day2Bench.part2:part2·p0.9999  sample          1.708           ms/op
+Day2Bench.part2:part2·p1.00    sample          1.786           ms/op
+Day3Bench.part1                sample  173015  0.004 ±  0.001  ms/op
+Day3Bench.part1:part1·p0.00    sample          0.003           ms/op
+Day3Bench.part1:part1·p0.50    sample          0.003           ms/op
+Day3Bench.part1:part1·p0.90    sample          0.003           ms/op
+Day3Bench.part1:part1·p0.95    sample          0.005           ms/op
+Day3Bench.part1:part1·p0.99    sample          0.011           ms/op
+Day3Bench.part1:part1·p0.999   sample          0.026           ms/op
+Day3Bench.part1:part1·p0.9999  sample          0.031           ms/op
+Day3Bench.part1:part1·p1.00    sample          2.257           ms/op
+Day3Bench.part2                sample  103335  0.012 ±  0.001  ms/op
+Day3Bench.part2:part2·p0.00    sample          0.010           ms/op
+Day3Bench.part2:part2·p0.50    sample          0.011           ms/op
+Day3Bench.part2:part2·p0.90    sample          0.017           ms/op
+Day3Bench.part2:part2·p0.95    sample          0.022           ms/op
+Day3Bench.part2:part2·p0.99    sample          0.031           ms/op
+Day3Bench.part2:part2·p0.999   sample          0.047           ms/op
+Day3Bench.part2:part2·p0.9999  sample          0.089           ms/op
+Day3Bench.part2:part2·p1.00    sample          0.105           ms/op
