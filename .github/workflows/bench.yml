@@ -1,0 +1,64 @@
+name: Benchmarks
+
+on:
+  workflow_dispatch:
+
+jobs:
+  haskell:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-haskell@v1
+        with:
+          stack-version: latest
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('**/stack.*') }}
+          path: ~/.stack
+      - run: stack bench --ba '-o aoc2020-bench.html'
+        working-directory: hs
+      - uses: actions/upload-artifact@v2
+        with:
+          name: hs-bench
+          path: hs/aoc2020-bench.html
+
+  kotlin:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('**/*gradle*') }}
+          path: ~/.gradle
+      - run: ./gradlew --info jmh
+        working-directory: kt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: kt-bench
+          path: kt/build/reports/jmh/results.txt
+
+  commit:
+    needs: [ haskell, kotlin ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: hs-bench
+          path: docs
+      - uses: actions/download-artifact@v2
+        with:
+          name: kt-bench
+          path: docs
+      - uses: EndBug/add-and-commit@v5
+        with:
+          add: docs
+          message: 'Benchmark ${{ github.sha }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
