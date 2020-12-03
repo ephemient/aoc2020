@@ -1,0 +1,26 @@
+name: Haskell CI
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore: [ docs/** ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-haskell@v1
+        with:
+          stack-version: latest
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('**/stack.*') }}
+          path: ~/.stack
+      - run: stack build --test --bench --no-run-benchmarks
+        working-directory: hs
