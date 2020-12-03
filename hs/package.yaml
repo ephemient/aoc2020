@@ -27,7 +27,7 @@ library:
   dependencies:
   - containers
   - megaparsec
-  - split
+  - vector
 
 executables:
   aoc2020-exe:
