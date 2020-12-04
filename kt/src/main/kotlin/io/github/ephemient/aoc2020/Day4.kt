@@ -2,12 +2,11 @@
 package io.github.ephemient.aoc2020
 
 class Day4(lines: List<String>) {
-    @OptIn(ExperimentalStdlibApi::class)
-    private val data: List<Map<String, String>> = buildList {
+    private val data: Sequence<Map<String, String>> = sequence {
         var m = mutableMapOf<String, String>()
         for (line in lines) {
             if (line.isEmpty()) {
-                add(m)
+                yield(m)
                 m = mutableMapOf()
             } else {
                 for (word in line.splitToSequence(" ")) {
@@ -16,7 +15,7 @@ class Day4(lines: List<String>) {
                 }
             }
         }
-        add(m)
+        yield(m)
     }
 
     fun part1(): Int = data.count { m ->
