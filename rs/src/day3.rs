@@ -30,3 +30,32 @@ where
 {
     count(lines, &[(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)])
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    static EXAMPLE: &[&str] = &[
+        "..##.......",
+        "#...#...#..",
+        ".#....#..#.",
+        "..#.#...#.#",
+        ".#...##..#.",
+        "..#.##.....",
+        ".#.#.#....#",
+        ".#........#",
+        "#.##...#...",
+        "#...##....#",
+        ".#..#...#.#",
+    ];
+
+    #[test]
+    fn part1_examples() {
+        assert_eq!(7, part1(EXAMPLE));
+    }
+
+    #[test]
+    fn part2_examples() {
+        assert_eq!(336, part2(EXAMPLE));
+    }
+}

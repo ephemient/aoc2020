@@ -25,5 +25,7 @@ jobs:
         with:
           key: ${{ runner.os }}-${{ steps.rust-toolchain.outputs.rustc_hash }}-${{ hashFiles('**/Cargo.*') }}
           path: ~/.cargo
-      - run: cargo build --all-features --all-targets --release
+      - run: |
+          cargo test
+          cargo build --all-features --all-targets --release
         working-directory: rs

@@ -26,3 +26,22 @@ where
         .next()
         .ok_or_else(|| util::Error.into())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    static EXAMPLE: &[&str] = &["1721", "979", "366", "299", "675", "1456"];
+
+    #[test]
+    fn part1_examples() -> Result<(), Box<dyn Error + Send + Sync>> {
+        assert_eq!(514579, part1(EXAMPLE)?);
+        Ok(())
+    }
+
+    #[test]
+    fn part2_examples() -> Result<(), Box<dyn Error + Send + Sync>> {
+        assert_eq!(241861950, part2(EXAMPLE)?);
+        Ok(())
+    }
+}

@@ -42,3 +42,20 @@ where
         .filter(|(lo, hi, c)| (*lo == *c) != (*hi == *c))
         .count()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    static EXAMPLE: &[&str] = &["1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"];
+
+    #[test]
+    fn part1_examples() {
+        assert_eq!(2, part1(EXAMPLE));
+    }
+
+    #[test]
+    fn part2_examples() {
+        assert_eq!(1, part2(EXAMPLE));
+    }
+}
