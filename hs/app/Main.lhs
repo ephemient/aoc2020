@@ -1,5 +1,5 @@
 # [Advent of Code 2020](https://adventofcode.com/2020)
-### my answers in [Haskell](https://www.haskell.org/)
+### my answers in [Haskell](https://www.haskell.org/) ![Haskell CI](https://github.com/ephemient/aoc2020/workflows/Haskell%20CI/badge.svg)
 
 This project builds with [The Haskell Tool Stack](https://haskellstack.org/).
 
