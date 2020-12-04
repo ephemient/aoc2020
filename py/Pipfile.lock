@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a9c4ed1914e6f30fb154d16b406213a62cd1d74df0fd76c23f9c10e89dc814c1"
+            "sha256": "3a31e63b7386a811547a502bf9204ac7db6582ebc0a10ab612a66a1c02301cb7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -17,11 +17,15 @@
     },
     "default": {
         "aoc2020": {
-            "editable": true,
-            "path": "."
+            "path": ".",
+            "version": "==0.0.1"
         }
     },
     "develop": {
+        "aoc2020": {
+            "path": ".",
+            "version": "==0.0.1"
+        },
         "attrs": {
             "hashes": [
                 "sha256:31b2eced602aa8423c2aea9c76a724617ed67cf9513173fd3a4f03e3a929c7e6",
@@ -61,6 +65,26 @@
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==1.9.0"
         },
+        "py-cpuinfo": {
+            "hashes": [
+                "sha256:9aa2e49675114959697d25cf57fec41c29b55887bff3bc4809b44ac6f5730097"
+            ],
+            "version": "==7.0.0"
+        },
+        "pygal": {
+            "hashes": [
+                "sha256:27abab93cbc31e21f3c6bdecc05bda6cd3570cbdbd8297b7caa6904051b50d72",
+                "sha256:9204f05380b02a8a32f9bf99d310b51aa2a932cba5b369f7a4dc3705f0a4ce83"
+            ],
+            "version": "==2.4.0"
+        },
+        "pygaljs": {
+            "hashes": [
+                "sha256:0b71ee32495dcba5fbb4a0476ddbba07658ad65f5675e4ad409baf154dec5111",
+                "sha256:d75e18cb21cc2cda40c45c3ee690771e5e3d4652bf57206f20137cf475c0dbe8"
+            ],
+            "version": "==1.0.2"
+        },
         "pyparsing": {
             "hashes": [
                 "sha256:c203ec8783bf771a155b207279b9bccb8dea02d8f0c9e5f8ead507bc3246ecc1",
@@ -76,6 +100,17 @@
             ],
             "index": "pypi",
             "version": "==6.1.2"
+        },
+        "pytest-benchmark": {
+            "extras": [
+                "histogram"
+            ],
+            "hashes": [
+                "sha256:01f79d38d506f5a3a0a9ada22ded714537bbdfc8147a881a35c1655db07289d9",
+                "sha256:ad4314d093a3089701b24c80a05121994c7765ce373478c8f4ba8d23c9ba9528"
+            ],
+            "index": "pypi",
+            "version": "==3.2.3"
         },
         "toml": {
             "hashes": [

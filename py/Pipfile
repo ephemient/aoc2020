@@ -5,10 +5,11 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
+pytest-benchmark = {version = "*", extras = ["histogram"]}
 aoc2020 = {path = "."}
 
 [packages]
-aoc2020 = {editable = true,path = "."}
+aoc2020 = {path = "."}
 
 [requires]
 python_version = "3.8"
