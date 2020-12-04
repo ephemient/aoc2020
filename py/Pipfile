@@ -9,7 +9,7 @@ pytest-benchmark = {version = "*", extras = ["histogram"]}
 aoc2020 = {path = "."}
 
 [packages]
-aoc2020 = {path = "."}
+aoc2020 = {path = ".",editable = "true"}
 
 [requires]
 python_version = "3.8"

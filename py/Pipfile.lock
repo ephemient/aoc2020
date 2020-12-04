@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3a31e63b7386a811547a502bf9204ac7db6582ebc0a10ab612a66a1c02301cb7"
+            "sha256": "b65160269ca9e42f6b98ecd630a61ab637206273cf3bf437109a91b43c5960c2"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -17,14 +17,14 @@
     },
     "default": {
         "aoc2020": {
-            "path": ".",
-            "version": "==0.0.1"
+            "editable": true,
+            "path": "."
         }
     },
     "develop": {
         "aoc2020": {
-            "path": ".",
-            "version": "==0.0.1"
+            "editable": true,
+            "path": "."
         },
         "attrs": {
             "hashes": [
