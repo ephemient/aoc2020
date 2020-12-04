@@ -27,6 +27,7 @@ library:
   dependencies:
   - containers
   - megaparsec
+  - split
   - vector
 
 executables:

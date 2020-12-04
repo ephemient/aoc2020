@@ -4,6 +4,7 @@ import Criterion.Main (bench, bgroup, defaultMain, env, nf)
 import Day1 (day1a, day1b)
 import Day2 (day2a, day2b)
 import Day3 (day3a, day3b)
+import Day4 (day4a, day4b)
 import Paths_aoc2020 (getDataFileName)
 
 getDayInput :: Int -> IO String
@@ -22,5 +23,9 @@ main = defaultMain
   , env (getDayInput 3) $ \input -> bgroup "Day 3"
       [ bench "part 1" $ nf day3a input
       , bench "part 2" $ nf day3b input
+      ]
+  , env (getDayInput 4) $ \input -> bgroup "Day 4"
+      [ bench "part 1" $ nf day4a input
+      , bench "part 2" $ nf day4b input
       ]
   ]
