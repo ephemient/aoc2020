@@ -55,17 +55,9 @@ where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
 {
-    let required = [
-        "byr".to_string(),
-        "iyr".to_string(),
-        "eyr".to_string(),
-        "hgt".to_string(),
-        "hcl".to_string(),
-        "ecl".to_string(),
-        "pid".to_string(),
-    ];
+    static required: &[&str] = &["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"];
     parse(lines)
-        .filter(|m| required.iter().all(|k| m.contains_key(k)))
+        .filter(|m| required.iter().all(|k| m.contains_key(*k)))
         .count()
 }
 
@@ -75,65 +67,43 @@ where
     S: AsRef<str> + 'a,
 {
     parse(lines)
-        .filter(|m| {
-            m.get("byr")
-                .and_then(|v| v.parse::<usize>().ok())
-                .filter(|v| (1920..=2002).contains(v))
-                .is_some()
-                && m.get("iyr")
-                    .and_then(|v| v.parse::<usize>().ok())
-                    .filter(|v| (2010..=2020).contains(v))
-                    .is_some()
-                && m.get("eyr")
-                    .and_then(|v| v.parse::<usize>().ok())
-                    .filter(|v| (2020..=2030).contains(v))
-                    .is_some()
-                && m.get("hgt")
-                    .and_then(|v| match v.strip_suffix("cm") {
-                        Some(v) => v.parse::<usize>().ok().filter(|v| (150..=193).contains(v)),
-                        None => v
-                            .strip_suffix("in")
-                            .and_then(|v| v.parse::<usize>().ok())
-                            .filter(|v| (59..=76).contains(v)),
-                    })
-                    .is_some()
-                && m.get("hcl")
-                    .filter(|v| {
-                        let mut chars = v.chars();
-                        if chars.next() != Some('#') {
-                            return false;
-                        }
-                        for _ in 0..6 {
-                            if chars
-                                .next()
-                                .filter(|c| ('0'..='9').contains(c) || ('a'..='f').contains(c))
-                                .is_none()
-                            {
-                                return false;
+        .filter_map(|m| {
+            Some(
+                (1920..=2002).contains(&m.get("byr")?.parse::<usize>().ok()?)
+                    && (2010..=2020).contains(&m.get("iyr")?.parse::<usize>().ok()?)
+                    && (2020..=2030).contains(&m.get("eyr")?.parse::<usize>().ok()?)
+                    && match m.get("hgt")? {
+                        hgt => match hgt.strip_suffix("cm") {
+                            Some(v) => (150..=193).contains(&v.parse::<usize>().ok()?),
+                            None => {
+                                (59..=76).contains(&hgt.strip_suffix("in")?.parse::<usize>().ok()?)
                             }
+                        },
+                    }
+                    && match m.get("hcl")?.strip_prefix('#')?.chars() {
+                        mut chars => {
+                            (0..6).all(|_| {
+                                chars.next().map_or(false, |c| {
+                                    ('0'..='9').contains(&c) || ('a'..='f').contains(&c)
+                                })
+                            }) && chars.next().is_none()
                         }
-                        chars.next().is_none()
-                    })
-                    .is_some()
-                && m.get("ecl")
-                    .and_then(|v| {
-                        ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+                    }
+                    && match m.get("ecl")? {
+                        ecl => ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
                             .iter()
-                            .find(|s| *s == v)
-                    })
-                    .is_some()
-                && m.get("pid")
-                    .filter(|v| {
-                        let mut chars = v.chars();
-                        for _ in 0..9 {
-                            if chars.next().filter(|c| ('0'..='9').contains(c)).is_none() {
-                                return false;
-                            }
+                            .find(|s| *s == ecl)
+                            .is_some(),
+                    }
+                    && match m.get("pid")?.chars() {
+                        mut chars => {
+                            (0..9).all(|_| chars.next().map_or(false, |c| ('0'..='9').contains(&c)))
+                                && chars.next().is_none()
                         }
-                        chars.next().is_none()
-                    })
-                    .is_some()
+                    },
+            )
         })
+        .filter(|ok| *ok)
         .count()
 }
 
