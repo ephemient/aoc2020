@@ -9,6 +9,14 @@ readme = "README.md"
 homepage = "https://github.com/ephemient/aoc2020/tree/main/rs"
 build = "build.rs"
 
+[lib]
+name = "aoc2020"
+path = "src/lib.rs"
+
+[[bin]]
+name = "aoc2020"
+path = "src/main.rs"
+
 [build-dependencies]
 build_const = "0.1"
 
@@ -16,3 +24,10 @@ build_const = "0.1"
 build_const = "0.1"
 lazy_static = "1"
 regex = "1"
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "criterion"
+harness = false

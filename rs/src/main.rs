@@ -1,18 +1,10 @@
-#![feature(min_const_generics)]
-
 #[macro_use]
 extern crate build_const;
-#[macro_use]
-extern crate lazy_static;
 
+use aoc2020::{day1, day2, day3, util};
 use std::collections::HashSet;
 use std::env;
 use std::io;
-
-mod day1;
-mod day2;
-mod day3;
-mod util;
 
 build_const!("aoc2020.rs");
 
