@@ -55,9 +55,9 @@ where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
 {
-    static required: &[&str] = &["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"];
+    static REQUIRED: &[&str] = &["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"];
     parse(lines)
-        .filter(|m| required.iter().all(|k| m.contains_key(*k)))
+        .filter(|m| REQUIRED.iter().all(|k| m.contains_key(*k)))
         .count()
 }
 
@@ -72,34 +72,33 @@ where
                 (1920..=2002).contains(&m.get("byr")?.parse::<usize>().ok()?)
                     && (2010..=2020).contains(&m.get("iyr")?.parse::<usize>().ok()?)
                     && (2020..=2030).contains(&m.get("eyr")?.parse::<usize>().ok()?)
-                    && match m.get("hgt")? {
-                        hgt => match hgt.strip_suffix("cm") {
+                    && {
+                        let hgt = m.get("hgt")?;
+                        match hgt.strip_suffix("cm") {
                             Some(v) => (150..=193).contains(&v.parse::<usize>().ok()?),
                             None => {
                                 (59..=76).contains(&hgt.strip_suffix("in")?.parse::<usize>().ok()?)
                             }
-                        },
-                    }
-                    && match m.get("hcl")?.strip_prefix('#')?.chars() {
-                        mut chars => {
-                            (0..6).all(|_| {
-                                chars.next().map_or(false, |c| {
-                                    ('0'..='9').contains(&c) || ('a'..='f').contains(&c)
-                                })
-                            }) && chars.next().is_none()
                         }
                     }
-                    && match m.get("ecl")? {
-                        ecl => ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+                    && {
+                        let mut chars = m.get("hcl")?.strip_prefix('#')?.chars();
+                        (0..6).all(|_| {
+                            chars.next().map_or(false, |c| {
+                                ('0'..='9').contains(&c) || ('a'..='f').contains(&c)
+                            })
+                        }) && chars.next().is_none()
+                    }
+                    && {
+                        let ecl = m.get("ecl")?;
+                        ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
                             .iter()
-                            .find(|s| *s == ecl)
-                            .is_some(),
+                            .any(|s| *s == ecl)
                     }
-                    && match m.get("pid")?.chars() {
-                        mut chars => {
-                            (0..9).all(|_| chars.next().map_or(false, |c| ('0'..='9').contains(&c)))
-                                && chars.next().is_none()
-                        }
+                    && {
+                        let mut chars = m.get("pid")?.chars();
+                        (0..9).all(|_| chars.next().map_or(false, |c| ('0'..='9').contains(&c)))
+                            && chars.next().is_none()
                     },
             )
         })

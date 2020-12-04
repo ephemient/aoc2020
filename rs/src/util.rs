@@ -43,7 +43,7 @@ pub enum Choose<'a, T, const N: usize> {
     Stop,
 }
 
-pub fn choose<'a, T, const N: usize>(data: &'a [T]) -> Choose<'a, T, N> {
+pub fn choose<T, const N: usize>(data: &[T]) -> Choose<T, N> {
     if N > data.len() {
         Choose::Stop
     } else {
@@ -66,8 +66,8 @@ impl<'a, T, const N: usize> Iterator for Choose<'a, T, N> {
                     .and_then(|vec| vec.try_into().ok());
                 for i in 0..N {
                     if i + 1 == N || indices[i] + 1 != indices[i + 1] {
-                        for j in 0..i {
-                            indices[j] = j;
+                        for (j, index) in indices.iter_mut().enumerate().take(i) {
+                            *index = j;
                         }
                         indices[i] += 1;
                         break;

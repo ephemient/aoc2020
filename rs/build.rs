@@ -27,11 +27,7 @@ fn main() -> io::Result<()> {
         let lines = BufReader::new(File::open(path)?)
             .lines()
             .collect::<io::Result<Vec<String>>>()?;
-        consts.add_value_raw(
-            &format!("DAY{}", day),
-            "&'static [&'static str]",
-            &format!("&{:?}", lines),
-        );
+        consts.add_value_raw(&format!("DAY{}", day), "&[&str]", &format!("&{:?}", lines));
     }
     consts.finish();
     return Ok(());
