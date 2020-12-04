@@ -6,3 +6,5 @@
 [Kotlin JMH benchmarks](results.txt)
 
 [Python pytest benchmarks](benchmark.svg)
+
+[Rust Criterion benchmarks](criterion/report/index.html)
