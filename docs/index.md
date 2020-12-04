@@ -4,3 +4,5 @@
 [Haskell Criterion benchmarks](aoc2020-bench.html)
 
 [Kotlin JMH benchmarks](results.txt)
+
+[Python pytest benchmarks](benchmark.svg)
