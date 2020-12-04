@@ -1,0 +1,26 @@
+name: Haskell Criterion
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-haskell@v1
+        with:
+          stack-version: latest
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('**/stack.*') }}
+          path: ~/.stack
+      - run: stack bench --ba '-o ../docs/aoc2020-bench.html'
+        working-directory: hs
+      - uses: EndBug/add-and-commit@v5
+        with:
+          add: docs
+          message: 'Benchmark ${{ github.sha }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

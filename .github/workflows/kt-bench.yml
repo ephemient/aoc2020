@@ -1,0 +1,28 @@
+name: Kotlin JMH
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('**/*gradle*') }}
+          path: ~/.gradle
+      - run: |
+          ./gradlew --info jmh
+          cp -v build/reports/jmh/results.txt ../docs/results.txt
+        working-directory: kt
+      - uses: EndBug/add-and-commit@v5
+        with:
+          add: docs
+          message: 'Benchmark ${{ github.sha }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
