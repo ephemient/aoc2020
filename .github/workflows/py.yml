@@ -13,15 +13,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.8, 3.9]
 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: ${{ matrix.python }}
       - uses: actions/cache@v2
         with:
-          key: ${{ runner.os }}-${{ hashFiles('**/Pipfile*') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/Pipfile*') }}-${{ matrix.python }}
           path: |
             ~/.local/share/virtualenv
             ~/.local/share/virtualenvs
