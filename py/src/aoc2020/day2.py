@@ -17,7 +17,7 @@ def part1(lines):
     count = 0
     for line in lines:
         lo, hi, char, string = parse(line)
-        if string.count(char) in range(lo, hi + 1):
+        if lo <= string.count(char) <= hi:
             count += 1
     return count
 
