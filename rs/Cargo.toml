@@ -22,6 +22,7 @@ build_const = "0.2"
 
 [dependencies]
 build_const = "0.2"
+itertools = "0.9"
 lazy_static = "1"
 regex = "1"
 
