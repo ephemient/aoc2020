@@ -5,23 +5,20 @@ Description:    <https://adventofcode.com/2020/day/5 Day 5: Binary Boarding>
 module Day5 (day5a, day5b) where
 
 import Control.Monad ((>=>))
-import Data.Bits (testBit)
-import Data.Bool (bool)
+import Data.Bits ((.&.), (.|.), complement, shiftL, shiftR)
 import Data.Char (ord)
-import Data.List (find, sort)
-import Data.List.NonEmpty (nonEmpty)
-import Numeric (readInt)
+import Data.List (find, foldl', sort)
+import Data.List.NonEmpty (NonEmpty((:|)), nonEmpty)
 
-parse :: (Num a) => String -> Maybe a
-parse a = case readInt 2 (`elem` "FBLR") f a of
-    (n, []):_ -> Just n
-    _ -> Nothing
-  where f = bool 1 0 . flip testBit 2 . ord
+parse :: String -> Int
+parse = flip shiftR 2 . foldl' f 0 where
+    f acc c = acc `shiftL` 1 .|. complement (ord c) .&. 4
 
 day5a :: String -> Maybe Int
-day5a = mapM parse . lines >=> nonEmpty >=> pure . maximum
+day5a = nonEmpty . map parse . lines >=> pure . maximum
 
 day5b :: String -> Maybe Int
 day5b input = do
-    nums@(_:nums') <- sort <$> mapM parse (lines input)
+    let nums = sort $ parse <$> lines input
+    _:|nums' <- nonEmpty nums
     succ . fst <$> find (\(l, r) -> l + 1 < r) (zip nums nums')
