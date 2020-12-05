@@ -6,7 +6,7 @@ use std::collections::HashSet;
 use std::env;
 use std::io;
 
-build_const!("aoc2020.rs");
+build_const!("aoc2020");
 
 fn main() -> io::Result<()> {
     let args = env::args().skip(1).collect::<HashSet<_>>();
