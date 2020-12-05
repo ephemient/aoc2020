@@ -45,6 +45,13 @@ executables:
     - aoc2020
     - markdown-unlit
     - megaparsec
+  aoc2020-viz-day5:
+    main:                VizDay5.hs
+    other-modules:
+    - Paths_aoc2020
+    source-dirs:         app
+    ghc-options:
+    - -threaded
 
 data-files:
 - day*.txt
