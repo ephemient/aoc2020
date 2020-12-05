@@ -4,7 +4,7 @@ extern crate build_const;
 use aoc2020::{day1, day2, day3, day4};
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
-build_const!("aoc2020.rs");
+build_const!("aoc2020");
 
 fn aoc2020_bench(c: &mut Criterion) {
     c.bench_function("day 1 part 1", |b| b.iter(|| day1::part1(black_box(DAY1))));
