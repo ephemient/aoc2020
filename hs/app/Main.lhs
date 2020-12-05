@@ -69,6 +69,11 @@ import Day3 (day3a, day3b)
 import Day4 (day4a, day4b)
 ```
 
+## [Day 5: Binary Boarding](/src/Day5.hs)
+```haskell
+import Day5 (day5a, day5b)
+```
+
 ---
 
 ```haskell
@@ -104,4 +109,5 @@ main = do
     run 2 (print <=< rightOrFail) [day2a, day2b]
     run 3 print [day3a, day3b]
     run 4 print [day4a, day4b]
+    run 5 (print <=< justOrFail) [day5a, day5b]
 ```
