@@ -1,7 +1,7 @@
 #[macro_use]
 extern crate build_const;
 
-use aoc2020::{day1, day2, day3, day4, day5, util};
+use aoc2020::{day1, day2, day3, day4, day5, day6, util};
 use std::collections::HashSet;
 use std::env;
 use std::io;
@@ -53,6 +53,13 @@ fn main() -> io::Result<()> {
                 .and_then(|v| v.ok_or(util::Error))
                 .map_err(util::to_ioerror)?
         );
+        println!();
+    }
+
+    if args.is_empty() || args.contains("6") {
+        println!("Day 6");
+        println!("{:?}", day6::part1(DAY6));
+        println!("{:?}", day6::part2(DAY6));
         println!();
     }
 
