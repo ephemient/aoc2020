@@ -22,6 +22,33 @@ jobs:
           cargo bench --bench criterion -- --verbose
           rsync --archive --delete --verbose --whole-file target/criterion/ ../docs/criterion/
         working-directory: rs
+      - name: Inline Criterion benchmark results
+        run: |
+          cat >>docs/criterion/report/index.html <<'EOF'
+          <script>
+            document.querySelectorAll('li a[href]')
+              .forEach(a => {
+                let b = a.getAttribute('href');
+                b = b.substr(0, b.lastIndexOf('/') + 1);
+                fetch(a.href, {
+                  mode: 'same-origin',
+                  headers: {
+                    'Accept': 'text/html'
+                  }
+                })
+                  .then(r => r.text())
+                  .then(t => new DOMParser().parseFromString(t, 'text/html'))
+                  .then(d => {
+                    d.querySelectorAll('[src]')
+                      .forEach(e => e.setAttribute('src', `${b}${e.getAttribute('src')}`));
+                    d.querySelectorAll('[href]')
+                      .forEach(e => e.setAttribute('href', `${b}${e.getAttribute('href')}`));
+                    a.insertAdjacentElement('afterend', d.querySelector('.body'));
+                    d.querySelectorAll('style').forEach(e => document.head.append(e));
+                  });
+              });
+          </script>
+          EOF
       - uses: EndBug/add-and-commit@v5
         with:
           add: docs
