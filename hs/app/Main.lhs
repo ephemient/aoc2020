@@ -74,6 +74,11 @@ import Day4 (day4a, day4b)
 import Day5 (day5a, day5b)
 ```
 
+## [Day 6: Custom Customs](/src/Day6.hs)
+```haskell
+import Day6 (day6a, day6b)
+```
+
 ---
 
 ```haskell
@@ -110,4 +115,5 @@ main = do
     run 3 print [day3a, day3b]
     run 4 print [day4a, day4b]
     run 5 (print <=< justOrFail) [day5a, day5b]
+    run 6 print [day6a, day6b]
 ```
