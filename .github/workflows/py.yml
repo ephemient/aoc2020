@@ -28,5 +28,5 @@ jobs:
       - run: python -m pip install --upgrade pipenv
       - run: |
           pipenv install -d
-          pipenv run pytest --benchmark-skip
+          pipenv run pytest
         working-directory: py
