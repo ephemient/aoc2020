@@ -9,20 +9,28 @@ class Day7(lines: List<String>) {
         }.toList()
     }
 
-    private fun expand(item: String) = sequence {
-        val deque = ArrayDeque(bags[item].orEmpty())
-        while (true) {
-            val entry = deque.removeFirstOrNull() ?: break
-            yield(entry)
-            bags[entry.second]?.forEach { (count, subitem) ->
-                deque.add(entry.first * count to subitem)
+    fun part1(): Int {
+        val isGold = mutableMapOf<String, Lazy<Boolean>>()
+        for ((key, items) in bags) {
+            isGold[key] = lazy(LazyThreadSafetyMode.NONE) {
+                items.any { (_, item) -> item == GOAL || isGold[item]?.value == true }
             }
         }
+        return isGold.values.count { it.value }
     }
 
-    fun part1(): Int = bags.keys.count { item -> expand(item).any { it.second == GOAL } }
-
-    fun part2(): Int = expand(GOAL).sumOf { it.first }
+    fun part2(): Int {
+        var sum = 0
+        val deque = ArrayDeque(bags[GOAL].orEmpty())
+        while (deque.isNotEmpty()) {
+            val (count, item) = deque.removeFirst()
+            sum += count
+            bags[item]?.forEach { (subcount, subitem) ->
+                deque.add(count * subcount to subitem)
+            }
+        }
+        return sum
+    }
 
     companion object {
         private const val GOAL = "shiny gold"
