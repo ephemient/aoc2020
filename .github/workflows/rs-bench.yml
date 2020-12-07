@@ -9,6 +9,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-inputs
+          path: day*.txt
+      - name: Get inputs
+        run: make
+        env:
+          SESSION: ${{ secrets.SESSION }}
       - id: rust-toolchain
         uses: actions-rs/toolchain@v1
         with:
