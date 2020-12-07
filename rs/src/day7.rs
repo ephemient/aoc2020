@@ -36,45 +36,46 @@ where
     bags
 }
 
-struct Expand<'a> {
-    bags: &'a HashMap<String, Vec<(usize, String)>>,
-    queue: VecDeque<(usize, &'a str)>,
-}
-
-fn expand<'a>(bags: &'a HashMap<String, Vec<(usize, String)>>, bag: &str) -> Expand<'a> {
-    Expand {
-        bags,
-        queue: bags.get(bag).map_or_else(VecDeque::new, |items| {
-            items
-                .iter()
-                .map(|(count, item)| (*count, item.as_str()))
-                .collect()
-        }),
-    }
-}
-
-impl<'a> Iterator for Expand<'a> {
-    type Item = (usize, &'a str);
-    fn next(&mut self) -> Option<Self::Item> {
-        self.queue.pop_front().map(|(count, item)| {
-            if let Some(items) = self.bags.get(item) {
-                for (subcount, subitem) in items {
-                    self.queue.push_back((count * subcount, subitem));
-                }
-            }
-            (count, item)
-        })
-    }
-}
-
 pub fn part1<'a, I, S>(lines: I) -> usize
 where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
 {
     let bags = parse(lines);
+    let mut golds = HashMap::new();
+    let mut stack = Vec::new();
     bags.keys()
-        .filter(|key| expand(&bags, key).any(|(_, item)| item == GOAL))
+        .filter(|key| {
+            golds.get(*key).copied().unwrap_or_else(|| {
+                stack.push((*key, 0));
+                'stack: loop {
+                    match stack.pop() {
+                        Some((key, i)) => {
+                            for (j, (_, item)) in bags[key][i..].iter().enumerate() {
+                                if item == GOAL {
+                                    golds.insert(key, true);
+                                    continue 'stack;
+                                }
+                                match golds.get(item) {
+                                    None => {
+                                        stack.push((key, i + j));
+                                        stack.push((item, 0));
+                                        continue 'stack;
+                                    }
+                                    Some(true) => {
+                                        golds.insert(key, true);
+                                        continue 'stack;
+                                    }
+                                    Some(false) => {}
+                                }
+                            }
+                            golds.insert(key, false);
+                        }
+                        None => break golds[*key],
+                    }
+                }
+            })
+        })
         .count()
 }
 
@@ -84,7 +85,27 @@ where
     S: AsRef<str> + 'a,
 {
     let bags = parse(lines);
-    expand(&bags, GOAL).map(|(count, _)| count).sum()
+    let mut sum = 0;
+    let mut queue = bags.get(GOAL).map_or_else(VecDeque::new, |items| {
+        items
+            .iter()
+            .map(|(count, item)| (*count, item.as_str()))
+            .collect()
+    });
+    loop {
+        match queue.pop_front() {
+            Some((count, item)) => {
+                sum += count;
+                if let Some(items) = bags.get(item) {
+                    for (subcount, subitem) in items {
+                        queue.push_back((count * subcount, subitem));
+                    }
+                }
+            }
+            None => break,
+        }
+    }
+    sum
 }
 
 #[cfg(test)]
