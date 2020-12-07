@@ -12,4 +12,4 @@ aoc2020 = {path = "."}
 aoc2020 = {path = ".",editable = "true"}
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
