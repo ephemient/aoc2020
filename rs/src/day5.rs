@@ -32,7 +32,7 @@ where
         .into_iter()
         .map(|line| parse(line.as_ref()))
         .collect::<Result<Vec<_>, _>>()?;
-    nums.sort();
+    nums.sort_unstable();
     Ok(nums
         .iter()
         .tuple_windows()
