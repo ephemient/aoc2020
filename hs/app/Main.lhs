@@ -79,6 +79,11 @@ import Day5 (day5a, day5b)
 import Day6 (day6a, day6b)
 ```
 
+## [Day 7: Handy Haversacks](/src/Day7.hs)
+```haskell
+import Day7 (day7a, day7b)
+```
+
 ---
 
 ```haskell
@@ -116,4 +121,5 @@ main = do
     run 4 print [day4a, day4b]
     run 5 (print <=< justOrFail) [day5a, day5b]
     run 6 print [day6a, day6b]
+    run 7 print [day7a, day7b]
 ```
