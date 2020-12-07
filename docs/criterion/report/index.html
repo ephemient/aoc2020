@@ -76,6 +76,8 @@
             <li><a href="../day 5 part 2/report/index.html">day 5 part 2</a></li>
             <li><a href="../day 6 part 1/report/index.html">day 6 part 1</a></li>
             <li><a href="../day 6 part 2/report/index.html">day 6 part 2</a></li>
+            <li><a href="../day 7 part 1/report/index.html">day 7 part 1</a></li>
+            <li><a href="../day 7 part 2/report/index.html">day 7 part 2</a></li>
         </ul>
     </div>
     <div id="footer">
@@ -84,4 +86,26 @@
             library in Rust.</p>
     </div>
 </body>
-</html>
+</html><script>
+  document.querySelectorAll('li a[href]')
+    .forEach(a => {
+      let b = a.getAttribute('href');
+      b = b.substr(0, b.lastIndexOf('/') + 1);
+      fetch(a.href, {
+        mode: 'same-origin',
+        headers: {
+          'Accept': 'text/html'
+        }
+      })
+        .then(r => r.text())
+        .then(t => new DOMParser().parseFromString(t, 'text/html'))
+        .then(d => {
+          d.querySelectorAll('[src]')
+            .forEach(e => e.setAttribute('src', `${b}${e.getAttribute('src')}`));
+          d.querySelectorAll('[href]')
+            .forEach(e => e.setAttribute('href', `${b}${e.getAttribute('href')}`));
+          a.insertAdjacentElement('afterend', d.querySelector('.body'));
+          d.querySelectorAll('style').forEach(e => document.head.append(e));
+        });
+    });
+</script>
