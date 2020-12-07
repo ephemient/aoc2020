@@ -46,6 +46,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
 
     static EXAMPLE: &[&str] = &["1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"];
 

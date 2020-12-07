@@ -111,6 +111,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
 
     static EXAMPLE_1: &[&str] = &[
         "light red bags contain 1 bright white bag, 2 muted yellow bags.",
