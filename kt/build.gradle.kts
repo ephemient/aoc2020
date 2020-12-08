@@ -68,7 +68,12 @@ detekt {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-    testLogging.showStandardStreams = true
+    testLogging {
+        events("PASSED", "FAILED", "SKIPPED")
+        warn.events("PASSED", "FAILED", "SKIPPED", "STANDARD_ERROR")
+        info.events("PASSED", "FAILED", "SKIPPED", "STANDARD_ERROR", "STANDARD_OUT")
+        debug.events("PASSED", "FAILED", "SKIPPED", "STANDARD_ERROR", "STANDARD_OUT", "STARTED")
+    }
 }
 
 val jmhExclude: String? by project
