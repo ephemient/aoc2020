@@ -6,7 +6,7 @@ Description:    <https://adventofcode.com/2020/day/8 Day 8: Handheld Halting>
 module Day8 (day8a, day8b) where
 
 import Data.Bool (bool)
-import Data.Set (empty, insert, member)
+import Data.IntSet (empty, insert, member)
 import Data.Vector (Vector, (!))
 import qualified Data.Vector as V (length)
 import Data.Void (Void)
