@@ -20,23 +20,26 @@ def part2(lines):
     8
     '''
     instructions = list(map(Instruction, lines))
-    for instruction in instructions:
-        operation = instruction.op
-        if operation == Operation.NOP:
-            flipped = Operation.JMP
-        elif operation == Operation.JMP:
-            flipped = Operation.NOP
-        else:
-            continue
-        instruction.op = flipped
-        seen = {0}
-        for acc, ip in Machine(instructions):
-            if ip in seen:
-                break
+    stack = [(0, 0, set(), False)]
+    while stack:
+        acc, ip, seen, mutated = stack.pop()
+        while ip not in seen:
             seen.add(ip)
-        else:
-            return acc
-        instruction.op = operation
+            if ip not in range(len(instructions)):
+                return acc
+            instruction = instructions[ip]
+            if instruction.op == Operation.ACC:
+                acc += instruction.value
+                ip += 1
+            elif instruction.op == Operation.JMP:
+                if not mutated:
+                    stack.append((acc, ip + 1, set(seen), True))
+                ip += instruction.value
+            elif instruction.op == Operation.NOP:
+                if not mutated:
+                    stack.append(
+                        (acc, ip + instruction.value, set(seen), True))
+                ip += 1
 
 
 parts = (part1, part2)
