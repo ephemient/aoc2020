@@ -9,9 +9,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Get Day
+        id: get-day
+        run: echo "::set-output name=day::$(seq 1 $(expr '(' $(date +%s) - $(TZ=UTC+5 date +%s --date=2020-12-01) ')' / 86400 + 1) | head -n25 | tail -n1)"
+      - name: Get Date
+        id: get-date
+        run: echo "::set-output name=date::$(date +%G%V)"
       - uses: actions/cache@v2
         with:
-          key: ${{ runner.os }}-inputs
+          key: inputs-${{ steps.get-day.outputs.day }}
+          restore-keys: inputs-
           path: day*.txt
       - name: Get inputs
         run: make
@@ -24,7 +31,8 @@ jobs:
           default: true
       - uses: actions/cache@v2
         with:
-          key: ${{ runner.os }}-${{ steps.rust-toolchain.outputs.rustc_hash }}-${{ hashFiles('**/Cargo.*') }}
+          key: ${{ runner.os }}-${{ steps.rust-toolchain.outputs.rustc_hash }}-${{ hashFiles('**/Cargo.*') }}-${{ steps.get-date.outputs.date }}
+          restore-keys: ${{ runner.os }}-${{ steps.rust-toolchain.outputs.rustc_hash }}-${{ hashFiles('**/Cargo.*') }}-
           path: ~/.cargo
       - run: |
           cargo bench --bench criterion -- --verbose
