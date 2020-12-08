@@ -8,10 +8,7 @@ where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
 {
-    let instructions = lines
-        .into_iter()
-        .map(|s| s.as_ref().parse())
-        .collect::<Result<Vec<Instruction<isize>>, _>>()?;
+    let instructions = util::parse_many(lines)?;
     let mut seen = HashSet::new();
     seen.insert(0);
     let mut machine = Machine::new(&instructions[..]);
@@ -32,10 +29,7 @@ where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
 {
-    let mut instructions = lines
-        .into_iter()
-        .map(|s| s.as_ref().parse())
-        .collect::<Result<Vec<Instruction<isize>>, _>>()?;
+    let mut instructions = util::parse_many(lines)?;
     for i in 0..instructions.len() {
         let instruction = instructions[i];
         let flipped = match instruction {
