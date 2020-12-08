@@ -84,6 +84,11 @@ import Day6 (day6a, day6b)
 import Day7 (day7a, day7b)
 ```
 
+## [Day 8: Handheld Halting](/src/Day8.hs)
+```haskell
+import Day8 (day8a, day8b)
+```
+
 ---
 
 ```haskell
@@ -122,4 +127,5 @@ main = do
     run 5 (print <=< justOrFail) [day5a, day5b]
     run 6 print [day6a, day6b]
     run 7 print [day7a, day7b]
+    run 8 (print <=< justOrFail <=< rightOrFail) [day8a, day8b]
 ```
