@@ -18,7 +18,7 @@ parser = fromList <$> parseInstruction `sepEndBy` newline where
       ] <* space <*> signed space decimal
 
 step :: (Vector v (Op Int)) => v (Op Int) -> (Int, Int) -> Maybe (Int, Int)
-step insns (acc, ip) = evaluate <$> insns !? ip where
+step instructions (acc, ip) = evaluate <$> instructions !? ip where
     evaluate (Acc x) = acc `seq`(acc + x, ip + 1)
     evaluate (Jmp x) = (acc, ip + x)
     evaluate (Nop _) = (acc, ip + 1)
