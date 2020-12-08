@@ -1,6 +1,7 @@
 use super::machine::{Instruction, Machine};
 use super::util;
 use std::collections::HashSet;
+use std::convert::TryInto;
 use std::error::Error;
 
 pub fn part1<'a, I, S>(lines: I) -> Result<Option<isize>, Box<dyn Error + Send + Sync>>
@@ -29,30 +30,44 @@ where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
 {
-    let mut instructions = util::parse_many(lines)?;
-    for i in 0..instructions.len() {
-        let instruction = instructions[i];
-        let flipped = match instruction {
-            Instruction::Jmp(value) => Instruction::Nop(value),
-            Instruction::Nop(value) => Instruction::Jmp(value),
-            _ => continue,
-        };
-        instructions[i] = flipped;
-        let mut seen = HashSet::new();
-        seen.insert(0);
-        let mut machine = Machine::new(&instructions[..]);
-        loop {
-            match machine.next() {
-                Some((acc, None)) => return Ok(Some(acc)),
-                Some((_, Some(ip))) => {
-                    if !seen.insert(ip) {
-                        break;
+    let instructions = util::parse_many(lines)?;
+    let mut stack = vec![(0, 0, HashSet::new(), false)];
+    while let Some((mut acc, mut ip, mut seen, mutated)) = stack.pop() {
+        while seen.insert(ip) {
+            match instructions.get(ip) {
+                None => return Ok(Some(acc)),
+                Some(Instruction::Acc(x)) => {
+                    acc += x;
+                    ip += 1;
+                }
+                Some(Instruction::Jmp(x)) => {
+                    if !mutated {
+                        stack.push((acc, ip + 1, seen.clone(), true));
+                    }
+                    match ip
+                        .try_into()
+                        .ok()
+                        .and_then(|ip: isize| ip.checked_add(*x)?.try_into().ok())
+                    {
+                        Some(ip_plus) => ip = ip_plus,
+                        None => return Ok(Some(acc)),
                     }
                 }
-                None => return Err(util::Error.into()),
+                Some(Instruction::Nop(x)) => {
+                    if !mutated {
+                        match ip
+                            .try_into()
+                            .ok()
+                            .and_then(|ip: isize| ip.checked_add(*x)?.try_into().ok())
+                        {
+                            Some(ip_plus) => stack.push((acc, ip_plus, seen.clone(), true)),
+                            None => return Ok(Some(acc)),
+                        }
+                    }
+                    ip += 1;
+                }
             }
         }
-        instructions[i] = instruction;
     }
     Ok(None)
 }
