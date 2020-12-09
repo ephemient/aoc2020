@@ -72,4 +72,12 @@ fun main(args: Array<String>) {
         println(day8.part2())
         println()
     }
+
+    if (days?.contains(9) != false) {
+        val day9 = Day9(resources["day9.txt"])
+        println("Day 9")
+        println(day9.part1())
+        println(day9.part2())
+        println()
+    }
 }
