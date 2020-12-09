@@ -8,9 +8,11 @@ def part1(lines):
     >>> part1(['1721', '979', '366', '299', '675', '1456'])
     514579
     '''
-    for combo in combinations((int(line) for line in lines), 2):
-        if sum(combo) == 2020:
-            return prod(combo)
+    nums = set(map(int, lines))
+    for num in nums:
+        rem = 2020 - num
+        if rem in nums:
+            return num * rem
 
 
 def part2(lines):
@@ -18,9 +20,11 @@ def part2(lines):
     >>> part2(['1721', '979', '366', '299', '675', '1456'])
     241861950
     '''
-    for combo in combinations((int(line) for line in lines), 3):
-        if sum(combo) == 2020:
-            return prod(combo)
+    nums = set(map(int, lines))
+    for combo in combinations(nums, 2):
+        rem = 2020 - sum(combo)
+        if rem in nums:
+            return prod(combo) * rem
 
 
 parts = (part1, part2)
