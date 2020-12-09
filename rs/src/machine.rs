@@ -4,7 +4,7 @@ use std::fmt::{self, Display, Formatter};
 use std::ops::AddAssign;
 use std::str::FromStr;
 
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Clone, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
 pub enum ParseInstructionErr<E> {
     Format,
     Operation(String),
@@ -26,7 +26,7 @@ where
 
 impl<E> Error for ParseInstructionErr<E> where E: Error {}
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Instruction<T> {
     Acc(T),
     Jmp(T),
