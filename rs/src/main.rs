@@ -75,14 +75,14 @@ fn main() -> io::Result<()> {
         println!(
             "{:?}",
             day8::part1(DAY8)
-                .and_then(|v| v.ok_or(util::Error.into()))
                 .map_err(util::to_ioerror)?
+                .ok_or_else(|| util::to_ioerror(util::Error))?
         );
         println!(
             "{:?}",
             day8::part2(DAY8)
-                .and_then(|v| v.ok_or(util::Error.into()))
                 .map_err(util::to_ioerror)?
+                .ok_or_else(|| util::to_ioerror(util::Error))?
         );
         println!();
     }

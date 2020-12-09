@@ -92,17 +92,12 @@ where
             .map(|(count, item)| (*count, item.as_str()))
             .collect()
     });
-    loop {
-        match queue.pop_front() {
-            Some((count, item)) => {
-                sum += count;
-                if let Some(items) = bags.get(item) {
-                    for (subcount, subitem) in items {
-                        queue.push_back((count * subcount, subitem));
-                    }
-                }
+    while let Some((count, item)) = queue.pop_front() {
+        sum += count;
+        if let Some(items) = bags.get(item) {
+            for (subcount, subitem) in items {
+                queue.push_back((count * subcount, subitem));
             }
-            None => break,
         }
     }
     sum
