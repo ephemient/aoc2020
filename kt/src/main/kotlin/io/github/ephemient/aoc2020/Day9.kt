@@ -1,23 +1,22 @@
 package io.github.ephemient.aoc2020
 
-class Day9(lines: List<String>, n: Int = 25) {
+class Day9(lines: List<String>, private val n: Int = 25) {
     private val nums = lines.mapNotNull { it.toIntOrNull() }.toIntArray()
-    private val target = run {
-        loop@for (i in n..nums.lastIndex) {
-            for (j in i - n..i - 2) {
-                for (k in j + 1..i - 1) {
-                    if (nums[i] == nums[j] + nums[k]) continue@loop
+
+    fun part1(): Int? {
+        for (i in n..nums.lastIndex) {
+            val isValid = (i - n..i - 2).any { j ->
+                (j + 1..i - 1).any { k ->
+                    nums[i] == nums[j] + nums[k]
                 }
             }
-            return@run nums[i]
+            if (!isValid) return nums[i]
         }
-        null
+        return null
     }
 
-    fun part1(): Int? = target
-
     fun part2(): Int? {
-        target ?: return null
+        val target = part1() ?: return null
         var i = 0
         var j = 0
         var sum = 0

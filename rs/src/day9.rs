@@ -10,15 +10,10 @@ where
 }
 
 fn part1_internal(nums: &[usize], n: usize) -> Option<usize> {
-    'outer: for i in n..nums.len() {
-        for j in i - n..i - 1 {
-            for k in j + 1..i {
-                if nums[i] == nums[j] + nums[k] {
-                    continue 'outer;
-                }
-            }
+    for i in n..nums.len() {
+        if !(i - n..i - 1).any(|j| (j + 1..i).any(|k| nums[i] == nums[j] + nums[k])) {
+            return Some(nums[i]);
         }
-        return Some(nums[i]);
     }
     None
 }

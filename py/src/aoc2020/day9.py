@@ -5,15 +5,8 @@ def part1(lines, n=25):
     '''
     nums = list(map(int, lines))
     for i in range(n, len(nums)):
-        is_valid = False
-        for j in range(i - n, i - 1):
-            for k in range(j + 1, i):
-                if nums[i] == nums[j] + nums[k]:
-                    is_valid = True
-                    break
-            if is_valid:
-                break
-        if not is_valid:
+        if not any(nums[i] == nums[j] + nums[k] for j in range(i - n, i - 1)
+                   for k in range(j + 1, i)):
             return nums[i]
 
 
