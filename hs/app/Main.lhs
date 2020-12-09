@@ -89,6 +89,11 @@ import Day7 (day7a, day7b)
 import Day8 (day8a, day8b)
 ```
 
+## [Day 9: Encoding Error](/src/Day9.hs)
+```haskell
+import Day9 (day9a, day9b)
+```
+
 ---
 
 ```haskell
@@ -128,4 +133,5 @@ main = do
     run 6 print [day6a, day6b]
     run 7 print [day7a, day7b]
     run 8 (print <=< justOrFail <=< rightOrFail) [day8a, day8b]
+    run 9 (print <=< justOrFail) [day9a 25, day9b 25]
 ```
