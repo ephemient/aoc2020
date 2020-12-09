@@ -14,7 +14,7 @@ class Day1(lines: List<String>) {
             if (i + 1 >= j) return null
             i = nums.binarySearch(element = sum - nums[j - 1], fromIndex = i, toIndex = j - 1)
             if (i >= 0) return nums[i] * nums[j - 1]
-            i = -i
+            i = -(i + 1)
         }
         return null
     }
