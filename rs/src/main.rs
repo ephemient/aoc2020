@@ -13,8 +13,18 @@ fn main() -> io::Result<()> {
 
     if args.is_empty() || args.contains("1") {
         println!("Day 1");
-        println!("{:?}", day1::part1(DAY1).map_err(util::to_ioerror)?);
-        println!("{:?}", day1::part2(DAY1).map_err(util::to_ioerror)?);
+        println!(
+            "{:?}",
+            day1::part1(DAY1)
+                .map_err(util::to_ioerror)?
+                .ok_or_else(|| util::to_ioerror(util::Error))?
+        );
+        println!(
+            "{:?}",
+            day1::part2(DAY1)
+                .map_err(util::to_ioerror)?
+                .ok_or_else(|| util::to_ioerror(util::Error))?
+        );
         println!();
     }
 
