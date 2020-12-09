@@ -1,4 +1,4 @@
-from aoc2020 import day1, day2, day3, day4, day5, day6, day7, day8
+from aoc2020 import day1, day2, day3, day4, day5, day6, day7, day8, day9
 import io
 import pkg_resources
 
@@ -71,3 +71,11 @@ def test_day8_part1_bench(benchmark):
 
 def test_day8_part2_bench(benchmark):
     benchmark(day8.part2, data(8))
+
+
+def test_day9_part1_bench(benchmark):
+    benchmark(day9.part1, data(9))
+
+
+def test_day9_part2_bench(benchmark):
+    benchmark(day9.part2, data(9))
