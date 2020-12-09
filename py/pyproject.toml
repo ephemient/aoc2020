@@ -1,0 +1,6 @@
+[build-system]
+requires = ['setuptools>=40.8.0', 'wheel>=0.30.0']
+build-backend = 'setuptools.build_meta'
+
+[tool.pytest.ini_options]
+addopts = '--doctest-modules --benchmark-disable --benchmark-sort=fullname'
