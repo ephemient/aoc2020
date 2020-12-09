@@ -6,7 +6,7 @@ Description:    <https://adventofcode.com/2020/day/7 Day 7: Handy Haversacks>
 module Day7 (day7a, day7b) where
 
 import Data.List (unfoldr)
-import qualified Data.Map as Map (findWithDefault, fromListWith)
+import qualified Data.HashMap.Strict as Map (fromListWith, lookupDefault)
 import qualified Data.Set as Set (fromList, size)
 import Data.Maybe (mapMaybe)
 
@@ -25,12 +25,12 @@ day7a input = Set.size . Set.fromList $ expand goal where
     bags = Map.fromListWith (++)
         [(item, [key]) | (key, items) <- parse input , (_, item) <- items]
     expand item = items ++ concatMap expand items where
-        items = Map.findWithDefault [] item bags
+        items = Map.lookupDefault [] item bags
 
 day7b :: String -> Int
 day7b input = sum $ expand 1 goal where
     bags = Map.fromListWith (++) $ parse input
     expand n item = do
-        (m', item') <- Map.findWithDefault [] item bags
+        (m', item') <- Map.lookupDefault [] item bags
         let n' = n * m'
         n' : expand n' item'
