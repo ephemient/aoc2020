@@ -1,36 +1,31 @@
 package io.github.ephemient.aoc2020
 
 class Day1(lines: List<String>) {
-    private val nums = IntArray(lines.size) { lines[it].toInt() }
+    private val nums = lines.mapNotNull { it.toIntOrNull() }.toIntArray().apply { sort() }
 
-    fun part1(): Int {
-        val numsSet = nums.toSet()
-        val x = nums.first { x -> 2020 - x in numsSet }
-        return x * (2020 - x)
-    }
-
-    fun part2(): Int {
-        val numsSet = nums.toSet()
-        val (x, y) = choose(2).first { (x, y) -> 2020 - (x + y) in numsSet }
-        return x * y * (2020 - (x + y))
-    }
-
-    private fun choose(n: Int): Sequence<IntArray> = if (n <= 0) {
-        sequenceOf(intArrayOf())
-    } else {
-        sequence {
-            val indices = IntArray(n) { it }
-            while (indices.last() < nums.size) {
-                yield(IntArray(n) { nums[indices[it]] })
-                var i = 0
-                while (i < indices.lastIndex && indices[i] + 1 == indices[i + 1]) {
-                    i++
-                }
-                for (j in 0 until i) {
-                    indices[j] = j
-                }
-                indices[i]++
-            }
+    @Suppress("ReturnCount")
+    private fun findPair(sum: Int, fromIndex: Int = 0, toIndex: Int = nums.size): Int? {
+        var i = fromIndex
+        var j = toIndex
+        while (i + 1 < j) {
+            j = nums.binarySearch(element = sum - nums[i], fromIndex = i + 1, toIndex = j)
+            if (j >= 0) return nums[i] * nums[j]
+            j = -(j + 1)
+            if (i + 1 >= j) return null
+            i = nums.binarySearch(element = sum - nums[j - 1], fromIndex = i, toIndex = j - 1)
+            if (i >= 0) return nums[i] * nums[j - 1]
+            i = -i
         }
+        return null
+    }
+
+    fun part1(): Int? = findPair(sum = 2020)
+
+    fun part2(): Int? {
+        for (i in 0 until nums.lastIndex) {
+            if (nums[i] > 674) break
+            findPair(sum = 2020 - nums[i], fromIndex = i + 1)?.let { return nums[i] * it }
+        }
+        return null
     }
 }

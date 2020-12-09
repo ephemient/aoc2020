@@ -15,8 +15,8 @@ open class Day1Bench {
     }
 
     @Benchmark
-    fun part1(): Int = Day1(lines).part1()
+    fun part1(): Int? = Day1(lines).part1()
 
     @Benchmark
-    fun part2(): Int = Day1(lines).part2()
+    fun part2(): Int? = Day1(lines).part2()
 }
