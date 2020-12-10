@@ -10,6 +10,18 @@ rustup toolchain install nightly
 rustup override set nightly
 ```
 
+Run the test suite:
+
+```sh
+cargo test
+```
+
+Run the [Criterion.rs](https://github.com/bheisler/criterion.rs) benchmarks:
+
+```sh
+cargo bench --bench criterion
+```
+
 Print solutions for the inputs provided in local data files:
 
 ```sh
