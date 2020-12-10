@@ -87,6 +87,6 @@ jmh {
     fork = 1
     threads = 1
     timeOnIteration = "1s"
-    timeUnit = "ms"
+    timeUnit = "ns"
     warmupIterations = 1
 }
