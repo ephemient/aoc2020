@@ -1,7 +1,7 @@
 from collections import Counter
 
 
-def part1(lines, n=25):
+def part1(lines):
     '''
     >>> part1(list(map(str, (16, 10, 15, 5, 1, 11, 7, 19, 6, 12, 4))))
     35
@@ -13,7 +13,7 @@ def part1(lines, n=25):
     return counter[1] * (counter[3] + 1)
 
 
-def part2(lines, n=25):
+def part2(lines):
     '''
     >>> part2(list(map(str, (16, 10, 15, 5, 1, 11, 7, 19, 6, 12, 4))))
     8
