@@ -14,7 +14,7 @@ fn find_pair(nums: &[i32], target: i32) -> Option<(i32, i32)> {
         }
         match nums[lo..hi - 1].binary_search(&(target - nums[hi - 1])) {
             Ok(pos) => return Some((nums[lo + pos], nums[hi - 1])),
-            Err(pos) => lo = lo + pos,
+            Err(pos) => lo += pos,
         }
     }
     None

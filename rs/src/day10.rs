@@ -9,7 +9,7 @@ where
     S: AsRef<str> + 'a,
 {
     let mut nums = util::parse_many(lines)?;
-    nums.sort();
+    nums.sort_unstable();
     let (mut x, mut y) = (0, 0);
     for (a, b) in [0].iter().chain(&nums).tuple_windows() {
         match b - a {
@@ -27,7 +27,7 @@ where
     S: AsRef<str> + 'a,
 {
     let mut nums = util::parse_many(lines)?;
-    nums.sort();
+    nums.sort_unstable();
     let mut k = VecDeque::with_capacity(0);
     k.push_back(1);
     k.push_back(0);
