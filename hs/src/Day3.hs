@@ -6,24 +6,24 @@ module Day3 (day3a, day3b) where
 
 import Data.List (foldl')
 import Data.Monoid (Sum(Sum))
-import qualified Data.Vector.Unboxed as V ((!), fromList, length)
+import Data.Text (Text)
+import qualified Data.Text as T (index, length, lines)
 
-day3a :: String -> Int
-day3a = length . filter ok . zip [0, 3..] . lines
-  where ok (i, line) = line !! (i `rem` length line) == '#'
+day3a :: Text -> Int
+day3a = length . filter ok . zip [0, 3..] . T.lines where
+    ok (i, line) = T.index line (i `rem` T.length line) == '#'
 
-day3b :: String -> Int
+day3b :: Text -> Int
 day3b input = a * b * c * d * e where
     (Sum a, Sum b, Sum c, Sum d, Sum e) = foldl' (<>) mempty
-      [ ( count i
-        , count $ 3 * i
-        , count $ 5 * i
-        , count $ 7 * i
+      [ ( Sum $ count i
+        , Sum . count $ 3 * i
+        , Sum . count $ 5 * i
+        , Sum . count $ 7 * i
         , case i `quotRem` 2 of
-              (j, 0) -> count j
+              (j, 0) -> Sum $ count j
               _ -> mempty
         )
-      | (i, line) <- zip [0..] $ lines input
-      , let line' = V.fromList line
-            count j = Sum $ fromEnum $ line' V.! (j `rem` V.length line') == '#'
+      | (i, line) <- zip [0..] $ T.lines input
+      , let count j = fromEnum $ T.index line (j `mod` T.length line) == '#'
       ]

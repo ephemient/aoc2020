@@ -1,10 +1,13 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Day3Spec (spec) where
 
+import Data.Text (Text)
+import qualified Data.Text as T (unlines)
 import Day3 (day3a, day3b)
 import Test.Hspec (Spec, describe, it, shouldBe)
 
-example :: String
-example = unlines
+example :: Text
+example = T.unlines
   [ "..##......."
   , "#...#...#.."
   , ".#....#..#."

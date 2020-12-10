@@ -1,10 +1,13 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Day8Spec (spec) where
 
+import Data.Text (Text)
+import qualified Data.Text as T (unlines)
 import Day8 (day8a, day8b)
 import Test.Hspec (Spec, describe, it, shouldBe)
 
-example :: String
-example = unlines
+example :: Text
+example = T.unlines
   [ "nop +0"
   , "acc +1"
   , "jmp +4"

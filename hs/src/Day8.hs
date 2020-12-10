@@ -7,13 +7,14 @@ module Day8 (day8a, day8b) where
 
 import Data.Bool (bool)
 import Data.IntSet (empty, insert, member)
+import Data.Text (Text)
 import Data.Vector (Vector, (!))
 import qualified Data.Vector as V (length)
 import Data.Void (Void)
 import Machine (Op(Acc, Jmp, Nop), parser, step)
 import Text.Megaparsec (ParseErrorBundle, eof, parse)
 
-day8a :: String -> Either (ParseErrorBundle String Void) (Maybe Int)
+day8a :: Text -> Either (ParseErrorBundle Text Void) (Maybe Int)
 day8a input = do
     instructions <- parse (parser @Vector <* eof) "" input
     let loop acc ip seen
@@ -23,7 +24,7 @@ day8a input = do
                 loop acc' ip' $ insert ip seen
     pure $ loop 0 0 empty
 
-day8b :: String -> Either (ParseErrorBundle String Void) (Maybe Int)
+day8b :: Text -> Either (ParseErrorBundle Text Void) (Maybe Int)
 day8b input = do
     instructions <- parse (parser <* eof) "" input
     let loop acc ip seen mut stack

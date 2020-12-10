@@ -104,13 +104,15 @@ import Day10 (day10a, day10b)
 ```haskell
 import Control.Monad ((<=<), when)
 import Data.Maybe (mapMaybe)
+import Data.Text (Text)
+import qualified Data.Text.IO as TIO (readFile)
 import Paths_aoc2020 (getDataFileName)
 import System.Environment (getArgs)
 import Text.Megaparsec (ParseErrorBundle, ShowErrorComponent, Stream, errorBundlePretty)
 import Text.Read (readMaybe)
 
-getDayInput :: Int -> IO String
-getDayInput i = getDataFileName ("day" ++ show i ++ ".txt") >>= readFile
+getDayInput :: Int -> IO Text
+getDayInput i = getDataFileName ("day" ++ show i ++ ".txt") >>= TIO.readFile
 
 justOrFail :: (MonadFail m) => Maybe a -> m a
 justOrFail = maybe (fail "(⊥)") return
@@ -119,7 +121,7 @@ rightOrFail :: (ShowErrorComponent e, Stream s, MonadFail m) =>
     Either (ParseErrorBundle s e) a -> m a
 rightOrFail = either (fail . errorBundlePretty) return
 
-run :: Int -> (a -> IO ()) -> [String -> a] -> IO ()
+run :: Int -> (a -> IO ()) -> [Text -> a] -> IO ()
 run day showIO funcs = do
     days <- mapMaybe readMaybe <$> getArgs
     when (null days || day `elem` days) $ do
@@ -130,7 +132,7 @@ run day showIO funcs = do
 
 main :: IO ()
 main = do
-    run 1 (print <=< justOrFail) [day1a, day1b]
+    run 1 (print <=< either fail justOrFail) [day1a, day1b]
     run 2 (print <=< rightOrFail) [day2a, day2b]
     run 3 print [day3a, day3b]
     run 4 print [day4a, day4b]
@@ -138,6 +140,6 @@ main = do
     run 6 print [day6a, day6b]
     run 7 print [day7a, day7b]
     run 8 (print <=< justOrFail <=< rightOrFail) [day8a, day8b]
-    run 9 (print <=< justOrFail) [day9a 25, day9b 25]
+    run 9 (print <=< either fail justOrFail) [day9a 25, day9b 25]
     run 10 print [day10a, day10b]
 ```

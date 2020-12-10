@@ -47,6 +47,7 @@ executables:
     - aoc2020
     - markdown-unlit
     - megaparsec
+    - text
 
 data-files:
 - day*.txt
@@ -63,6 +64,7 @@ tests:
     - QuickCheck
     - aoc2020
     - hspec
+    - text
 
 benchmarks:
   aoc2020-bench:
@@ -75,3 +77,4 @@ benchmarks:
     dependencies:
     - aoc2020
     - criterion
+    - text

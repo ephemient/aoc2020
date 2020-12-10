@@ -1,6 +1,8 @@
 module Main (main) where
 
 import Criterion.Main (bench, bgroup, defaultMain, env, nf)
+import Data.Text (Text)
+import qualified Data.Text.IO as TIO (readFile)
 import Day1 (day1a, day1b)
 import Day2 (day2a, day2b)
 import Day3 (day3a, day3b)
@@ -13,8 +15,8 @@ import Day9 (day9a, day9b)
 import Day10 (day10a, day10b)
 import Paths_aoc2020 (getDataFileName)
 
-getDayInput :: Int -> IO String
-getDayInput i = getDataFileName ("day" ++ show i ++ ".txt") >>= readFile
+getDayInput :: Int -> IO Text
+getDayInput i = getDataFileName ("day" ++ show i ++ ".txt") >>= TIO.readFile
 
 main :: IO ()
 main = defaultMain

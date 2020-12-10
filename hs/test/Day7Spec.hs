@@ -1,10 +1,13 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Day7Spec (spec) where
 
+import Data.Text (Text)
+import qualified Data.Text as T (unlines)
 import Day7 (day7a, day7b)
 import Test.Hspec (Spec, describe, it, shouldBe)
 
-example :: String
-example = unlines
+example :: Text
+example = T.unlines
   [ "light red bags contain 1 bright white bag, 2 muted yellow bags."
   , "dark orange bags contain 3 bright white bags, 4 muted yellow bags."
   , "bright white bags contain 1 shiny gold bag."
@@ -24,7 +27,7 @@ spec = do
     describe "part 2" $ do
         it "examples" $ do
             day7b example `shouldBe` 32
-            day7b (unlines
+            day7b (T.unlines
               [ "shiny gold bags contain 2 dark red bags."
               , "dark red bags contain 2 dark orange bags."
               , "dark orange bags contain 2 dark yellow bags."

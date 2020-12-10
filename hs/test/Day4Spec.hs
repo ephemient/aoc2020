@@ -1,5 +1,7 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Day4Spec (spec) where
 
+import qualified Data.Text as T (unlines)
 import Day4 (day4a, day4b)
 import Test.Hspec (Spec, describe, it, shouldBe)
 
@@ -7,7 +9,7 @@ spec :: Spec
 spec = do
     describe "part 1" $ do
         it "examples" $ do
-            day4a (unlines
+            day4a (T.unlines
               [ "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd"
               , "byr:1937 iyr:2017 cid:147 hgt:183cm"
               , ""
@@ -24,7 +26,7 @@ spec = do
               ]) `shouldBe` 2
     describe "part 2" $ do
         it "examples" $ do
-            day4b (unlines
+            day4b (T.unlines
               [ "eyr:1972 cid:100"
               , "hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926"
               , ""
@@ -39,7 +41,7 @@ spec = do
               , "eyr:2038 hcl:74454a iyr:2023"
               , "pid:3556412378 byr:2007"
               ]) `shouldBe` 0
-            day4b (unlines
+            day4b (T.unlines
               [ "pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980"
               , "hcl:#623a2f"
               , ""

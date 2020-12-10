@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Day5Spec (spec) where
 
 import Day5 (day5a)
