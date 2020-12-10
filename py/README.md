@@ -15,6 +15,12 @@ Run the test suite:
 pipenv run pytest
 ```
 
+Run the benchmarks:
+
+```sh
+pipenv run pytest --benchmark-enable
+```
+
 Print solutions for the inputs provided in local data files:
 
 ```sh
