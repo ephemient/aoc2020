@@ -2,22 +2,26 @@
 Module:         Day7
 Description:    <https://adventofcode.com/2020/day/7 Day 7: Handy Haversacks>
 -}
-{-# LANGUAGE ViewPatterns #-}
+{-# LANGUAGE OverloadedStrings #-}
 module Day7 (day7a, day7b) where
 
 import Data.List (unfoldr)
 import qualified Data.HashMap.Strict as Map (fromListWith, lookupDefault)
-import qualified Data.Set as Set (fromList, size)
 import Data.Maybe (mapMaybe)
+import qualified Data.Set as Set (fromList, size)
+import Data.Text (Text)
+import qualified Data.Text as T
+import qualified Data.Text.Read as T
 
-parse :: String -> [((String, String), [(Int, (String, String))])]
-parse = mapMaybe (parseLine . words) . lines where
+parse :: String -> [((Text, Text), [(Int, (Text, Text))])]
+parse = mapMaybe (parseLine . T.words) . T.lines . T.pack where
     parseLine (a:b:_:_:rest) = Just ((a, b), unfoldr parseItems rest)
     parseLine _ = Nothing
-    parseItems ((reads -> (n, ""):_):a:b:_:rest) = Just ((n, (a, b)), rest)
+    parseItems (n:a:b:_:rest)
+      | Right (n', t) <- T.decimal n, T.null t = Just ((n', (a, b)), rest)
     parseItems _ = Nothing
 
-goal :: (String, String)
+goal :: (Text, Text)
 goal = ("shiny", "gold")
 
 day7a :: String -> Int

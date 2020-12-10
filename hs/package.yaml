@@ -28,6 +28,7 @@ library:
   - containers
   - megaparsec
   - split
+  - text
   - unordered-containers
   - vector
 
