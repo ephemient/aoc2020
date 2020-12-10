@@ -2,7 +2,7 @@
 Module:         Day4
 Description:    <https://adventofcode.com/2020/day/4 Day 4: Passport Processing>
 -}
-{-# LANGUAGE OverloadedStrings, TypeApplications, ViewPatterns #-}
+{-# LANGUAGE OverloadedStrings, TypeApplications #-}
 module Day4 (day4a, day4b) where
 
 import Common (readEntire)
