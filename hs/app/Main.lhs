@@ -141,5 +141,5 @@ main = do
     run 7 print [day7a, day7b]
     run 8 (print <=< justOrFail <=< rightOrFail) [day8a, day8b]
     run 9 (print <=< either fail justOrFail) [day9a 25, day9b 25]
-    run 10 print [day10a, day10b]
+    run 10 (either fail print) [day10a, day10b]
 ```
