@@ -94,6 +94,11 @@ import Day8 (day8a, day8b)
 import Day9 (day9a, day9b)
 ```
 
+## [Day 10: Adapter Array](/src/Day10.hs)
+```haskell
+import Day10 (day10a, day10b)
+```
+
 ---
 
 ```haskell
@@ -134,4 +139,5 @@ main = do
     run 7 print [day7a, day7b]
     run 8 (print <=< justOrFail <=< rightOrFail) [day8a, day8b]
     run 9 (print <=< justOrFail) [day9a 25, day9b 25]
+    run 10 print [day10a, day10b]
 ```
