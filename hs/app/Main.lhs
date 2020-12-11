@@ -99,6 +99,11 @@ import Day9 (day9a, day9b)
 import Day10 (day10a, day10b)
 ```
 
+## [Day 11: Seating System](/src/Day11.hs)
+```haskell
+import Day11 (day11a, day11b)
+```
+
 ---
 
 ```haskell
@@ -142,4 +147,5 @@ main = do
     run 8 (print <=< justOrFail <=< rightOrFail) [day8a, day8b]
     run 9 (print <=< either fail justOrFail) [day9a 25, day9b 25]
     run 10 (either fail print) [day10a, day10b]
+    run 11 (print <=< justOrFail) [day11a, day11b]
 ```
