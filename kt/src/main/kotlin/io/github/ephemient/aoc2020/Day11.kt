@@ -1,46 +1,72 @@
 package io.github.ephemient.aoc2020
 
-class Day11(lines: List<String>) {
-    @ExperimentalStdlibApi
-    private val start = buildMap<Int2, Boolean> {
+class Day11(private val lines: List<String>) {
+    @Suppress("ComplexMethod", "LoopWithTooManyJumpStatements", "NestedBlockDepth")
+    private fun parse(isFar: Boolean): Collection<Seat> {
+        val maxLength = lines.maxOfOrNull { it.length } ?: 0
+        val seats = mutableMapOf<Pair<Int, Int>, Seat>()
         for ((y, line) in lines.withIndex()) {
             for ((x, c) in line.withIndex()) {
                 when (c) {
-                    'L' -> put(Int2(x, y), false)
-                    '#' -> put(Int2(x, y), false)
+                    '#' -> seats[Pair(x, y)] = Seat(true)
+                    'L' -> seats[Pair(x, y)] = Seat(false)
                 }
             }
         }
-    }
-    private val size = lines.size
-    private val width = lines.maxOf { it.length }
-
-    @OptIn(ExperimentalStdlibApi::class)
-    fun part1(): Int = solve(maxDistance = 1, threshold = 4)
-
-    @OptIn(ExperimentalStdlibApi::class)
-    fun part2(): Int = solve(maxDistance = size, threshold = 5)
-
-    @ExperimentalStdlibApi
-    private fun solve(maxDistance: Int, threshold: Int) = generateSequence(start) { state ->
-        buildMap {
-            state.forEach { (x, y), b ->
-                val adjacent = directions.count { (dx, dy) ->
-                    for (i in 1..maxDistance) {
-                        return@count (state[Int2(x + i * dx, y + i * dy)] ?: continue)
+        for ((pos, seat) in seats) {
+            val (x, y) = pos
+            for (dx in -1..1) {
+                for (dy in -1..1) {
+                    if (dx == 0 && dy == 0) continue
+                    var tx = x + dx
+                    var ty = y + dy
+                    while (tx in 0 until maxLength && ty in lines.indices) {
+                        val adjacent = seats[Pair(tx, ty)]
+                        if (adjacent != null) {
+                            seat.adjacencies.add(adjacent)
+                            break
+                        }
+                        if (!isFar) break
+                        tx += dx
+                        ty += dy
                     }
-                    false
                 }
-                put(Int2(x, y), if (b) adjacent < threshold else adjacent == 0)
             }
         }
-    }.map { it.values.count { it } }.zipWithNext().first { it.first == it.second }.first
+        return seats.values
+    }
 
-    private data class Int2(val first: Int, val second: Int)
+    fun part1(): Int {
+        val seats = parse(false)
+        var isOdd = false
+        return generateSequence {
+            seats.count { it.next(isOdd, 4) }.also { isOdd = !isOdd }
+        }.zipWithNext().first { it.first == it.second }.first
+    }
 
-    companion object {
-        private val directions = (-1..1).flatMap { dx ->
-            (-1..1).mapNotNull { dy -> if (dx == 0 && dy == 0) null else dx to dy }
+    fun part2(): Int {
+        val seats = parse(true)
+        var isOdd = false
+        return generateSequence {
+            seats.count { it.next(isOdd, 5) }.also { isOdd = !isOdd }
+        }.zipWithNext().first { it.first == it.second }.first
+    }
+
+    private class Seat(initialState: Boolean) {
+        private var state0 = initialState
+        private var state1 = false
+        val adjacencies = mutableListOf<Seat>()
+
+        fun next(isOdd: Boolean, threshold: Int): Boolean {
+            val currentState = if (isOdd) state1 else state0
+            val count = adjacencies.count { if (isOdd) it.state1 else it.state0 }
+            val nextState = if (currentState) count < threshold else count == 0
+            if (isOdd) {
+                state0 = nextState
+            } else {
+                state1 = nextState
+            }
+            return nextState
         }
     }
 }
