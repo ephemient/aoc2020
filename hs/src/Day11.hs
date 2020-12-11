@@ -11,7 +11,7 @@ import Data.Maybe (listToMaybe, mapMaybe)
 import Data.Text (Text)
 import qualified Data.Text as T (length, lines, unpack)
 import Data.Vector.Unboxed (Vector)
-import qualified Data.Vector.Unboxed as V
+import qualified Data.Vector.Unboxed as V ((!), accum, foldl', fromList)
 
 parse :: Bool -> Text -> ([[Int]], Vector Bool)
 parse far input = (adjs, V.fromList $ M.elems m) where
