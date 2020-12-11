@@ -1,6 +1,5 @@
 use itertools::Itertools;
-use std::cmp::{max, min};
-use std::collections::HashMap;
+use std::convert::TryInto;
 use std::iter;
 
 const DIRECTIONS: [(isize, isize); 8] = [
@@ -14,58 +13,72 @@ const DIRECTIONS: [(isize, isize); 8] = [
     (1, 1),
 ];
 
-fn parse<'a, I, S>(
-    lines: I,
-) -> (
-    ((isize, isize), (isize, isize)),
-    HashMap<(isize, isize), bool>,
-)
+fn parse<'a, I, S>(lines: I, is_far: bool) -> (Vec<Vec<usize>>, Vec<bool>)
 where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
 {
-    let (mut x0, mut y0, mut x1, mut y1) = (isize::MAX, isize::MAX, isize::MIN, isize::MIN);
-    let mut m = HashMap::new();
-    for (y, line) in lines.into_iter().enumerate() {
-        let y = y as isize;
-        for (x, c) in line.as_ref().chars().enumerate() {
-            let x = x as isize;
-            if c == '#' {
-                m.insert((x, y), true);
-            } else if c == 'L' {
-                m.insert((x, y), false);
+    let (positions, values): (Vec<_>, _) = lines
+        .into_iter()
+        .enumerate()
+        .flat_map(|(y, line)| {
+            line.as_ref()
+                .chars()
+                .enumerate()
+                .filter_map(move |(x, c)| match c {
+                    '#' => Some(((y, x), true)),
+                    'L' => Some(((y, x), false)),
+                    _ => None,
+                })
+        })
+        .unzip();
+    let max_y = positions.iter().map(|(y, _)| *y).max().unwrap_or(0);
+    let max_x = positions.iter().map(|(_, x)| *x).max().unwrap_or(0);
+    (
+        positions
+            .iter()
+            .map(|(y, x)| {
+                DIRECTIONS
+                    .iter()
+                    .filter_map(|(dy, dx)| {
+                        let mut ty = TryInto::<isize>::try_into(*y).ok()?.checked_add(*dy)?;
+                        let mut tx = TryInto::<isize>::try_into(*x).ok()?.checked_add(*dx)?;
+                        while let (Some(y), Some(x)) = (
+                            ty.try_into().ok().filter(|ty| *ty <= max_y),
+                            tx.try_into().ok().filter(|tx| *tx <= max_x),
+                        ) {
+                            if let Ok(i) = positions.binary_search(&(y, x)) {
+                                return Some(i);
+                            }
+                            if !is_far {
+                                break;
+                            }
+                            ty = ty.checked_add(*dy)?;
+                            tx = tx.checked_add(*dx)?;
+                        }
+                        None
+                    })
+                    .collect()
+            })
+            .collect(),
+        values,
+    )
+}
+
+fn step<I>(d: usize, adjs: &[I], m: &[bool]) -> Vec<bool>
+where
+    I: IntoIterator<Item = usize> + Clone,
+{
+    m.iter()
+        .zip(adjs)
+        .map(|(b, ixs)| {
+            if *b {
+                ixs.clone().into_iter().filter(|i| m[*i]).nth(d).is_none()
             } else {
-                continue;
+                ixs.clone().into_iter().find(|i| m[*i]).is_none()
             }
-            x0 = min(x0, x);
-            y0 = min(y0, y);
-            x1 = max(x1, x);
-            y1 = max(y1, y);
-        }
-    }
-    (((x0, y0), (x1, y1)), m)
-}
-
-fn step<F>(m: &HashMap<(isize, isize), bool>, d: usize, adj: F) -> HashMap<(isize, isize), bool>
-where
-    F: Fn((isize, isize), (isize, isize)) -> bool,
-{
-    let mut next = HashMap::new();
-    for (pos, b) in m.iter() {
-        let n = DIRECTIONS.iter().filter(|dir| adj(*pos, **dir)).count();
-        next.insert(*pos, if *b { n < d } else { n == 0 });
-    }
-    next
-}
-
-fn in_range<A, B>(bounds: &((A, B), (A, B)), value: &(A, B)) -> bool
-where
-    A: Ord,
-    B: Ord,
-{
-    let ((x0, y0), (x1, y1)) = bounds;
-    let (x, y) = value;
-    (x0..=x1).contains(&x) && (y0..=y1).contains(&y)
+        })
+        .collect()
 }
 
 pub fn part1<'a, I, S>(lines: I) -> Option<usize>
@@ -73,17 +86,12 @@ where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
 {
-    let (_, m0) = parse(lines);
-    iter::successors(Some(m0), |m| {
-        Some(step(m, 4, |(x, y), (dx, dy)| {
-            m.get(&(x + dx, y + dy)).copied().unwrap_or(false)
-        }))
-    })
-    .map(|m| m.values().filter(|b| **b).count())
-    .tuple_windows()
-    .filter(|(l, r)| *l == *r)
-    .map(|(l, _)| l)
-    .next()
+    let (adjs, m) = parse(lines, false);
+    iter::successors(Some(m), |m| Some(step(3, &adjs, &m)))
+        .map(|m| m.iter().filter(|b| **b).count())
+        .tuple_windows()
+        .find(|(l, r)| *l == *r)
+        .map(|(n, _)| n)
 }
 
 pub fn part2<'a, I, S>(lines: I) -> Option<usize>
@@ -91,26 +99,12 @@ where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
 {
-    let (bounds, m0) = parse(lines);
-    iter::successors(Some(m0), |m| {
-        Some(step(m, 5, |(x, y), (dx, dy)| {
-            for i in 1.. {
-                let k = (x + i * dx, y + i * dy);
-                if !in_range(&bounds, &k) {
-                    break;
-                }
-                if let Some(b) = m.get(&k) {
-                    return *b;
-                }
-            }
-            false
-        }))
-    })
-    .map(|m| m.values().filter(|b| **b).count())
-    .tuple_windows()
-    .filter(|(l, r)| *l == *r)
-    .map(|(l, _)| l)
-    .next()
+    let (adjs, m) = parse(lines, true);
+    iter::successors(Some(m), |m| Some(step(4, &adjs, &m)))
+        .map(|m| m.iter().filter(|b| **b).count())
+        .tuple_windows()
+        .find(|(l, r)| *l == *r)
+        .map(|(n, _)| n)
 }
 
 #[cfg(test)]
