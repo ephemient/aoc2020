@@ -19,7 +19,8 @@ parse far input = (adjs, V.fromList $ M.elems m) where
     maxY = length rows
     maxX = maximum $ 0 : map T.length rows
     limitVision
-      | far = takeWhile $ inRange ((0, 0), (maxY - 1, maxX - 1)) | otherwise = take 1
+      | far = takeWhile $ inRange ((0, 0), (maxY - 1, maxX - 1))
+      | otherwise = take 1
     m = M.fromDistinctAscList $ do
         (y, row) <- zip [0..] rows
         (x, c) <- zip [0..] $ T.unpack row
