@@ -4,48 +4,51 @@ Description:    <https://adventofcode.com/2020/day/11 Day 11: Seating System>
 -}
 module Day11 (day11a, day11b) where
 
+import Data.Bool (bool)
 import Data.Ix (inRange)
-import Data.List.NonEmpty (nonEmpty)
-import Data.Map (Map)
-import qualified Data.Map as M ((!?), elems, findWithDefault, mapWithKey, singleton)
-import Data.Maybe (fromMaybe, listToMaybe, mapMaybe)
-import Data.Semigroup (Max(Max), Min(Min), sconcat)
+import qualified Data.Map as M (elems, fromDistinctAscList, keys, lookupIndex)
+import Data.Maybe (listToMaybe, mapMaybe)
 import Data.Text (Text)
-import qualified Data.Text as T (lines, unpack)
+import qualified Data.Text as T (length, lines, unpack)
+import Data.Vector.Unboxed (Vector)
+import qualified Data.Vector.Unboxed as V
 
-parse :: Text -> Maybe (((Int, Int), (Int, Int)), Map (Int, Int) Bool)
-parse text = do
-    ((Min y0, Min x0), (Max y1, Max x1), m) <- sconcat <$> nonEmpty
-      [ ((Min y, Min x), (Max y, Max x), M.singleton (y, x) $ c == '#')
-      | (y, line) <- zip [0..] $ T.lines text
-      , (x, c) <- zip [0..] $ T.unpack line
-      , c `elem` "L#"
-      ]
-    pure (((y0, x0), (y1, x1)), m)
+parse :: Bool -> Text -> ([[Int]], Vector Bool)
+parse far input = (adjs, V.fromList $ M.elems m) where
+    rows = T.lines input
+    maxY = length rows
+    maxX = maximum $ 0 : map T.length rows
+    limitVision
+      | far = takeWhile $ inRange ((0, 0), (maxY - 1, maxX - 1))
+      | otherwise = take 1
+    m = M.fromDistinctAscList $ do
+        (y, row) <- zip [0..] rows
+        (x, c) <- zip [0..] $ T.unpack row
+        (,) (y, x) <$> case c of
+            '#' -> pure True
+            'L' -> pure False
+            _ -> mempty
+    directions = filter (/= (0, 0)) $ (,) <$> [-1..1] <*> [-1..1]
+    adjs = flip mapMaybe directions . look <$> M.keys m
+    look (y, x) (dy, dx) = listToMaybe . mapMaybe (flip M.lookupIndex m) .
+        limitVision $ zip [y + dy, y + 2 * dy..] [x + dx, x + 2 * dx..]
 
-step :: (Map (Int, Int) Bool -> (Int, Int) -> (Int, Int) -> Bool) -> Int -> Map (Int, Int) Bool -> Map (Int, Int) Bool
-step adj d m = M.mapWithKey f m where
-    f (y, x) b = if b then n < d else n == 0 where
-        n = length $ filter (adj m (y, x))
-            [(dy, dx) | dy <- [-1..1], dx <- [-1..1], dy /= 0 || dx /= 0]
+step :: Int -> [[Int]] -> Vector Bool -> Vector Bool
+step d adjs m = V.accum step' m $ zip [0..] adjs where
+    step' False ixs = not $ any (m V.!) ixs
+    step' True ixs = null . drop d . filter id $ (m V.!) <$> ixs
 
-count :: Map a Bool -> Int
-count = length . filter id . M.elems
+count :: Vector Bool -> Int
+count = V.foldl' (flip $ bool id succ) 0
 
 findDup :: (Eq a) => [a] -> Maybe a
 findDup (x:xs@(y:_)) = if x == y then Just x else findDup xs
 findDup _ = Nothing
 
 day11a :: Text -> Maybe Int
-day11a input = do
-    (_, m0) <- parse input
-    let adj m (y, x) (dy, dx) = M.findWithDefault False (y + dy, x + dx) m
-    findDup . map count $ iterate (step adj 4) m0
+day11a input = findDup . map count $ iterate (step 3 adjs) m0 where
+    (adjs, m0) = parse False input
 
 day11b :: Text -> Maybe Int
-day11b input = do
-    (bounds, m0) <- parse input
-    let adj m (y, x) (dy, dx) = fromMaybe False . listToMaybe .
-            mapMaybe (m M.!?) . takeWhile (inRange bounds) $
-            zip [y + dy, y + 2 * dy..] [x + dx, x + 2 * dx..]
-    findDup . map count $ iterate (step adj 5) m0
+day11b input = findDup . map count $ iterate (step 4 adjs) m0 where
+    (adjs, m0) = parse True input
