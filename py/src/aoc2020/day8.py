@@ -1,4 +1,5 @@
 from .machine import Instruction, Machine, Operation
+import fileinput
 
 
 def part1(lines):

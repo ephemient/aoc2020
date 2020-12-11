@@ -1,4 +1,5 @@
 from collections import Counter
+import fileinput
 
 
 def part1(lines):
