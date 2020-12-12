@@ -2,31 +2,31 @@
 Module:         Day12
 Description:    <https://adventofcode.com/2020/day/12 Day 12: Rain Risk>
 -}
-{-# LANGUAGE FlexibleContexts, OverloadedStrings, TupleSections #-}
+{-# LANGUAGE LambdaCase, OverloadedStrings, TupleSections #-}
 module Day12 (day12a, day12b) where
 
-import Data.Functor (($>))
+import Common (readEntire)
 import Data.List (foldl')
 import Data.Text (Text)
-import Data.Void (Void)
-import Text.Megaparsec (MonadParsec, ParseErrorBundle, (<|>), choice, eof, parse, sepEndBy)
-import Text.Megaparsec.Char (char, newline, string)
-import Text.Megaparsec.Char.Lexer (decimal)
+import qualified Data.Text as T
+import qualified Data.Text.Read as T (decimal)
 
 data Instruction a = Rel (a, a) | Fwd a | L | R | U
 
-parser :: (Num a, MonadParsec e Text m) => m [Instruction a]
-parser = parseLine `sepEndBy` newline where
-    parseLine = choice
-      [ char 'N' *> (Rel . (0, ) <$> decimal)
-      , char 'E' *> (Rel . (, 0) <$> decimal)
-      , char 'S' *> (Rel . (0, ) . negate <$> decimal)
-      , char 'W' *> (Rel . (, 0) . negate <$> decimal)
-      , (string "L90" <|> string "R270") $> L
-      , (string "R90" <|> string "L270") $> R
-      , (string "L180" <|> string "R180") $> U
-      , char 'F' *> (Fwd <$> decimal)
-      ]
+parse :: (Integral a) => Text -> Either String (Instruction a)
+parse "L90" = Right L
+parse "R270" = Right L
+parse "R90" = Right R
+parse "L270" = Right R
+parse "L180" = Right U
+parse "R180" = Right U
+parse input = maybe (Left "empty") Right (T.uncons input) >>= \case
+    ('N', n) -> Rel . (0,) <$> readEntire T.decimal n
+    ('E', n) -> Rel . (, 0) <$> readEntire T.decimal n
+    ('S', n) -> Rel . (0,) . negate <$> readEntire T.decimal n
+    ('W', n) -> Rel . (, 0) . negate <$> readEntire T.decimal n
+    ('F', n) -> Fwd <$> readEntire T.decimal n
+    _ -> Left $ "no parse of " ++ show input
 
 move :: (Num a) => ((a, a), (a, a)) -> Instruction a -> ((a, a), (a, a))
 move ((x, y), dir) (Rel (dx, dy)) = ((x + dx, y + dy), dir)
@@ -42,14 +42,14 @@ move2 (pos, (wx, wy)) L = (pos, (-wy, wx))
 move2 (pos, (wx, wy)) R = (pos, (wy, -wx))
 move2 (pos, (wx, wy)) U = (pos, (-wx, -wy))
 
-day12a :: Text -> Either (ParseErrorBundle Text Void) Int
+day12a :: Text -> Either String Int
 day12a input = do
-    moves <- parse (parser <* eof) "" input
+    moves <- mapM parse $ T.lines input
     let ((x, y), _) = foldl' move ((0, 0), (1, 0)) moves
     pure $ abs x + abs y
 
-day12b :: Text -> Either (ParseErrorBundle Text Void) Int
+day12b :: Text -> Either String Int
 day12b input = do
-    moves <- parse (parser <* eof) "" input
+    moves <- mapM parse $ T.lines input
     let ((x, y), _) = foldl' move2 ((0, 0), (10, 1)) moves
     pure $ abs x + abs y
