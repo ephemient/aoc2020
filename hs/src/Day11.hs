@@ -30,7 +30,7 @@ parse far input = (adjs, V.fromList $ M.elems m) where
             _ -> mempty
     directions = filter (/= (0, 0)) $ (,) <$> [-1..1] <*> [-1..1]
     adjs = flip mapMaybe directions . look <$> M.keys m
-    look (y, x) (dy, dx) = listToMaybe . mapMaybe (flip M.lookupIndex m) .
+    look (y, x) (dy, dx) = listToMaybe . mapMaybe (`M.lookupIndex` m) .
         limitVision $ zip [y + dy, y + 2 * dy..] [x + dx, x + 2 * dx..]
 
 step :: Int -> [[Int]] -> Vector Bool -> Vector Bool
