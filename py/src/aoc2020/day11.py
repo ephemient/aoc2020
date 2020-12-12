@@ -1,5 +1,4 @@
 import fileinput
-import sys
 
 
 class Seat:
