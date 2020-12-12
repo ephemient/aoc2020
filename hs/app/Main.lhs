@@ -104,6 +104,11 @@ import Day10 (day10a, day10b)
 import Day11 (day11a, day11b)
 ```
 
+## [Day 12: Rain Risk](/src/Day12.hs)
+```haskell
+import Day12 (day12a, day12b)
+```
+
 ---
 
 ```haskell
@@ -148,4 +153,5 @@ main = do
     run 9 (print <=< either fail justOrFail) [day9a 25, day9b 25]
     run 10 (either fail print) [day10a, day10b]
     run 11 (print <=< justOrFail) [day11a, day11b]
+    run 12 (print <=< rightOrFail) [day12a, day12b]
 ```
