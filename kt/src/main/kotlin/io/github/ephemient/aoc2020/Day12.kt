@@ -10,16 +10,21 @@ import kotlin.math.abs
 class Day12(lines: List<String>) {
     private val instructions = lines.mapNotNull { it.toInstructionOrNull() }
 
-    fun part1(): Int {
+    private fun solve(waypoints: Boolean): Int {
         var x = 0
         var y = 0
-        var dx = 1
-        var dy = 0
+        var dx = if (waypoints) 10 else 1
+        var dy = if (waypoints) 1 else 0
         for (instruction in instructions) {
             when (instruction) {
                 is Relative -> {
-                    x += instruction.dx
-                    y += instruction.dy
+                    if (waypoints) {
+                        dx += instruction.dx
+                        dy += instruction.dy
+                    } else {
+                        x += instruction.dx
+                        y += instruction.dy
+                    }
                 }
                 is Forward -> {
                     x += instruction.n * dx
@@ -33,28 +38,9 @@ class Day12(lines: List<String>) {
         return abs(x) + abs(y)
     }
 
-    fun part2(): Int {
-        var x = 0
-        var y = 0
-        var dx = 10
-        var dy = 1
-        for (instruction in instructions) {
-            when (instruction) {
-                is Relative -> {
-                    dx += instruction.dx
-                    dy += instruction.dy
-                }
-                is Forward -> {
-                    x += instruction.n * dx
-                    y += instruction.n * dy
-                }
-                is Left -> dx = -dy.also { dy = dx }
-                is Right -> dy = -dx.also { dx = dy }
-                is UTurn -> dx = -dy.also { dy = -dx }
-            }
-        }
-        return abs(x) + abs(y)
-    }
+    fun part1(): Int = solve(false)
+
+    fun part2(): Int = solve(true)
 
     private sealed class Instruction {
         data class Relative(val dx: Int, val dy: Int) : Instruction()

@@ -35,17 +35,23 @@ impl FromStr for Instruction {
     }
 }
 
-pub fn part1<'a, I, S>(lines: I) -> Result<i32, Box<dyn Error + Send + Sync>>
+pub fn solve<'a, I, S>(lines: I, waypoints: bool) -> Result<i32, Box<dyn Error + Send + Sync>>
 where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
 {
-    let (mut x, mut y, mut dx, mut dy) = (0, 0, 1, 0);
+    let (mut x, mut y) = (0, 0);
+    let (mut dx, mut dy) = if waypoints { (10, 1) } else { (1, 0) };
     for line in lines.into_iter() {
         match line.as_ref().parse()? {
-            Instruction::Relative(dx, dy) => {
-                x += dx;
-                y += dy;
+            Instruction::Relative(rx, ry) => {
+                if waypoints {
+                    dx += rx;
+                    dy += ry;
+                } else {
+                    x += rx;
+                    y += ry;
+                }
             }
             Instruction::Left => {
                 let tmp = dx;
@@ -70,39 +76,20 @@ where
     Ok(x.abs() + y.abs())
 }
 
+pub fn part1<'a, I, S>(lines: I) -> Result<i32, Box<dyn Error + Send + Sync>>
+where
+    I: IntoIterator<Item = &'a S>,
+    S: AsRef<str> + 'a,
+{
+    solve(lines, false)
+}
+
 pub fn part2<'a, I, S>(lines: I) -> Result<i32, Box<dyn Error + Send + Sync>>
 where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
 {
-    let (mut x, mut y, mut wx, mut wy) = (0, 0, 10, 1);
-    for line in lines.into_iter() {
-        match line.as_ref().parse()? {
-            Instruction::Relative(dx, dy) => {
-                wx += dx;
-                wy += dy;
-            }
-            Instruction::Left => {
-                let tmp = wx;
-                wx = -wy;
-                wy = tmp;
-            }
-            Instruction::Right => {
-                let tmp = wx;
-                wx = wy;
-                wy = -tmp;
-            }
-            Instruction::UTurn => {
-                wx = -wx;
-                wy = -wy;
-            }
-            Instruction::Forward(n) => {
-                x += n * wx;
-                y += n * wy;
-            }
-        }
-    }
-    Ok(x.abs() + y.abs())
+    solve(lines, true)
 }
 
 #[cfg(test)]

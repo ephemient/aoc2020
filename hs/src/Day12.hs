@@ -28,28 +28,23 @@ parse input = maybe (Left "empty") Right (T.uncons input) >>= \case
     ('F', n) -> Fwd <$> readEntire T.decimal n
     _ -> Left $ "no parse of " ++ show input
 
-move :: (Num a) => ((a, a), (a, a)) -> Instruction a -> ((a, a), (a, a))
-move ((x, y), dir) (Rel (dx, dy)) = ((x + dx, y + dy), dir)
-move ((x, y), dir@(dx, dy)) (Fwd n) = ((x + n * dx, y + n * dy), dir)
-move (pos, (dx, dy)) L = (pos, (-dy, dx))
-move (pos, (dx, dy)) R = (pos, (dy, -dx))
-move (pos, (dx, dy)) U = (pos, (-dx, -dy))
-
-move2 :: (Num a) => ((a, a), (a, a)) -> Instruction a -> ((a, a), (a, a))
-move2 (pos, (wx, wy)) (Rel (dx, dy)) = (pos, (wx + dx, wy + dy))
-move2 ((x, y), way@(wx, wy)) (Fwd n) = ((x + n * wx, y + n * wy), way)
-move2 (pos, (wx, wy)) L = (pos, (-wy, wx))
-move2 (pos, (wx, wy)) R = (pos, (wy, -wx))
-move2 (pos, (wx, wy)) U = (pos, (-wx, -wy))
+day12 :: Bool -> Text -> Either String Int
+day12 waypoints input = do
+    ((x, y), _) <- foldl' move
+        ((0, 0), if waypoints then (10, 1) else (1, 0)) <$>
+        mapM parse (T.lines input)
+    pure $ abs x + abs y
+  where
+    move (pos@(x, y), dir@(dx, dy)) (Rel (rx, ry))
+      | waypoints = (pos, (dx + rx, dy + ry))
+      | otherwise = ((x + rx, y + ry), dir)
+    move ((x, y), dir@(dx, dy)) (Fwd n) = ((x + n * dx, y + n * dy), dir)
+    move (pos, (dx, dy)) L = (pos, (-dy, dx))
+    move (pos, (dx, dy)) R = (pos, (dy, -dx))
+    move (pos, (dx, dy)) U = (pos, (-dx, -dy))
 
 day12a :: Text -> Either String Int
-day12a input = do
-    moves <- mapM parse $ T.lines input
-    let ((x, y), _) = foldl' move ((0, 0), (1, 0)) moves
-    pure $ abs x + abs y
+day12a = day12 False
 
 day12b :: Text -> Either String Int
-day12b input = do
-    moves <- mapM parse $ T.lines input
-    let ((x, y), _) = foldl' move2 ((0, 0), (10, 1)) moves
-    pure $ abs x + abs y
+day12b = day12 True
