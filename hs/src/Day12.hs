@@ -13,7 +13,7 @@ import Text.Megaparsec (MonadParsec, ParseErrorBundle, (<|>), choice, eof, parse
 import Text.Megaparsec.Char (char, newline, string)
 import Text.Megaparsec.Char.Lexer (decimal)
 
-data Instruction a = Rel (a, a) | Abs a | L | R | U
+data Instruction a = Rel (a, a) | Fwd a | L | R | U
 
 parser :: (Num a, MonadParsec e Text m) => m [Instruction a]
 parser = parseLine `sepEndBy` newline where
@@ -25,24 +25,22 @@ parser = parseLine `sepEndBy` newline where
       , (string "L90" <|> string "R270") $> L
       , (string "R90" <|> string "L270") $> R
       , (string "L180" <|> string "R180") $> U
-      , char 'F' *> (Abs <$> decimal)
+      , char 'F' *> (Fwd <$> decimal)
       ]
 
 move :: (Num a) => ((a, a), (a, a)) -> Instruction a -> ((a, a), (a, a))
 move ((x, y), dir) (Rel (dx, dy)) = ((x + dx, y + dy), dir)
-move ((x, y), dir@(dx, dy)) (Abs n) = ((x + n * dx, y + n * dy), dir)
+move ((x, y), dir@(dx, dy)) (Fwd n) = ((x + n * dx, y + n * dy), dir)
 move (pos, (dx, dy)) L = (pos, (-dy, dx))
 move (pos, (dx, dy)) R = (pos, (dy, -dx))
 move (pos, (dx, dy)) U = (pos, (-dx, -dy))
 
 move2 :: (Num a) => ((a, a), (a, a)) -> Instruction a -> ((a, a), (a, a))
-move2 (pos, (x, y)) (Rel (dx, dy)) = (pos, (x + dx, y + dy))
-move2 ((x, y), (wx, wy)) (Abs n) = ((x + dx, y + dy), (wx + dx, wy + dy)) where
-    dx = n * (wx - x)
-    dy = n * (wy - y)
-move2 (pos@(x, y), (wx, wy)) L = (pos, (x + y - wy, y - x + wx))
-move2 (pos@(x, y), (wx, wy)) R = (pos, (x - y + wy, y + x - wx))
-move2 (pos@(x, y), (wx, wy)) U = (pos, (x + x - wx, y + y - wy))
+move2 (pos, (wx, wy)) (Rel (dx, dy)) = (pos, (wx + dx, wy + dy))
+move2 ((x, y), way@(wx, wy)) (Fwd n) = ((x + n * wx, y + n * wy), way)
+move2 (pos, (wx, wy)) L = (pos, (-wy, wx))
+move2 (pos, (wx, wy)) R = (pos, (wy, -wx))
+move2 (pos, (wx, wy)) U = (pos, (-wx, -wy))
 
 day12a :: Text -> Either (ParseErrorBundle Text Void) Int
 day12a input = do
