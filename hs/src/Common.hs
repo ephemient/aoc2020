@@ -25,7 +25,7 @@ crt (r1, q1) (r2, q2) = (r3 `mod` q3, q3) where
 -- prop> gcd a b == (s, t, g) ==> a * s + b * t == g
 egcd :: (Integral a) => a -> a -> (a, a, a)
 egcd a 0 = (1, 0, a)
-egcd a b = (t, s - q * t, abs g) where
+egcd a b = (t, s - q * t, g) where
     (q, r) = a `quotRem` b
     (s, t, g) = egcd b r
 
