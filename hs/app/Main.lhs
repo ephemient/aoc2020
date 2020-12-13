@@ -109,6 +109,11 @@ import Day11 (day11a, day11b)
 import Day12 (day12a, day12b)
 ```
 
+## [Day 13: Shuttle Search](/src/Day13.hs)
+```haskell
+import Day13 (day13a, day13b)
+```
+
 ---
 
 ```haskell
@@ -154,4 +159,5 @@ main = do
     run 10 (either fail print) [day10a, day10b]
     run 11 (print <=< justOrFail) [day11a, day11b]
     run 12 (either fail print) [day12a, day12b]
+    run 13 (>>= print) [either fail pure . day13a, justOrFail . day13b]
 ```
