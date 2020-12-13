@@ -15,8 +15,8 @@ day13a :: Text -> Either String Int
 day13a (T.lines -> [line1, line2]) = do
     n <- readEntire T.decimal line1
     let xs = rights $ readEntire T.decimal <$> T.splitOn "," line2
-        (t, x) = minimum [((-n) `mod` p, p) | p <- xs]
-    pure $ t * x
+    if null xs then Left "no parse" else Right $
+        uncurry (*) $ minimum [((-n) `mod` p, p) | p <- xs]
 day13a _ = Left "no parse"
 
 day13b :: Text -> Maybe Int
