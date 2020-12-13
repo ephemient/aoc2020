@@ -1,10 +1,10 @@
 {-# LANGUAGE TypeApplications #-}
 module CommonSpec (spec) where
 
-import Common
+import Common (crt, egcd)
 import Test.Hspec (Spec, describe)
-import Test.Hspec.QuickCheck
-import Test.QuickCheck
+import Test.Hspec.QuickCheck (prop)
+import Test.QuickCheck ((===), arbitrarySizedIntegral, conjoin, counterexample, cover, suchThat)
 
 spec :: Spec
 spec = do
