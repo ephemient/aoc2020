@@ -4,7 +4,7 @@ module CommonSpec (spec) where
 import Common (crt, egcd)
 import Test.Hspec (Spec, describe)
 import Test.Hspec.QuickCheck (prop)
-import Test.QuickCheck ((===), arbitrarySizedIntegral, conjoin, counterexample, cover, suchThat)
+import Test.QuickCheck (Large(Large), (===), arbitrarySizedIntegral, conjoin, counterexample, cover, suchThat)
 
 spec :: Spec
 spec = do
