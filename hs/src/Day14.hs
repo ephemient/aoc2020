@@ -5,15 +5,14 @@ Description:    <https://adventofcode.com/2020/day/14 Day 14: Docking Data>
 {-# LANGUAGE FlexibleContexts, OverloadedStrings, RecordWildCards #-}
 module Day14 (day14a, day14b) where
 
-import Control.Monad (filterM)
-import Data.Bits (Bits((.&.), (.|.), clearBit, testBit, xor))
-import qualified Data.IntMap as IM (empty, insert)
+import Data.Bits (Bits((.&.), (.|.), shiftL, shiftR, popCount, xor))
+import qualified Data.IntMap as IntMap (empty, insert)
 import Data.List (foldl')
 import Data.Text (Text)
 import Data.Void (Void)
 import Data.Word (Word64)
 import Numeric (readInt)
-import Text.Megaparsec (MonadParsec, ParseErrorBundle, (<|>), count, oneOf, parse, sepEndBy)
+import Text.Megaparsec (MonadParsec, ParseErrorBundle, (<|>), oneOf, parse, sepEndBy, some)
 import Text.Megaparsec.Char (newline, string)
 import Text.Megaparsec.Char.Lexer (decimal)
 
@@ -25,7 +24,7 @@ parser :: (Num a, Num b, Num c, MonadParsec e Text m) => m [Instruction a b c]
 parser = (write <|> mask) `sepEndBy` newline where
     write = Write <$> (string "mem[" *> decimal) <*> (string "] = " *> decimal)
     mask = do
-        chars <- string "mask = " *> count 36 (oneOf ['0', '1', 'X'])
+        chars <- string "mask = " *> some (oneOf ['0', '1', 'X'])
         let (maskOff, ""):_ = readInt 2 (const True) (fromEnum . (== '1')) chars
             (maskOn, ""):_ = readInt 2 (const True) (fromEnum . (/= '0')) chars
         pure Mask {..}
@@ -33,23 +32,26 @@ parser = (write <|> mask) `sepEndBy` newline where
 day14a :: Text -> Either (ParseErrorBundle Text Void) Word64
 day14a input = sum <$> do
     instructions <- parse parser "" input
-    pure . fst $ foldl' f (IM.empty, undefined) instructions
+    pure . fst $ foldl' f (IntMap.empty, undefined) instructions
   where
     f (mem, _) Mask {..} = (mem, (maskOff, maskOn))
     f (mem, mask@(off, on)) Write {..} =
-        (IM.insert writeAddr (writeValue .&. on .|. off) mem, mask)
+        (IntMap.insert writeAddr (writeValue .&. on .|. off) mem, mask)
 
 day14b :: Text -> Either (ParseErrorBundle Text Void) Word64
 day14b input = sum <$> do
     instructions <- parse parser "" input
-    pure . fst $ foldl' f (IM.empty, (0, 0)) instructions
+    pure . fst $ foldl' f (IntMap.empty, (0, 0)) instructions
   where
     f (mem, _) Mask {..} = (mem, (maskOff, maskOn))
     f (mem, mask@(off, on)) Write {..} =
-      ( foldl' (flip (`IM.insert` writeValue)) mem $ expand off on writeAddr
+      ( foldl' (flip (`IntMap.insert` writeValue)) mem $
+            xor (writeAddr .|. off) <$> bitPowerSet (off `xor` on)
       , mask
       )
 
-expand :: (Bits a) => a -> a -> a -> [a]
-expand off on x = foldl' clearBit (x .|. on) <$> filterM (const [False, True])
-    (filter (testBit $ off `xor` on) [0..35])
+bitPowerSet :: (Bits a, Enum a, Num a) => a -> [a]
+bitPowerSet bits = chooseBits <$> [0..1 `shiftL` popCount bits - 1] where
+    chooseBits i = fst $ foldl' (f i) (0, bits) [0..popCount bits - 1]
+    f i (x, k) j =
+        (x `xor` bits .&. (k `xor` (k - i `shiftR` j .&. 1)), k .&. (k - 1))

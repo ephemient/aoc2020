@@ -85,8 +85,8 @@ where
                         (0..diff.count_ones())
                             .fold((addr | mask.0, diff), |(addr2, diff2), j| {
                                 (
-                                    addr2 ^ diff & (diff2 ^ diff2 - (i >> j & 1)),
-                                    diff2 & diff2 - 1,
+                                    addr2 ^ diff & (diff2 ^ (diff2 - (i >> j & 1))),
+                                    diff2 & (diff2 - 1),
                                 )
                             })
                             .0,

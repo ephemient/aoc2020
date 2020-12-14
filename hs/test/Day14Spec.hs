@@ -1,4 +1,4 @@
-{-# LANGUAGE OverloadedStrings, TypeApplications #-}
+{-# LANGUAGE OverloadedStrings #-}
 module Day14Spec (spec) where
 
 import Data.Text (Text)

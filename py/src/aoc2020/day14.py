@@ -53,10 +53,16 @@ def part2(lines):
             maskoff, maskon = instruction.off, instruction.on
         elif isinstance(instruction, Write):
             diff = maskoff ^ maskon
-            for bits in product(*(((), (i, )) for i in range(diff.bit_length())
-                                  if diff & 1 << i)):
-                mem[reduce(lambda x, i: x ^ 1 << i, chain.from_iterable(bits),
-                           instruction.addr | maskoff)] = instruction.value
+            popcount = bin(diff).count('1')
+            for i in range(1 << popcount):
+
+                def f(acc, j):
+                    x, k = acc
+                    return (x ^ diff & (k ^ k - (i >> j & 1)), k & k - 1)
+
+                mem[reduce(
+                    f, range(popcount),
+                    (instruction.addr | maskoff, diff))[0]] = instruction.value
     return sum(mem.values())
 
 

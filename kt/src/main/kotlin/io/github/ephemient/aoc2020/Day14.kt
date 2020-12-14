@@ -37,20 +37,14 @@ class Day14(lines: List<String>) {
                 }
                 is Write -> {
                     val diff = maskOff xor maskOn
-                    val numDiffBits = diff.countOneBits()
-                    var addr = instruction.addr or maskOff
-                    for (i in 0 until (1 shl numDiffBits)) {
-                        mem[addr] = instruction.value
-                        var localDiff = diff
-                        val flips = i + 1 xor i
-                        for (j in 0 until numDiffBits) {
-                            val bit = localDiff.takeLowestOneBit()
-                            if (1 shl j and flips != 0) {
-                                addr = addr xor bit
-                            }
-                            localDiff = localDiff xor bit
+                    for (i in 0 until (1 shl diff.countOneBits())) {
+                        var x = instruction.addr or maskOff
+                        var k = diff
+                        for (j in 0 until diff.countOneBits()) {
+                            x = k xor k - (i shr j and 1) and diff xor x
+                            k = k and k - 1
                         }
-                        check(localDiff == 0L)
+                        mem[x] = instruction.value
                     }
                 }
             }
