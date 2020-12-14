@@ -83,8 +83,11 @@ where
                 for i in 0..1 << diff.count_ones() {
                     mem.insert(
                         (0..diff.count_ones())
-                            .fold((addr, diff), |(addr, diff), j| {
-                                (addr ^ diff ^ diff - (i >> j & 1), diff & diff - 1)
+                            .fold((addr | mask.0, diff), |(addr2, diff2), j| {
+                                (
+                                    addr2 ^ diff & (diff2 ^ diff2 - (i >> j & 1)),
+                                    diff2 & diff2 - 1,
+                                )
                             })
                             .0,
                         value,
