@@ -114,6 +114,11 @@ import Day12 (day12a, day12b)
 import Day13 (day13a, day13b)
 ```
 
+## [Day 14: Docking Data](/src/Day14.hs)
+```haskell
+import Day14 (day14a, day14b)
+```
+
 ---
 
 ```haskell
@@ -160,4 +165,5 @@ main = do
     run 11 (print <=< justOrFail) [day11a, day11b]
     run 12 (either fail print) [day12a, day12b]
     run 13 (>>= print) [either fail pure . day13a, justOrFail . day13b]
+    run 14 (print <=< rightOrFail) [day14a, day14b]
 ```
