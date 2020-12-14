@@ -6,14 +6,14 @@ Description:    <https://adventofcode.com/2020/day/14 Day 14: Docking Data>
 module Day14 (day14a, day14b) where
 
 import Control.Monad (filterM)
-import Data.Bits (Bits((.&.), (.|.), clearBit, testBit, xor), FiniteBits(finiteBitSize))
-import qualified Data.IntMap as IM
+import Data.Bits (Bits((.&.), (.|.), clearBit, testBit, xor))
+import qualified Data.IntMap as IM (empty, insert)
 import Data.List (foldl')
 import Data.Text (Text)
 import Data.Void (Void)
 import Data.Word (Word64)
 import Numeric (readInt)
-import Text.Megaparsec (MonadParsec, ParseErrorBundle, (<|>), oneOf, parse, sepEndBy, some)
+import Text.Megaparsec (MonadParsec, ParseErrorBundle, (<|>), count, oneOf, parse, sepEndBy)
 import Text.Megaparsec.Char (newline, string)
 import Text.Megaparsec.Char.Lexer (decimal)
 
@@ -25,7 +25,7 @@ parser :: (Num a, Num b, Num c, MonadParsec e Text m) => m [Instruction a b c]
 parser = (write <|> mask) `sepEndBy` newline where
     write = Write <$> (string "mem[" *> decimal) <*> (string "] = " *> decimal)
     mask = do
-        chars <- string "mask = " *> some (oneOf ['0', '1', 'X'])
+        chars <- string "mask = " *> count 36 (oneOf ['0', '1', 'X'])
         let (maskOff, ""):_ = readInt 2 (const True) (fromEnum . (== '1')) chars
             (maskOn, ""):_ = readInt 2 (const True) (fromEnum . (/= '0')) chars
         pure Mask {..}
@@ -50,6 +50,6 @@ day14b input = sum <$> do
       , mask
       )
 
-expand :: (FiniteBits a) => a -> a -> a -> [a]
+expand :: (Bits a) => a -> a -> a -> [a]
 expand off on x = foldl' clearBit (x .|. on) <$> filterM (const [False, True])
-    (filter (testBit $ off `xor` on) [0..finiteBitSize x - 1])
+    (filter (testBit $ off `xor` on) [0..35])
