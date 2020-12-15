@@ -119,6 +119,11 @@ import Day13 (day13a, day13b)
 import Day14 (day14a, day14b)
 ```
 
+## [Day 15: Rambunctious Recitation](/src/Day15.hs)
+```haskell
+import Day15 (day15)
+```
+
 ---
 
 ```haskell
@@ -166,4 +171,5 @@ main = do
     run 12 (either fail print) [day12a, day12b]
     run 13 (>>= print) [either fail pure . day13a, justOrFail . day13b]
     run 14 (print <=< rightOrFail) [day14a, day14b]
+    run 15 (either fail print) [day15 2020, day15 30000000]
 ```
