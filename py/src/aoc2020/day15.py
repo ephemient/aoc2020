@@ -1,3 +1,4 @@
+from array import array
 import fileinput
 
 
@@ -25,12 +26,14 @@ def run(n, lines):
     0
     '''
     nums = list(map(int, lines[0].split(',')))
-    if n < len(nums):
+    if n <= len(nums):
         return int(nums[n - 1])
     last = nums[-1]
-    seen = {x: i for i, x in enumerate(nums[:-1])}
-    for i in range(len(seen), n - 1):
-        next = i - seen.get(last, i)
+    seen = array('I', (0, ) * (max(n - 1, *nums) + 1))
+    for i, x in enumerate(nums[:-1]):
+        seen[x] = i + 1
+    for i in range(len(nums), n):
+        next = i - (seen[last] or i)
         seen[last] = i
         last = next
     return last

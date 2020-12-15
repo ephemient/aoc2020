@@ -14,11 +14,14 @@ class Day15(lines: List<String>) {
     internal operator fun get(n: Int): Int? {
         if (n <= nums.size) return nums.getOrNull(n - 1)
         var last = nums.lastOrNull() ?: return null
-        val seen = nums.subList(0, nums.lastIndex)
-            .withIndex()
-            .associateTo(mutableMapOf()) { (i, x) -> x to i }
-        for (i in nums.lastIndex until n - 1) {
-            last = i - (seen.put(last, i) ?: i)
+        val seen = IntArray(maxOf(n, nums.maxOf { it + 1 }))
+        for ((i, x) in nums.subList(0, nums.lastIndex).withIndex()) {
+            seen[x] = i + 1
+        }
+        for (i in nums.size until n) {
+            val j = seen[last]
+            seen[last] = i
+            last = if (j == 0) 0 else i - j
         }
         return last
     }

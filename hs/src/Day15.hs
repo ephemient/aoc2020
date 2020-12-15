@@ -6,24 +6,24 @@ Description:    <https://adventofcode.com/2020/day/15 Day 15: Rambunctious Recit
 module Day15 (day15) where
 
 import Common (readEntire)
-import qualified Data.IntMap as IntMap ((!?), fromList, insert)
-import Data.List (elemIndex)
-import Data.List.NonEmpty (NonEmpty((:|)), nonEmpty)
+import Control.Monad (foldM)
+import Control.Monad.ST (runST)
+import Data.Functor (($>))
 import Data.Text (Text)
 import qualified Data.Text as T (splitOn, stripEnd)
 import qualified Data.Text.Read as T (decimal)
+import qualified Data.Vector.Unboxed.Mutable as MV (new, read, write)
 
 day15 :: Int -> Text -> Either String Int
 day15 n input = do
     nums <- mapM (readEntire T.decimal) . T.splitOn "," $ T.stripEnd input
-    rhead :| rtail <- maybe (Left "empty") Right . nonEmpty $ reverse nums
-    let start =
-          ( length nums
-          , maybe 0 succ $ elemIndex rhead rtail
-          , IntMap.fromList $ zip nums [0..]
-          )
-        nums' = nums ++ map snd' (iterate f start)
-    pure $ nums' !! (n - 1)
-  where
-    f (j, x, m) = (j + 1, maybe 0 (j -) $ m IntMap.!? x, IntMap.insert x j m)
-    snd' (_, x, _) = x
+    let m = length nums
+        top = maximum $ n : (succ <$> nums)
+    pure $ if n <= length nums then nums !! (n - 1) else runST $ do
+        seen <- MV.new top
+        sequence_ $ zipWith (MV.write seen) nums [1..m - 1]
+        let f x i = do
+                j <- MV.read seen x
+                let y = if j == 0 then 0 else i - j
+                MV.write seen x i $> y
+        foldM f (last nums) [m..n - 1]

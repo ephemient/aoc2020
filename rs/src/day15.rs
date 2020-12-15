@@ -1,7 +1,7 @@
-use std::collections::HashMap;
+use std::cmp::max;
 use std::num::ParseIntError;
 
-pub fn part1<'a, I, S>(lines: I) -> Result<Option<usize>, ParseIntError>
+pub fn part1<'a, I, S>(lines: I) -> Result<Option<u32>, ParseIntError>
 where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
@@ -9,7 +9,7 @@ where
     run(2020, lines)
 }
 
-pub fn part2<'a, I, S>(lines: I) -> Result<Option<usize>, ParseIntError>
+pub fn part2<'a, I, S>(lines: I) -> Result<Option<u32>, ParseIntError>
 where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
@@ -17,7 +17,7 @@ where
     run(30000000, lines)
 }
 
-fn run<'a, I, S>(n: usize, lines: I) -> Result<Option<usize>, ParseIntError>
+fn run<'a, I, S>(n: u32, lines: I) -> Result<Option<u32>, ParseIntError>
 where
     I: IntoIterator<Item = &'a S>,
     S: AsRef<str> + 'a,
@@ -27,25 +27,26 @@ where
             .as_ref()
             .split(',')
             .map(|s| s.parse())
-            .collect::<Result<Vec<usize>, _>>()?,
+            .collect::<Result<Vec<u32>, _>>()?,
         None => return Ok(None),
     };
-    if n < nums.len() {
-        return Ok(Some(nums[n - 1]));
+    if n <= nums.len() as u32 {
+        return Ok(Some(nums[n as usize - 1]));
     }
     let mut last = match nums.last() {
         Some(last) => *last,
         None => return Ok(None),
     };
-    let mut seen = nums[0..nums.len() - 1]
-        .into_iter()
-        .copied()
-        .enumerate()
-        .map(|(i, x)| (x, i))
-        .collect::<HashMap<_, _>>();
-    for i in seen.len()..n - 1 {
-        let next = seen.get(&last).map_or(0, |x| i - *x);
-        seen.insert(last, i);
+    let top = max(n, nums.iter().map(|x| x + 1).max().unwrap_or(0));
+    let mut seen = Vec::with_capacity(top as usize);
+    seen.resize(top as usize, 0);
+    for (i, x) in nums[0..nums.len() - 1].iter().enumerate() {
+        seen[*x as usize] = i as u32 + 1
+    }
+    for i in nums.len() as u32..n {
+        let j = seen[last as usize];
+        let next = if j == 0 { 0 } else { i - j };
+        seen[last as usize] = i;
         last = next;
     }
     Ok(Some(last))

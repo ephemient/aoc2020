@@ -13,7 +13,7 @@ repositories {
 
 application {
     mainClassName = "io.github.ephemient.aoc2020.MainKt"
-    applicationDefaultJvmArgs = listOf("-Xmx1536m")
+    // applicationDefaultJvmArgs = listOf("-Xmx1536m")
 }
 
 val jar by tasks.getting(Jar::class) {
@@ -77,7 +77,7 @@ tasks.withType<Test> {
         info.events("PASSED", "FAILED", "SKIPPED", "STANDARD_ERROR", "STANDARD_OUT")
         debug.events("PASSED", "FAILED", "SKIPPED", "STANDARD_ERROR", "STANDARD_OUT", "STARTED")
     }
-    jvmArgs("-Xmx1536m")
+    // jvmArgs("-Xmx1536m")
 }
 
 val jmhExclude: String? by project
