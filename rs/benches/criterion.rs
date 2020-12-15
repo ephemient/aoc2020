@@ -2,7 +2,7 @@
 extern crate build_const;
 
 use aoc2020::{
-    day1, day10, day11, day12, day13, day14, day2, day3, day4, day5, day6, day7, day8, day9,
+    day1, day10, day11, day12, day13, day14, day15, day2, day3, day4, day5, day6, day7, day8, day9,
 };
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
@@ -56,6 +56,12 @@ fn aoc2020_bench(c: &mut Criterion) {
     });
     c.bench_function("day 14 part 2", |b| {
         b.iter(|| day14::part2(black_box(DAY14)))
+    });
+    c.bench_function("day 15 part 1", |b| {
+        b.iter(|| day15::part1(black_box(DAY15)))
+    });
+    c.bench_function("day 15 part 2", |b| {
+        b.iter(|| day15::part2(black_box(DAY15)))
     });
 }
 

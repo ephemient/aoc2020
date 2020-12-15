@@ -44,7 +44,8 @@ jobs:
           key: ${{ runner.os }}-${{ steps.rust-toolchain.outputs.rustc_hash }}-${{ hashFiles('**/Cargo.*') }}-${{ steps.get-week.outputs.iso-week }}
           restore-keys: ${{ runner.os }}-${{ steps.rust-toolchain.outputs.rustc_hash }}-${{ hashFiles('**/Cargo.*') }}-
           path: ~/.cargo
-      - run: |
-          cargo test
+      - name: Run cargo test
+        run: |
           cargo build --all-features --all-targets --release
+          cargo test --release
         working-directory: rs

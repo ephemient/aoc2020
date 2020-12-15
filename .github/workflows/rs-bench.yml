@@ -37,7 +37,8 @@ jobs:
           key: ${{ runner.os }}-${{ steps.rust-toolchain.outputs.rustc_hash }}-${{ hashFiles('**/Cargo.*') }}-${{ steps.get-week.outputs.iso-week }}
           restore-keys: ${{ runner.os }}-${{ steps.rust-toolchain.outputs.rustc_hash }}-${{ hashFiles('**/Cargo.*') }}-
           path: ~/.cargo
-      - run: |
+      - name: Run cargo bench
+        run: |
           cargo bench --bench criterion -- --verbose
           rsync --archive --delete --verbose --whole-file target/criterion/ ../docs/criterion/
         working-directory: rs
