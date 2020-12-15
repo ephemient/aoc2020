@@ -2,17 +2,18 @@
 Module:         Day14
 Description:    <https://adventofcode.com/2020/day/14 Day 14: Docking Data>
 -}
-{-# LANGUAGE FlexibleContexts, OverloadedStrings, RecordWildCards #-}
+{-# LANGUAGE FlexibleContexts, OverloadedStrings, TypeFamilies, RecordWildCards #-}
 module Day14 (day14a, day14b) where
 
 import Data.Bits (Bits((.&.), (.|.), shiftL, shiftR, popCount, xor))
 import qualified Data.IntMap as IntMap (empty, insert)
 import Data.List (foldl')
+import Data.String (IsString)
 import Data.Text (Text)
 import Data.Void (Void)
 import Data.Word (Word64)
 import Numeric (readInt)
-import Text.Megaparsec (MonadParsec, ParseErrorBundle, (<|>), oneOf, parse, sepEndBy, some)
+import Text.Megaparsec (MonadParsec, ParseErrorBundle, Token, Tokens, (<|>), oneOf, parse, sepEndBy, some)
 import Text.Megaparsec.Char (newline, string)
 import Text.Megaparsec.Char.Lexer (decimal)
 
@@ -20,7 +21,7 @@ data Instruction a b c
   = Mask { maskOff :: a, maskOn :: a }
   | Write { writeAddr :: b, writeValue :: c }
 
-parser :: (Num a, Num b, Num c, MonadParsec e Text m) => m [Instruction a b c]
+parser :: (Num a, Num b, Num c, MonadParsec e s m, IsString (Tokens s), Token s ~ Char) => m [Instruction a b c]
 parser = (write <|> mask) `sepEndBy` newline where
     write = Write <$> (string "mem[" *> decimal) <*> (string "] = " *> decimal)
     mask = do
