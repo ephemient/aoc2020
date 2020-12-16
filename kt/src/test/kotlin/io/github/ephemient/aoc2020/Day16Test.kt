@@ -38,6 +38,9 @@ class Day16Test {
             "15,1,5",
             "5,14,9",
         )
-        assertEquals(mapOf("class" to 12, "row" to 11, "seat" to 13), Day16(lines).part2Internal())
+        assertEquals(
+            listOf("class" to 12, "row" to 11, "seat" to 13),
+            Day16(lines).part2Internal().sortedBy { it.first }.toList()
+        )
     }
 }

@@ -1,6 +1,5 @@
 package io.github.ephemient.aoc2020
 
-@OptIn(ExperimentalStdlibApi::class)
 class Day16(lines: List<String>) {
     private val rules: List<Pair<String, List<IntRange>>>
     private val yours: IntArray
@@ -8,6 +7,7 @@ class Day16(lines: List<String>) {
 
     init {
         val lineIterator = lines.iterator()
+        @OptIn(ExperimentalStdlibApi::class)
         rules = buildList {
             for (line in lineIterator) {
                 if (line.isEmpty()) break
@@ -24,6 +24,7 @@ class Day16(lines: List<String>) {
         yours = lineIterator.next().split(',').map { it.toInt() }.toIntArray()
         require(lineIterator.next().isEmpty())
         require(lineIterator.next() == "nearby tickets:")
+        @OptIn(ExperimentalStdlibApi::class)
         nearby = buildList {
             for (line in lineIterator) {
                 add(line.split(',').map { it.toInt() }.toIntArray())
@@ -38,11 +39,11 @@ class Day16(lines: List<String>) {
         }
     }
 
-    fun part2(): Long = part2Internal().entries.fold(1L) { acc, (key, value) ->
+    fun part2(): Long = part2Internal().fold(1L) { acc, (key, value) ->
         if (key.startsWith("departure")) acc * value.toLong() else acc
     }
 
-    internal fun part2Internal() = buildMap<String, Int> {
+    internal fun part2Internal() = sequence {
         val ranges = rules.flatMap { it.second }
         val fields = yours.indices.associateWithTo(mutableMapOf()) {
             rules.mapTo(mutableSetOf()) { it.first }
@@ -60,9 +61,9 @@ class Day16(lines: List<String>) {
         while (true) {
             val (i, set) = fields.entries.firstOrNull { it.value.size == 1 } ?: break
             val name = set.single()
-            put(name, yours[i])
+            yield(name to yours[i])
             fields.remove(i)
-            for (set in fields.values) set.remove(name)
+            for (other in fields.values) other.remove(name)
         }
     }
 }
