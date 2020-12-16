@@ -38,8 +38,7 @@ where
         None => return Ok(None),
     };
     let top = max(n, nums.iter().map(|x| x + 1).max().unwrap_or(0));
-    let mut seen = Vec::with_capacity(top as usize);
-    seen.resize(top as usize, 0);
+    let mut seen = vec![0; top as usize];
     for (i, x) in nums[0..nums.len() - 1].iter().enumerate() {
         seen[*x as usize] = i as u32 + 1
     }
