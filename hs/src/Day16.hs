@@ -2,24 +2,25 @@
 Module:         Day16
 Description:    <https://adventofcode.com/2020/day/16 Day 16: Ticket Translation>
 -}
-{-# LANGUAGE FlexibleContexts, NamedFieldPuns, NondecreasingIndentation, OverloadedStrings #-}
+{-# LANGUAGE FlexibleContexts, NamedFieldPuns, NondecreasingIndentation, OverloadedStrings, TypeFamilies #-}
 module Day16 (day16a, day16b, day16b') where
 
 import Data.Char (isAlphaNum)
 import qualified Data.IntSet as IntSet (delete, fromDistinctAscList, intersection, size, toList)
 import Data.Ix (inRange)
 import Data.List (foldl', foldl1')
+import Data.String (IsString)
 import Data.Text (Text)
 import qualified Data.Text as T (isPrefixOf)
 import Data.Void (Void)
-import Text.Megaparsec (MonadParsec, ParseErrorBundle, between, eof, parse, sepBy, sepEndBy, some, takeWhile1P)
+import Text.Megaparsec (MonadParsec, ParseErrorBundle, Token, Tokens, between, eof, parse, sepBy, sepEndBy, some, takeWhile1P)
 import Text.Megaparsec.Char (char, newline, space, string)
 import Text.Megaparsec.Char.Lexer (decimal)
 
-data Input = Input { rules :: [Rule], yours :: [Int], nearby :: [[Int]] }
-data Rule = Rule { name :: Text, ranges :: [(Int, Int)] }
+data Input k a = Input { rules :: [Rule k a], yours :: [a], nearby :: [[a]] }
+data Rule k a = Rule { name :: k, ranges :: [(a, a)] }
 
-parser :: (MonadParsec e Text m) => m Input
+parser :: (MonadParsec e k m, IsString (Tokens k), Token k ~ Char, Num a) => m (Input (Tokens k) a)
 parser = Input <$> rules <*> yours <*> nearby where
     rules = rule `sepEndBy` newline <* space
     name = takeWhile1P Nothing $ \c -> c == ' ' || isAlphaNum c
