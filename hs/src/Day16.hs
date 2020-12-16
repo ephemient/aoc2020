@@ -9,8 +9,6 @@ import Data.Char (isAlphaNum)
 import qualified Data.IntSet as IntSet (delete, fromDistinctAscList, intersection, size, toList)
 import Data.Ix (inRange)
 import Data.List (foldl', foldl1')
-import Data.Map (Map)
-import qualified Data.Map as Map (empty, filterWithKey, insert)
 import Data.Text (Text)
 import qualified Data.Text as T (isPrefixOf)
 import Data.Void (Void)
@@ -22,11 +20,11 @@ data Input = Input { rules :: [Rule], yours :: [Int], nearby :: [[Int]] }
 data Rule = Rule { name :: Text, ranges :: [(Int, Int)] }
 
 parser :: (MonadParsec e Text m) => m Input
-parser = Input <$> rules <*> yours <*> nearby <* space where
+parser = Input <$> rules <*> yours <*> nearby where
     rules = rule `sepEndBy` newline <* space
     name = takeWhile1P Nothing $ \c -> c == ' ' || isAlphaNum c
     rule = Rule <$> (name <* string ": ") <*>
-        (((,) <$> decimal <*> (char '-' *> decimal)) `sepBy` string " or ")
+        (((,) <$> decimal <* char '-' <*> decimal) `sepBy` string " or ")
     ticket = decimal `sepBy` char ',' <* newline
     yours = between (string "your ticket:\n") space ticket
     nearby = between (string "nearby tickets:\n") space $ some ticket
@@ -37,11 +35,11 @@ day16a input = do
     let isValid num = any (`inRange` num) $ rules >>= ranges
     pure . sum . filter (not . isValid) $ concat nearby
 
-day16b :: Text -> Either (ParseErrorBundle Text Void) (Maybe Int)
-day16b = fmap (fmap $ foldl' (*) 1 . Map.filterWithKey isDeparture) . day16b'
-  where isDeparture name _ = "departure" `T.isPrefixOf` name
+day16b :: Text -> Either (ParseErrorBundle Text Void) Int
+day16b = fmap (foldl' (*) 1 . map snd . filter (isDeparture . fst)) . day16b'
+  where isDeparture name = "departure" `T.isPrefixOf` name
 
-day16b' :: Text -> Either (ParseErrorBundle Text Void) (Maybe (Map Text Int))
+day16b' :: Text -> Either (ParseErrorBundle Text Void) [(Text, Int)]
 day16b' input = do
     Input {rules, yours, nearby} <- parse (parser <* eof) "" input
     pure $ do
@@ -51,12 +49,10 @@ day16b' input = do
           | (i, Rule {ranges}) <- zip [0..] rules
           , any (`inRange` num) ranges
           ]
-        loop m [] = Just m
-        loop m options
+        loop options
           | (left, (i, xs):right) <- break ((== 1) . IntSet.size . snd) options
-          = let [x] = IntSet.toList xs in loop
-                (Map.insert (name $ rules !! x) (yours !! i) m) $
-                fmap (IntSet.delete x) <$> left ++ right
-        loop _ _ = Nothing
-    loop Map.empty . zip [0..] . foldl1' (zipWith IntSet.intersection) $
+          = let [x] = IntSet.toList xs in (name $ rules !! x, yours !! i) :
+                loop (fmap (IntSet.delete x) <$> left ++ right)
+        loop _ = []
+    loop . zip [0..] . foldl1' (zipWith IntSet.intersection) $
         map possibleFieldIds <$> filter (all isValid) nearby

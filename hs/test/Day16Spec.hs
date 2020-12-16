@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Day16Spec (spec) where
 
-import qualified Data.Map as Map (fromList)
+import Data.List (sort)
 import Data.Text (Text)
 import qualified Data.Text as T (unlines)
 import Day16 (day16a, day16b')
@@ -43,5 +43,5 @@ spec = do
             day16a example1 `shouldBe` Right 71
     describe "part 2" $ do
         it "examples" $ do
-            let r = Map.fromList [("class", 12), ("row", 11), ("seat", 13)]
-            day16b' example2 `shouldBe` Right (Just r)
+            fmap sort (day16b' example2) `shouldBe`
+                Right [("class", 12), ("row", 11), ("seat", 13)]

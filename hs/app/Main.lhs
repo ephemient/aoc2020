@@ -177,5 +177,5 @@ main = do
     run 13 (>>= print) [either fail pure . day13a, justOrFail . day13b]
     run 14 (print <=< rightOrFail) [day14a, day14b]
     run 15 (either fail print) [day15 2020, day15 30000000]
-    run 16 (print <=< justOrFail <=< rightOrFail) [fmap pure . day16a, day16b]
+    run 16 (print <=< rightOrFail) [day16a, day16b]
 ```
