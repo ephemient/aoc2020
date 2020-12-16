@@ -63,6 +63,7 @@ tests:
     dependencies:
     - QuickCheck
     - aoc2020
+    - containers
     - hspec
     - text
 
