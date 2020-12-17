@@ -5,7 +5,7 @@ class Day17(lines: List<String>) {
     private val initialState = buildSet {
         for ((x, line) in lines.withIndex()) {
             for ((y, c) in line.withIndex()) {
-                if (c == '#') add(Vec4(x, y, 0, 0))
+                if (c == '#') add(Vec4(x.toByte(), y.toByte(), 0, 0))
             }
         }
     }
@@ -14,7 +14,7 @@ class Day17(lines: List<String>) {
 
     fun part2(): Int = step(4, step(4, step(4, step(4, step(4, step(4, initialState)))))).size
 
-    private data class Vec4(val x: Int, val y: Int, val z: Int, val w: Int)
+    private data class Vec4(val x: Byte, val y: Byte, val z: Byte, val w: Byte)
 
     companion object {
         @OptIn(ExperimentalStdlibApi::class)
@@ -27,7 +27,12 @@ class Day17(lines: List<String>) {
                             for (dw in if (n > 3) -1..1 else 0..0) {
                                 @Suppress("ComplexCondition")
                                 if (dx == 0 && dy == 0 && dz == 0 && dw == 0) continue
-                                val vec4 = Vec4(x + dx, y + dy, z + dz, w + dw)
+                                val vec4 = Vec4(
+                                    (x + dx).toByte(),
+                                    (y + dy).toByte(),
+                                    (z + dz).toByte(),
+                                    (w + dw).toByte()
+                                )
                                 this[vec4] = (this[vec4] ?: 0) + 1
                             }
                         }
