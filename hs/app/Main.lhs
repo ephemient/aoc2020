@@ -129,6 +129,11 @@ import Day15 (day15)
 import Day16 (day16a, day16b)
 ```
 
+## [Day 17: Conway Cubes](/src/Day17.hs)
+```haskell
+import Day17 (day17a, day17b)
+```
+
 ---
 
 ```haskell
@@ -178,4 +183,5 @@ main = do
     run 14 (print <=< rightOrFail) [day14a, day14b]
     run 15 (either fail print) [day15 2020, day15 30000000]
     run 16 (print <=< rightOrFail) [day16a, day16b]
+    run 17 print [day17a, day17b]
 ```
