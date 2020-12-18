@@ -36,3 +36,48 @@ where
         .map(|s| s.as_ref().parse::<F>())
         .collect::<Result<_, _>>()?)
 }
+
+pub struct Unpeekable<T>
+where
+    T: Iterator,
+{
+    iterator: T,
+    last: Option<<T as Iterator>::Item>,
+}
+
+impl<T> Unpeekable<T>
+where
+    T: Iterator,
+{
+    pub fn new(iterator: T) -> Unpeekable<T> {
+        Unpeekable {
+            iterator,
+            last: None,
+        }
+    }
+}
+
+impl<T> Unpeekable<T>
+where
+    T: Iterator,
+{
+    pub fn unpeek(&mut self, last: <T as Iterator>::Item) {
+        if self.last.is_some() {
+            panic!()
+        }
+        self.last = Some(last);
+    }
+}
+
+impl<T> Iterator for Unpeekable<T>
+where
+    T: Iterator,
+{
+    type Item = <T as Iterator>::Item;
+    fn next(&mut self) -> Option<Self::Item> {
+        if let Some(last) = self.last.take() {
+            return Some(last);
+        }
+        self.iterator.next()
+    }
+}
