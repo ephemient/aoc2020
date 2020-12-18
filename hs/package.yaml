@@ -27,6 +27,7 @@ library:
   dependencies:
   - containers
   - megaparsec
+  - parser-combinators
   - split
   - text
   - unordered-containers
