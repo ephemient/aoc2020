@@ -134,6 +134,11 @@ import Day16 (day16a, day16b)
 import Day17 (day17a, day17b)
 ```
 
+## [Day 18: Operation Order](/src/Day18.hs)
+```haskell
+import Day18 (day18a, day18b)
+```
+
 ---
 
 ```haskell
@@ -184,4 +189,5 @@ main = do
     run 15 (either fail print) [day15 2020, day15 30000000]
     run 16 (print <=< rightOrFail) [day16a, day16b]
     run 17 print [day17a, day17b]
+    run 18 (print <=< rightOrFail) [day18a, day18b]
 ```
