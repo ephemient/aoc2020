@@ -1,7 +1,6 @@
 {-# LANGUAGE FlexibleContexts, OverloadedStrings, TypeFamilies #-}
 module Machine (Op(..), parser, step) where
 
-import Data.Functor (($>))
 import Data.String (IsString)
 import Data.Vector.Generic (Vector, (!?), fromList)
 import Text.Megaparsec (MonadParsec, Token, Tokens, choice, sepEndBy)
@@ -13,9 +12,9 @@ data Op a = Acc a | Jmp a | Nop a deriving (Eq, Ord, Show)
 parser :: (Vector v (Op a), Num a, MonadParsec e s m, IsString (Tokens s), Token s ~ Char) => m (v (Op a))
 parser = fromList <$> parseInstruction `sepEndBy` newline where
     parseInstruction = choice
-      [ string "acc" $> Acc
-      , string "jmp" $> Jmp
-      , string "nop" $> Nop
+      [ Acc <$ string "acc"
+      , Jmp <$ string "jmp"
+      , Nop <$ string "nop"
       ] <* space <*> signed space decimal
 
 step :: (Vector v (Op Int)) => v (Op Int) -> (Int, Int) -> Maybe (Int, Int)

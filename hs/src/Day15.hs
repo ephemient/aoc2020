@@ -8,7 +8,6 @@ module Day15 (day15) where
 import Common (readEntire)
 import Control.Monad (foldM, zipWithM_)
 import Control.Monad.ST (runST)
-import Data.Functor (($>))
 import Data.Text (Text)
 import qualified Data.Text as T (splitOn, stripEnd)
 import qualified Data.Text.Read as T (decimal)
@@ -25,5 +24,5 @@ day15 n input = do
         let f x i = do
                 j <- MV.read seen x
                 let y = if j == 0 then 0 else i - j
-                MV.write seen x i $> y
+                y <$ MV.write seen x i
         foldM f (last nums) [m..n - 1]
