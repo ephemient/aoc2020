@@ -2,7 +2,7 @@ package io.github.ephemient.aoc2020
 
 class Day6(lines: List<String>) {
     private val rows = IntArray(lines.size) {
-        lines[it].fold(0) { acc, c -> 1 shl c.toInt() or acc }
+        lines[it].sumOf { 1 shl it.toInt() }
     }
 
     fun part1(): Int {
