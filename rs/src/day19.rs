@@ -134,15 +134,17 @@ where
 }
 
 fn part2_matches_down(rules: &Rules, count: usize, text: &str) -> bool {
-    iter_matches(rules, 31, text).any(|rest| {
-        part2_matches_up(rules, count + 2, rest) || part2_matches_down(rules, count + 1, rest)
+    iter_matches(rules, 42, text).any(|rest| {
+        count > 0
+            && iter_matches(rules, 31, rest).any(|rest| part2_matches_up(rules, count - 1, rest))
+            || part2_matches_down(rules, count + 1, rest)
     })
 }
 
 fn part2_matches_up(rules: &Rules, count: usize, text: &str) -> bool {
-    text.is_empty() && count == 0
-        || iter_matches(rules, 42, text)
-            .any(|rest| part2_matches_up(rules, count.saturating_sub(1), rest))
+    text.is_empty()
+        || count > 0
+            && iter_matches(rules, 31, text).any(|rest| part2_matches_up(rules, count - 1, rest))
 }
 
 pub fn part2<'a, I, S>(lines: I) -> Result<usize, Box<dyn Error + Send + Sync>>
@@ -151,30 +153,9 @@ where
     S: AsRef<str> + 'a,
 {
     let (rules, messages) = parse(lines)?;
-    let rules: Rules = rules
-        .into_iter()
-        .map(|(key, choices)| {
-            (
-                key,
-                choices
-                    .into_iter()
-                    .map(|branch| {
-                        branch
-                            .into_iter()
-                            .rev()
-                            .map(|item| match item {
-                                Item::Literal(text) => Item::Literal(text.chars().rev().collect()),
-                                _ => item,
-                            })
-                            .collect()
-                    })
-                    .collect(),
-            )
-        })
-        .collect();
     Ok(messages
         .into_iter()
-        .filter(|text| part2_matches_down(&rules, 0, &text.chars().rev().collect::<String>()))
+        .filter(|text| part2_matches_down(&rules, 0, text))
         .count())
 }
 

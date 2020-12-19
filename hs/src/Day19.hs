@@ -12,9 +12,8 @@ import qualified Data.IntMap as IntMap ((!?), delete, findWithDefault, fromList,
 import Data.Maybe (mapMaybe)
 import Data.String (IsString)
 import Data.Text (Text)
-import qualified Data.Text as T (reverse)
 import Data.Void (Void)
-import Text.Megaparsec (MonadParsec, ParseErrorBundle, ShowErrorComponent(showErrorComponent), Token, Tokens, (<|>), between, choice, chunk, customFailure, eof, many, parse, parseMaybe, sepBy, sepEndBy, skipCount, skipMany, skipSome, takeWhile1P, takeWhileP, try)
+import Text.Megaparsec (MonadParsec, ParseErrorBundle, ShowErrorComponent(showErrorComponent), Token, Tokens, (<|>), between, choice, chunk, count', customFailure, eof, many, parse, parseMaybe, sepBy, sepEndBy, skipMany, skipSome, takeWhile1P, takeWhileP, try)
 import Text.Megaparsec.Char (char, newline)
 import Text.Megaparsec.Char.Lexer (decimal)
 
@@ -59,11 +58,9 @@ day19b = flip parse "" $ do
         [[Left 8, Left 11]] <- rules IntMap.!? 0
         [[Left 42]] <- rules IntMap.!? 8
         [[Left 42, Left 31]] <- rules IntMap.!? 11
-        rules' <- fixRules $ (map $ reverse . map (fmap T.reverse)) <$>
-                foldr IntMap.delete rules [0, 8, 11]
+        rules' <- fixRules $ foldr IntMap.delete rules [0, 8, 11]
         rule31 <- rules' IntMap.!? 31
         rule42 <- rules' IntMap.!? 42
-        let rule n = try (skipCount n rule42 <* many rule42) <|>
-                rule31 *> rule (n + 1)
-        pure $ rule31 *> rule 2
-    pure . length . mapMaybe (parseMaybe $ rule *> eof) $ T.reverse <$> messages
+        let rule n = rule42 *> (() <$ try (count' 1 n rule31) <|> rule (n + 1))
+        pure $ rule42 *> rule 1
+    pure . length $ mapMaybe (parseMaybe $ rule *> eof) messages
