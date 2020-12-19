@@ -30,7 +30,7 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: nightly
-          provile: minimal
+          profile: minimal
           default: true
       - uses: actions/cache@v2
         with:
