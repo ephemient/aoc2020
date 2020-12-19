@@ -26,20 +26,13 @@ class Day19(lines: List<String>) {
         check(rules[0] == listOf(listOf(Item.Reference(8), Item.Reference(11))))
         check(rules[8] == listOf(listOf(Item.Reference(42))))
         check(rules[11] == listOf(listOf(Item.Reference(42), Item.Reference(31))))
-        val rules2 = rules.mapValues { (_, choices) ->
-            choices.map { branch ->
-                branch.asReversed().map { item ->
-                    (item as? Item.Literal)?.copy(string = item.string.reversed()) ?: item
-                }
-            }
-        }
-        val pattern31 = rules2.getPattern(31)
-        val pattern42 = rules2.getPattern(42)
+        val pattern31 = rules.getPattern(31)
+        val pattern42 = rules.getPattern(42)
         val n = messages.maxOfOrNull { it.length } ?: 0
         val pattern = (1..(n - 1) / 2).joinToString("|") { i ->
-            "(?:$pattern31){$i}(?:$pattern42){${i + 1},}"
+            "(?:$pattern42){${i + 1},}(?:$pattern31){$i}"
         }.toRegex()
-        return messages.count { it.reversed().matches(pattern) }
+        return messages.count(pattern::matches)
     }
 
     private sealed class Item {

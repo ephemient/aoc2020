@@ -91,20 +91,13 @@ def part2(lines):
     12
     '''
     rules, messages = parse(lines)
-    rules = {
-        key:
-        [[item[::-1] if '"' in item else item for item in reversed(branch)]
-         for branch in choices]
-        for key, choices in rules.items()
-    }
-    messages = [text.strip()[::-1] for text in messages]
     pattern31 = make_pattern(rules, '31')
     pattern42 = make_pattern(rules, '42')
     n = max(map(len, messages))
     pattern = re.compile('|'.join(
-        f'(?:{pattern31}){{{i}}}(?:{pattern42}){{{i + 1},}}'
+        f'(?:{pattern42}){{{i + 1},}}(?:{pattern31}){{{i}}}'
         for i in range(1, (n + 1) // 2)))
-    return sum(bool(re.fullmatch(pattern, text)) for text in messages)
+    return sum(bool(re.fullmatch(pattern, text.rstrip())) for text in messages)
 
 
 parts = (part1, part2)
