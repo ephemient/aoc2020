@@ -2,7 +2,7 @@
 Module:         Day18
 Description:    <https://adventofcode.com/2020/day/18 Day 18: Operation Order>
 -}
-{-# LANGUAGE BangPatterns, TypeFamilies #-}
+{-# LANGUAGE TypeFamilies #-}
 module Day18 (day18a, day18b) where
 
 import Control.Monad.Combinators.Expr (Operator(InfixL), makeExprParser)

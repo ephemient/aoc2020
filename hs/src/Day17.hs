@@ -27,7 +27,7 @@ unpack v =
   ( fromIntegral $ v `shiftR` 24
   , fromIntegral $ v `shiftR` 16
   , fromIntegral $ v `shiftR`  8
-  , fromIntegral $ v
+  , fromIntegral   v
   )
 
 parse :: Text -> IntSet

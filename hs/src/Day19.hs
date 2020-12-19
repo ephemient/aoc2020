@@ -37,7 +37,7 @@ parser = do
     hspace = skipMany $ char ' '
 
 fixRules :: (MonadParsec Void s m) => IntMap [[Either Int (Tokens s)]] -> Maybe (IntMap (m ()))
-fixRules rules = traverse id rules' where
+fixRules rules = sequenceA rules' where
     rules' = expand <$> rules
     expand = fmap choice . mapM (fmap try . expand')
     expand' = flip foldM (pure ()) $ \a b -> (a *>) <$> expand'' b
