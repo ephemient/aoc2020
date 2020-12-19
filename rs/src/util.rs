@@ -75,9 +75,6 @@ where
 {
     type Item = <T as Iterator>::Item;
     fn next(&mut self) -> Option<Self::Item> {
-        if let Some(last) = self.last.take() {
-            return Some(last);
-        }
-        self.iterator.next()
+        self.last.take().or_else(|| self.iterator.next())
     }
 }
