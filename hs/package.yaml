@@ -26,6 +26,7 @@ library:
   source-dirs: src
   dependencies:
   - containers
+  - deepseq
   - megaparsec
   - parser-combinators
   - split

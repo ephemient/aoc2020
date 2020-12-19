@@ -21,6 +21,7 @@ import Day15 (day15)
 import Day16 (day16a, day16b)
 import Day17 (day17a, day17b)
 import Day18 (day18a, day18b)
+import Day19 (day19a, day19b)
 import Paths_aoc2020 (getDataFileName)
 
 getDayInput :: Int -> IO Text
@@ -99,5 +100,9 @@ main = defaultMain
   , env (getDayInput 18) $ \input -> bgroup "Day 18"
       [ bench "part 1" $ nf day18a input
       , bench "part 2" $ nf day18b input
+      ]
+  , env (getDayInput 19) $ \input -> bgroup "Day 19"
+      [ bench "part 1" $ nf day19a input
+      , bench "part 2" $ nf day19b input
       ]
   ]

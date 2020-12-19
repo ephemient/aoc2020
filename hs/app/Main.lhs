@@ -139,6 +139,11 @@ import Day17 (day17a, day17b)
 import Day18 (day18a, day18b)
 ```
 
+## [Day 19: Monster Messages](/src/Day19.hs)
+```haskell
+import Day19 (day19a, day19b)
+```
+
 ---
 
 ```haskell
@@ -190,4 +195,5 @@ main = do
     run 16 (print <=< rightOrFail) [day16a, day16b]
     run 17 print [day17a, day17b]
     run 18 (print <=< rightOrFail) [day18a, day18b]
+    run 19 (print <=< rightOrFail) [day19a, day19b]
 ```
