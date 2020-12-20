@@ -144,6 +144,11 @@ import Day18 (day18a, day18b)
 import Day19 (day19a, day19b)
 ```
 
+## [Day 20: Jurassic Jigsaw](/src/Day20.hs)
+```haskell
+import Day20 (day20a, day20b)
+```
+
 ---
 
 ```haskell
@@ -196,4 +201,5 @@ main = do
     run 17 print [day17a, day17b]
     run 18 (print <=< rightOrFail) [day18a, day18b]
     run 19 (print <=< rightOrFail) [day19a, day19b]
+    run 20 (print <=< justOrFail <=< rightOrFail) [day20a, day20b]
 ```
