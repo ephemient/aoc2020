@@ -149,12 +149,18 @@ import Day19 (day19a, day19b)
 import Day20 (day20a, day20b)
 ```
 
+## [Day 21: Allergen Assessment](/src/Day21.hs)
+```haskell
+import Day21 (day21a, day21b)
+```
+
 ---
 
 ```haskell
 import Control.Monad ((<=<), when)
 import Data.Maybe (mapMaybe)
 import Data.Text (Text)
+import qualified Data.Text as T (unpack)
 import qualified Data.Text.IO as TIO (readFile)
 import Paths_aoc2020 (getDataFileName)
 import System.Environment (getArgs)
@@ -202,4 +208,6 @@ main = do
     run 18 (print <=< rightOrFail) [day18a, day18b]
     run 19 (print <=< rightOrFail) [day19a, day19b]
     run 20 (print <=< justOrFail <=< rightOrFail) [day20a, day20b]
+    run 21 (putStrLn <=< justOrFail <=< rightOrFail)
+        [fmap (Just . show) . day21a, fmap (fmap T.unpack) . day21b]
 ```
