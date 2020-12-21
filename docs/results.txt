@@ -1,361 +1,379 @@
 Benchmark                         Mode     Cnt          Score         Error  Units
-Day1Bench.part1                 sample  105373       7297.773 ±     223.604  ns/op
-Day1Bench.part1:part1·p0.00     sample               6600.000                ns/op
-Day1Bench.part1:part1·p0.50     sample               6896.000                ns/op
-Day1Bench.part1:part1·p0.90     sample               7400.000                ns/op
-Day1Bench.part1:part1·p0.95     sample               7600.000                ns/op
-Day1Bench.part1:part1·p0.99     sample               9200.000                ns/op
-Day1Bench.part1:part1·p0.999    sample              32540.096                ns/op
-Day1Bench.part1:part1·p0.9999   sample             771650.560                ns/op
-Day1Bench.part1:part1·p1.00     sample            6201344.000                ns/op
-Day1Bench.part2                 sample   91611       7095.953 ±     169.701  ns/op
-Day1Bench.part2:part2·p0.00     sample               6400.000                ns/op
-Day1Bench.part2:part2·p0.50     sample               6696.000                ns/op
-Day1Bench.part2:part2·p0.90     sample               7096.000                ns/op
-Day1Bench.part2:part2·p0.95     sample               7296.000                ns/op
-Day1Bench.part2:part2·p0.99     sample               8688.000                ns/op
-Day1Bench.part2:part2·p0.999    sample              29413.248                ns/op
-Day1Bench.part2:part2·p0.9999   sample             853355.725                ns/op
-Day1Bench.part2:part2·p1.00     sample            1755136.000                ns/op
-Day2Bench.part1                 sample   14792     338251.769 ±    1601.657  ns/op
-Day2Bench.part1:part1·p0.00     sample             324608.000                ns/op
-Day2Bench.part1:part1·p0.50     sample             332288.000                ns/op
-Day2Bench.part1:part1·p0.90     sample             339968.000                ns/op
-Day2Bench.part1:part1·p0.95     sample             345088.000                ns/op
-Day2Bench.part1:part1·p0.99     sample             394752.000                ns/op
-Day2Bench.part1:part1·p0.999    sample            1272231.936                ns/op
-Day2Bench.part1:part1·p0.9999   sample            1499729.510                ns/op
-Day2Bench.part1:part1·p1.00     sample            1513472.000                ns/op
-Day2Bench.part2                 sample   15994     313082.686 ±    1915.566  ns/op
-Day2Bench.part2:part2·p0.00     sample             268800.000                ns/op
-Day2Bench.part2:part2·p0.50     sample             314880.000                ns/op
-Day2Bench.part2:part2·p0.90     sample             322560.000                ns/op
-Day2Bench.part2:part2·p0.95     sample             328192.000                ns/op
-Day2Bench.part2:part2·p0.99     sample             375321.600                ns/op
-Day2Bench.part2:part2·p0.999    sample            1290250.240                ns/op
-Day2Bench.part2:part2·p0.9999   sample            3009043.456                ns/op
-Day2Bench.part2:part2·p1.00     sample            4628480.000                ns/op
-Day3Bench.part1                 sample  147500       4299.086 ±      72.667  ns/op
-Day3Bench.part1:part1·p0.00     sample               4096.000                ns/op
-Day3Bench.part1:part1·p0.50     sample               4200.000                ns/op
-Day3Bench.part1:part1·p0.90     sample               4296.000                ns/op
-Day3Bench.part1:part1·p0.95     sample               4296.000                ns/op
-Day3Bench.part1:part1·p0.99     sample               4496.000                ns/op
-Day3Bench.part1:part1·p0.999    sample              10447.904                ns/op
-Day3Bench.part1:part1·p0.9999   sample              27927.901                ns/op
-Day3Bench.part1:part1·p1.00     sample            2646016.000                ns/op
-Day3Bench.part2                 sample   90561      13863.037 ±      24.013  ns/op
-Day3Bench.part2:part2·p0.00     sample              13200.000                ns/op
-Day3Bench.part2:part2·p0.50     sample              13792.000                ns/op
-Day3Bench.part2:part2·p0.90     sample              14000.000                ns/op
-Day3Bench.part2:part2·p0.95     sample              14096.000                ns/op
-Day3Bench.part2:part2·p0.99     sample              14400.000                ns/op
-Day3Bench.part2:part2·p0.999    sample              25612.160                ns/op
-Day3Bench.part2:part2·p0.9999   sample             110453.837                ns/op
-Day3Bench.part2:part2·p1.00     sample             421888.000                ns/op
-Day4Bench.part1                 sample   12363     404439.829 ±    1986.519  ns/op
-Day4Bench.part1:part1·p0.00     sample             331264.000                ns/op
-Day4Bench.part1:part1·p0.50     sample             400896.000                ns/op
-Day4Bench.part1:part1·p0.90     sample             409600.000                ns/op
-Day4Bench.part1:part1·p0.95     sample             414208.000                ns/op
-Day4Bench.part1:part1·p0.99     sample             471736.320                ns/op
-Day4Bench.part1:part1·p0.999    sample            1359126.528                ns/op
-Day4Bench.part1:part1·p0.9999   sample            2203516.109                ns/op
-Day4Bench.part1:part1·p1.00     sample            2334720.000                ns/op
-Day4Bench.part2                 sample   10209     489526.064 ±    2646.355  ns/op
-Day4Bench.part2:part2·p0.00     sample             401408.000                ns/op
-Day4Bench.part2:part2·p0.50     sample             486912.000                ns/op
-Day4Bench.part2:part2·p0.90     sample             498176.000                ns/op
-Day4Bench.part2:part2·p0.95     sample             505344.000                ns/op
-Day4Bench.part2:part2·p0.99     sample             596992.000                ns/op
-Day4Bench.part2:part2·p0.999    sample            1387253.760                ns/op
-Day4Bench.part2:part2·p0.9999   sample            3582222.336                ns/op
-Day4Bench.part2:part2·p1.00     sample            3612672.000                ns/op
-Day5Bench.part1                 sample   40267     124565.342 ±     697.581  ns/op
-Day5Bench.part1:part1·p0.00     sample             120064.000                ns/op
-Day5Bench.part1:part1·p0.50     sample             122880.000                ns/op
-Day5Bench.part1:part1·p0.90     sample             125184.000                ns/op
-Day5Bench.part1:part1·p0.95     sample             130176.000                ns/op
-Day5Bench.part1:part1·p0.99     sample             141056.000                ns/op
-Day5Bench.part1:part1·p0.999    sample             166893.568                ns/op
-Day5Bench.part1:part1·p0.9999   sample            1887467.110                ns/op
-Day5Bench.part1:part1·p1.00     sample            6144000.000                ns/op
-Day5Bench.part2                 sample   37992     131500.968 ±     459.088  ns/op
-Day5Bench.part2:part2·p0.00     sample             127232.000                ns/op
-Day5Bench.part2:part2·p0.50     sample             129920.000                ns/op
-Day5Bench.part2:part2·p0.90     sample             132608.000                ns/op
-Day5Bench.part2:part2·p0.95     sample             137984.000                ns/op
-Day5Bench.part2:part2·p0.99     sample             148480.000                ns/op
-Day5Bench.part2:part2·p0.999    sample             184336.128                ns/op
-Day5Bench.part2:part2·p0.9999   sample            1551590.605                ns/op
-Day5Bench.part2:part2·p1.00     sample            2330624.000                ns/op
-Day6Bench.part1                 sample   94519      26488.926 ±     179.487  ns/op
-Day6Bench.part1:part1·p0.00     sample              21600.000                ns/op
-Day6Bench.part1:part1·p0.50     sample              22496.000                ns/op
-Day6Bench.part1:part1·p0.90     sample              34752.000                ns/op
-Day6Bench.part1:part1·p0.95     sample              35072.000                ns/op
-Day6Bench.part1:part1·p0.99     sample              36992.000                ns/op
-Day6Bench.part1:part1·p0.999    sample              54648.320                ns/op
-Day6Bench.part1:part1·p0.9999   sample             925822.976                ns/op
-Day6Bench.part1:part1·p1.00     sample            2691072.000                ns/op
-Day6Bench.part2                 sample  104688      23916.376 ±     144.289  ns/op
-Day6Bench.part2:part2·p0.00     sample              20992.000                ns/op
-Day6Bench.part2:part2·p0.50     sample              21888.000                ns/op
-Day6Bench.part2:part2·p0.90     sample              33792.000                ns/op
-Day6Bench.part2:part2·p0.95     sample              34176.000                ns/op
-Day6Bench.part2:part2·p0.99     sample              34880.000                ns/op
-Day6Bench.part2:part2·p0.999    sample              45888.000                ns/op
-Day6Bench.part2:part2·p0.9999   sample             897469.850                ns/op
-Day6Bench.part2:part2·p1.00     sample            1558528.000                ns/op
-Day7Bench.part1                 sample    5057     988559.718 ±    7314.730  ns/op
-Day7Bench.part1:part1·p0.00     sample             846848.000                ns/op
-Day7Bench.part1:part1·p0.50     sample             986112.000                ns/op
-Day7Bench.part1:part1·p0.90     sample            1014784.000                ns/op
-Day7Bench.part1:part1·p0.95     sample            1028096.000                ns/op
-Day7Bench.part1:part1·p0.99     sample            1515765.760                ns/op
-Day7Bench.part1:part1·p0.999    sample            2697592.832                ns/op
-Day7Bench.part1:part1·p0.9999   sample            7536640.000                ns/op
-Day7Bench.part1:part1·p1.00     sample            7536640.000                ns/op
-Day7Bench.part2                 sample    6373     784264.616 ±    4106.022  ns/op
-Day7Bench.part2:part2·p0.00     sample             761856.000                ns/op
-Day7Bench.part2:part2·p0.50     sample             772096.000                ns/op
-Day7Bench.part2:part2·p0.90     sample             782336.000                ns/op
-Day7Bench.part2:part2·p0.95     sample             788480.000                ns/op
-Day7Bench.part2:part2·p0.99     sample             934092.800                ns/op
-Day7Bench.part2:part2·p0.999    sample            2217033.728                ns/op
-Day7Bench.part2:part2·p0.9999   sample            2416640.000                ns/op
-Day7Bench.part2:part2·p1.00     sample            2416640.000                ns/op
-Day8Bench.part1                 sample   70873      35541.673 ±     312.171  ns/op
-Day8Bench.part1:part1·p0.00     sample              27776.000                ns/op
-Day8Bench.part1:part1·p0.50     sample              34944.000                ns/op
-Day8Bench.part1:part1·p0.90     sample              37376.000                ns/op
-Day8Bench.part1:part1·p0.95     sample              39296.000                ns/op
-Day8Bench.part1:part1·p0.99     sample              45248.000                ns/op
-Day8Bench.part1:part1·p0.999    sample             296395.776                ns/op
-Day8Bench.part1:part1·p0.9999   sample            1139362.202                ns/op
-Day8Bench.part1:part1·p1.00     sample            1847296.000                ns/op
-Day8Bench.part2                 sample   13528     369414.245 ±    3287.720  ns/op
-Day8Bench.part2:part2·p0.00     sample             296448.000                ns/op
-Day8Bench.part2:part2·p0.50     sample             365568.000                ns/op
-Day8Bench.part2:part2·p0.90     sample             379392.000                ns/op
-Day8Bench.part2:part2·p0.95     sample             387072.000                ns/op
-Day8Bench.part2:part2·p0.99     sample             443095.040                ns/op
-Day8Bench.part2:part2·p0.999    sample            1489266.688                ns/op
-Day8Bench.part2:part2·p0.9999   sample            6992218.522                ns/op
-Day8Bench.part2:part2·p1.00     sample            7897088.000                ns/op
-Day9Bench.part1                 sample   41896     119325.522 ±     676.380  ns/op
-Day9Bench.part1:part1·p0.00     sample             106624.000                ns/op
-Day9Bench.part1:part1·p0.50     sample             109184.000                ns/op
-Day9Bench.part1:part1·p0.90     sample             135680.000                ns/op
-Day9Bench.part1:part1·p0.95     sample             136192.000                ns/op
-Day9Bench.part1:part1·p0.99     sample             141056.000                ns/op
-Day9Bench.part1:part1·p0.999    sample             163840.000                ns/op
-Day9Bench.part1:part1·p0.9999   sample            1489984.102                ns/op
-Day9Bench.part1:part1·p1.00     sample            6987776.000                ns/op
-Day9Bench.part2                 sample   39042     128088.048 ±     373.992  ns/op
-Day9Bench.part2:part2·p0.00     sample             109568.000                ns/op
-Day9Bench.part2:part2·p0.50     sample             128512.000                ns/op
-Day9Bench.part2:part2·p0.90     sample             129792.000                ns/op
-Day9Bench.part2:part2·p0.95     sample             131328.000                ns/op
-Day9Bench.part2:part2·p0.99     sample             138752.000                ns/op
-Day9Bench.part2:part2·p0.999    sample             162304.000                ns/op
-Day9Bench.part2:part2·p0.9999   sample            1478871.859                ns/op
-Day9Bench.part2:part2·p1.00     sample            1615872.000                ns/op
-Day10Bench.part1                sample  173681       3731.464 ±     138.508  ns/op
-Day10Bench.part1:part1·p0.00    sample               3400.000                ns/op
-Day10Bench.part1:part1·p0.50    sample               3500.000                ns/op
-Day10Bench.part1:part1·p0.90    sample               3800.000                ns/op
-Day10Bench.part1:part1·p0.95    sample               4000.000                ns/op
-Day10Bench.part1:part1·p0.99    sample               4400.000                ns/op
-Day10Bench.part1:part1·p0.999   sample              14430.528                ns/op
-Day10Bench.part1:part1·p0.9999  sample             586374.963                ns/op
-Day10Bench.part1:part1·p1.00    sample            4767744.000                ns/op
-Day10Bench.part2                sample  132365       4864.418 ±     215.281  ns/op
-Day10Bench.part2:part2·p0.00    sample               4400.000                ns/op
-Day10Bench.part2:part2·p0.50    sample               4600.000                ns/op
-Day10Bench.part2:part2·p0.90    sample               4896.000                ns/op
-Day10Bench.part2:part2·p0.95    sample               5096.000                ns/op
-Day10Bench.part2:part2·p0.99    sample               5696.000                ns/op
-Day10Bench.part2:part2·p0.999   sample              17148.864                ns/op
-Day10Bench.part2:part2·p0.9999  sample             293115.699                ns/op
-Day10Bench.part2:part2·p1.00    sample            6037504.000                ns/op
-Day11Bench.part1                sample     234   21595232.274 ±  303629.117  ns/op
-Day11Bench.part1:part1·p0.00    sample           19922944.000                ns/op
-Day11Bench.part1:part1·p0.50    sample           22544384.000                ns/op
-Day11Bench.part1:part1·p0.90    sample           22904832.000                ns/op
-Day11Bench.part1:part1·p0.95    sample           22937600.000                ns/op
-Day11Bench.part1:part1·p0.99    sample           25729433.600                ns/op
-Day11Bench.part1:part1·p0.999   sample           27066368.000                ns/op
-Day11Bench.part1:part1·p0.9999  sample           27066368.000                ns/op
-Day11Bench.part1:part1·p1.00    sample           27066368.000                ns/op
-Day11Bench.part2                sample     232   21774618.483 ±  162865.752  ns/op
-Day11Bench.part2:part2·p0.00    sample           21299200.000                ns/op
-Day11Bench.part2:part2·p0.50    sample           21692416.000                ns/op
-Day11Bench.part2:part2·p0.90    sample           21889024.000                ns/op
-Day11Bench.part2:part2·p0.95    sample           21921792.000                ns/op
-Day11Bench.part2:part2·p0.99    sample           27507097.600                ns/op
-Day11Bench.part2:part2·p0.999   sample           29425664.000                ns/op
-Day11Bench.part2:part2·p0.9999  sample           29425664.000                ns/op
-Day11Bench.part2:part2·p1.00    sample           29425664.000                ns/op
-Day12Bench.part1                sample   80941      31144.341 ±     270.637  ns/op
-Day12Bench.part1:part1·p0.00    sample              28576.000                ns/op
-Day12Bench.part1:part1·p0.50    sample              30176.000                ns/op
-Day12Bench.part1:part1·p0.90    sample              31584.000                ns/op
-Day12Bench.part1:part1·p0.95    sample              32288.000                ns/op
-Day12Bench.part1:part1·p0.99    sample              37888.000                ns/op
-Day12Bench.part1:part1·p0.999   sample             117923.328                ns/op
-Day12Bench.part1:part1·p0.9999  sample            1237778.842                ns/op
-Day12Bench.part1:part1·p1.00    sample            1775616.000                ns/op
-Day12Bench.part2                sample   80046      31453.549 ±     255.167  ns/op
-Day12Bench.part2:part2·p0.00    sample              24288.000                ns/op
-Day12Bench.part2:part2·p0.50    sample              30688.000                ns/op
-Day12Bench.part2:part2·p0.90    sample              31872.000                ns/op
-Day12Bench.part2:part2·p0.95    sample              33152.000                ns/op
-Day12Bench.part2:part2·p0.99    sample              38784.000                ns/op
-Day12Bench.part2:part2·p0.999   sample              68857.984                ns/op
-Day12Bench.part2:part2·p0.9999  sample            1017793.434                ns/op
-Day12Bench.part2:part2·p1.00    sample            2199552.000                ns/op
-Day13Bench.part1                sample  137366       4714.382 ±     223.940  ns/op
-Day13Bench.part1:part1·p0.00    sample               3700.000                ns/op
-Day13Bench.part1:part1·p0.50    sample               4400.000                ns/op
-Day13Bench.part1:part1·p0.90    sample               4696.000                ns/op
-Day13Bench.part1:part1·p0.95    sample               4896.000                ns/op
-Day13Bench.part1:part1·p0.99    sample               6296.000                ns/op
-Day13Bench.part1:part1·p0.999   sample              15958.896                ns/op
-Day13Bench.part1:part1·p0.9999  sample             719937.536                ns/op
-Day13Bench.part1:part1·p1.00    sample            7536640.000                ns/op
-Day13Bench.part2                sample   93585      13664.446 ±     237.382  ns/op
-Day13Bench.part2:part2·p0.00    sample              10592.000                ns/op
-Day13Bench.part2:part2·p0.50    sample              13296.000                ns/op
-Day13Bench.part2:part2·p0.90    sample              13696.000                ns/op
-Day13Bench.part2:part2·p0.95    sample              14400.000                ns/op
-Day13Bench.part2:part2·p0.99    sample              16480.000                ns/op
-Day13Bench.part2:part2·p0.999   sample              44100.480                ns/op
-Day13Bench.part2:part2·p0.9999  sample             879962.317                ns/op
-Day13Bench.part2:part2·p1.00    sample            3858432.000                ns/op
-Day14Bench.part1                sample   36029     138995.050 ±     752.789  ns/op
-Day14Bench.part1:part1·p0.00    sample             115200.000                ns/op
-Day14Bench.part1:part1·p0.50    sample             136192.000                ns/op
-Day14Bench.part1:part1·p0.90    sample             142848.000                ns/op
-Day14Bench.part1:part1·p0.95    sample             148480.000                ns/op
-Day14Bench.part1:part1·p0.99    sample             165888.000                ns/op
-Day14Bench.part1:part1·p0.999   sample             824258.560                ns/op
-Day14Bench.part1:part1·p0.9999  sample            1486993.408                ns/op
-Day14Bench.part1:part1·p1.00    sample            3883008.000                ns/op
-Day14Bench.part2                sample     305   17848998.190 ± 7552010.138  ns/op
-Day14Bench.part2:part2·p0.00    sample            8437760.000                ns/op
-Day14Bench.part2:part2·p0.50    sample            8617984.000                ns/op
-Day14Bench.part2:part2·p0.90    sample            9014476.800                ns/op
-Day14Bench.part2:part2·p0.95    sample          132513792.000                ns/op
-Day14Bench.part2:part2·p0.99    sample          198642237.440                ns/op
-Day14Bench.part2:part2·p0.999   sample          232521728.000                ns/op
-Day14Bench.part2:part2·p0.9999  sample          232521728.000                ns/op
-Day14Bench.part2:part2·p1.00    sample          232521728.000                ns/op
-Day15Bench.part1                sample  160361       7964.128 ±     143.076  ns/op
-Day15Bench.part1:part1·p0.00    sample               6400.000                ns/op
-Day15Bench.part1:part1·p0.50    sample               7696.000                ns/op
-Day15Bench.part1:part1·p0.90    sample               8096.000                ns/op
-Day15Bench.part1:part1·p0.95    sample               8192.000                ns/op
-Day15Bench.part1:part1·p0.99    sample               9088.000                ns/op
-Day15Bench.part1:part1·p0.999   sample              20288.000                ns/op
-Day15Bench.part1:part1·p0.9999  sample             868857.037                ns/op
-Day15Bench.part1:part1·p1.00    sample            4464640.000                ns/op
-Day15Bench.part2                sample      15  351762295.467 ± 8349764.245  ns/op
-Day15Bench.part2:part2·p0.00    sample          342360064.000                ns/op
-Day15Bench.part2:part2·p0.50    sample          351272960.000                ns/op
-Day15Bench.part2:part2·p0.90    sample          364275302.400                ns/op
-Day15Bench.part2:part2·p0.95    sample          371195904.000                ns/op
-Day15Bench.part2:part2·p0.99    sample          371195904.000                ns/op
-Day15Bench.part2:part2·p0.999   sample          371195904.000                ns/op
-Day15Bench.part2:part2·p0.9999  sample          371195904.000                ns/op
-Day15Bench.part2:part2·p1.00    sample          371195904.000                ns/op
-Day16Bench.part1                sample   16363     306374.223 ±    1583.917  ns/op
-Day16Bench.part1:part1·p0.00    sample             294912.000                ns/op
-Day16Bench.part1:part1·p0.50    sample             300544.000                ns/op
-Day16Bench.part1:part1·p0.90    sample             308736.000                ns/op
-Day16Bench.part1:part1·p0.95    sample             313856.000                ns/op
-Day16Bench.part1:part1·p0.99    sample             350720.000                ns/op
-Day16Bench.part1:part1·p0.999   sample            1226006.528                ns/op
-Day16Bench.part1:part1·p0.9999  sample            2842956.595                ns/op
-Day16Bench.part1:part1·p1.00    sample            3538944.000                ns/op
-Day16Bench.part2                sample    3866    1294887.466 ±    8077.605  ns/op
-Day16Bench.part2:part2·p0.00    sample            1241088.000                ns/op
-Day16Bench.part2:part2·p0.50    sample            1265664.000                ns/op
-Day16Bench.part2:part2·p0.90    sample            1288192.000                ns/op
-Day16Bench.part2:part2·p0.95    sample            1339392.000                ns/op
-Day16Bench.part2:part2·p0.99    sample            2177679.360                ns/op
-Day16Bench.part2:part2·p0.999   sample            2674688.000                ns/op
-Day16Bench.part2:part2·p0.9999  sample            3723264.000                ns/op
-Day16Bench.part2:part2·p1.00    sample            3723264.000                ns/op
-Day17Bench.part1                sample    4566    1097117.323 ±    5305.688  ns/op
-Day17Bench.part1:part1·p0.00    sample             954368.000                ns/op
-Day17Bench.part1:part1·p0.50    sample            1083392.000                ns/op
-Day17Bench.part1:part1·p0.90    sample            1097728.000                ns/op
-Day17Bench.part1:part1·p0.95    sample            1112064.000                ns/op
-Day17Bench.part1:part1·p0.99    sample            1715507.200                ns/op
-Day17Bench.part1:part1·p0.999   sample            2420359.168                ns/op
-Day17Bench.part1:part1·p0.9999  sample            3878912.000                ns/op
-Day17Bench.part1:part1·p1.00    sample            3878912.000                ns/op
-Day17Bench.part2                sample     310   16243309.006 ±  138422.228  ns/op
-Day17Bench.part2:part2·p0.00    sample           15876096.000                ns/op
-Day17Bench.part2:part2·p0.50    sample           16023552.000                ns/op
-Day17Bench.part2:part2·p0.90    sample           16382361.600                ns/op
-Day17Bench.part2:part2·p0.95    sample           18289459.200                ns/op
-Day17Bench.part2:part2·p0.99    sample           19504496.640                ns/op
-Day17Bench.part2:part2·p0.999   sample           19791872.000                ns/op
-Day17Bench.part2:part2·p0.9999  sample           19791872.000                ns/op
-Day17Bench.part2:part2·p1.00    sample           19791872.000                ns/op
-Day18Bench.part1                sample   19117     261513.086 ±    1675.981  ns/op
-Day18Bench.part1:part1·p0.00    sample             253696.000                ns/op
-Day18Bench.part1:part1·p0.50    sample             256768.000                ns/op
-Day18Bench.part1:part1·p0.90    sample             263168.000                ns/op
-Day18Bench.part1:part1·p0.95    sample             267776.000                ns/op
-Day18Bench.part1:part1·p0.99    sample             301056.000                ns/op
-Day18Bench.part1:part1·p0.999   sample            1081102.336                ns/op
-Day18Bench.part1:part1·p0.9999  sample            2057655.091                ns/op
-Day18Bench.part1:part1·p1.00    sample            7831552.000                ns/op
-Day18Bench.part2                sample   16287     307297.641 ±    1440.787  ns/op
-Day18Bench.part2:part2·p0.00    sample             299520.000                ns/op
-Day18Bench.part2:part2·p0.50    sample             302592.000                ns/op
-Day18Bench.part2:part2·p0.90    sample             309760.000                ns/op
-Day18Bench.part2:part2·p0.95    sample             313344.000                ns/op
-Day18Bench.part2:part2·p0.99    sample             351744.000                ns/op
-Day18Bench.part2:part2·p0.999   sample            1141604.352                ns/op
-Day18Bench.part2:part2·p0.9999  sample            2902343.680                ns/op
-Day18Bench.part2:part2·p1.00    sample            4415488.000                ns/op
-Day19Bench.part1                sample    1171    4278410.166 ±   23106.148  ns/op
-Day19Bench.part1:part1·p0.00    sample            4173824.000                ns/op
-Day19Bench.part1:part1·p0.50    sample            4235264.000                ns/op
-Day19Bench.part1:part1·p0.90    sample            4274585.600                ns/op
-Day19Bench.part1:part1·p0.95    sample            4358144.000                ns/op
-Day19Bench.part1:part1·p0.99    sample            5671157.760                ns/op
-Day19Bench.part1:part1·p0.999   sample            6401392.640                ns/op
-Day19Bench.part1:part1·p0.9999  sample            6422528.000                ns/op
-Day19Bench.part1:part1·p1.00    sample            6422528.000                ns/op
-Day19Bench.part2                sample      85   59937683.576 ± 1422603.349  ns/op
-Day19Bench.part2:part2·p0.00    sample           57147392.000                ns/op
-Day19Bench.part2:part2·p0.50    sample           57802752.000                ns/op
-Day19Bench.part2:part2·p0.90    sample           66191360.000                ns/op
-Day19Bench.part2:part2·p0.95    sample           67331686.400                ns/op
-Day19Bench.part2:part2·p0.99    sample           70516736.000                ns/op
-Day19Bench.part2:part2·p0.999   sample           70516736.000                ns/op
-Day19Bench.part2:part2·p0.9999  sample           70516736.000                ns/op
-Day19Bench.part2:part2·p1.00    sample           70516736.000                ns/op
-Day20Bench.part1                sample     174   29415871.264 ±  194523.562  ns/op
-Day20Bench.part1:part1·p0.00    sample           28770304.000                ns/op
-Day20Bench.part1:part1·p0.50    sample           29065216.000                ns/op
-Day20Bench.part1:part1·p0.90    sample           30867456.000                ns/op
-Day20Bench.part1:part1·p0.95    sample           31105024.000                ns/op
-Day20Bench.part1:part1·p0.99    sample           32104448.000                ns/op
-Day20Bench.part1:part1·p0.999   sample           32178176.000                ns/op
-Day20Bench.part1:part1·p0.9999  sample           32178176.000                ns/op
-Day20Bench.part1:part1·p1.00    sample           32178176.000                ns/op
-Day20Bench.part2                sample     125   40621309.952 ±  261842.722  ns/op
-Day20Bench.part2:part2·p0.00    sample           39845888.000                ns/op
-Day20Bench.part2:part2·p0.50    sample           40239104.000                ns/op
-Day20Bench.part2:part2·p0.90    sample           42034790.400                ns/op
-Day20Bench.part2:part2·p0.95    sample           42447667.200                ns/op
-Day20Bench.part2:part2·p0.99    sample           44422922.240                ns/op
-Day20Bench.part2:part2·p0.999   sample           44695552.000                ns/op
-Day20Bench.part2:part2·p0.9999  sample           44695552.000                ns/op
-Day20Bench.part2:part2·p1.00    sample           44695552.000                ns/op
+Day1Bench.part1                 sample  166349       7582.877 ±     119.399  ns/op
+Day1Bench.part1:part1·p0.00     sample               6200.000                ns/op
+Day1Bench.part1:part1·p0.50     sample               7296.000                ns/op
+Day1Bench.part1:part1·p0.90     sample               8000.000                ns/op
+Day1Bench.part1:part1·p0.95     sample               8096.000                ns/op
+Day1Bench.part1:part1·p0.99     sample              14192.000                ns/op
+Day1Bench.part1:part1·p0.999    sample              24638.400                ns/op
+Day1Bench.part1:part1·p0.9999   sample             730920.960                ns/op
+Day1Bench.part1:part1·p1.00     sample            3522560.000                ns/op
+Day1Bench.part2                 sample  109430       7106.362 ±     225.765  ns/op
+Day1Bench.part2:part2·p0.00     sample               5296.000                ns/op
+Day1Bench.part2:part2·p0.50     sample               6400.000                ns/op
+Day1Bench.part2:part2·p0.90     sample               7696.000                ns/op
+Day1Bench.part2:part2·p0.95     sample               7896.000                ns/op
+Day1Bench.part2:part2·p0.99     sample              14866.240                ns/op
+Day1Bench.part2:part2·p0.999    sample              26646.624                ns/op
+Day1Bench.part2:part2·p0.9999   sample             986636.390                ns/op
+Day1Bench.part2:part2·p1.00     sample            4165632.000                ns/op
+Day2Bench.part1                 sample   13685     365669.614 ±    2712.811  ns/op
+Day2Bench.part1:part1·p0.00     sample             268288.000                ns/op
+Day2Bench.part1:part1·p0.50     sample             363520.000                ns/op
+Day2Bench.part1:part1·p0.90     sample             394752.000                ns/op
+Day2Bench.part1:part1·p0.95     sample             402944.000                ns/op
+Day2Bench.part1:part1·p0.99     sample             642191.360                ns/op
+Day2Bench.part1:part1·p0.999    sample            1600348.160                ns/op
+Day2Bench.part1:part1·p0.9999   sample            4142218.445                ns/op
+Day2Bench.part1:part1·p1.00     sample            5300224.000                ns/op
+Day2Bench.part2                 sample   14856     337362.921 ±    2323.437  ns/op
+Day2Bench.part2:part2·p0.00     sample             250112.000                ns/op
+Day2Bench.part2:part2·p0.50     sample             337920.000                ns/op
+Day2Bench.part2:part2·p0.90     sample             367616.000                ns/op
+Day2Bench.part2:part2·p0.95     sample             374272.000                ns/op
+Day2Bench.part2:part2·p0.99     sample             471848.960                ns/op
+Day2Bench.part2:part2·p0.999    sample            1559113.728                ns/op
+Day2Bench.part2:part2·p0.9999   sample            2766557.184                ns/op
+Day2Bench.part2:part2·p1.00     sample            2826240.000                ns/op
+Day3Bench.part1                 sample  139894       4517.371 ±      25.910  ns/op
+Day3Bench.part1:part1·p0.00     sample               3300.000                ns/op
+Day3Bench.part1:part1·p0.50     sample               4600.000                ns/op
+Day3Bench.part1:part1·p0.90     sample               5096.000                ns/op
+Day3Bench.part1:part1·p0.95     sample               5096.000                ns/op
+Day3Bench.part1:part1·p0.99     sample               5296.000                ns/op
+Day3Bench.part1:part1·p0.999    sample              21088.000                ns/op
+Day3Bench.part1:part1·p0.9999   sample              57114.208                ns/op
+Day3Bench.part1:part1·p1.00     sample             692224.000                ns/op
+Day3Bench.part2                 sample   80790      15459.877 ±      96.805  ns/op
+Day3Bench.part2:part2·p0.00     sample              11792.000                ns/op
+Day3Bench.part2:part2·p0.50     sample              14592.000                ns/op
+Day3Bench.part2:part2·p0.90     sample              17696.000                ns/op
+Day3Bench.part2:part2·p0.95     sample              17984.000                ns/op
+Day3Bench.part2:part2·p0.99     sample              27872.000                ns/op
+Day3Bench.part2:part2·p0.999    sample              37749.504                ns/op
+Day3Bench.part2:part2·p0.9999   sample             116728.666                ns/op
+Day3Bench.part2:part2·p1.00     sample            2134016.000                ns/op
+Day4Bench.part1                 sample   11941     419214.761 ±    3231.889  ns/op
+Day4Bench.part1:part1·p0.00     sample             313344.000                ns/op
+Day4Bench.part1:part1·p0.50     sample             420864.000                ns/op
+Day4Bench.part1:part1·p0.90     sample             456704.000                ns/op
+Day4Bench.part1:part1·p0.95     sample             467968.000                ns/op
+Day4Bench.part1:part1·p0.99     sample             833536.000                ns/op
+Day4Bench.part1:part1·p0.999    sample            1793306.624                ns/op
+Day4Bench.part1:part1·p0.9999   sample            2946273.280                ns/op
+Day4Bench.part1:part1·p1.00     sample            3125248.000                ns/op
+Day4Bench.part2                 sample    9418     532063.844 ±    4087.462  ns/op
+Day4Bench.part2:part2·p0.00     sample             397312.000                ns/op
+Day4Bench.part2:part2·p0.50     sample             533504.000                ns/op
+Day4Bench.part2:part2·p0.90     sample             580608.000                ns/op
+Day4Bench.part2:part2·p0.95     sample             592896.000                ns/op
+Day4Bench.part2:part2·p0.99     sample            1047357.440                ns/op
+Day4Bench.part2:part2·p0.999    sample            1988081.664                ns/op
+Day4Bench.part2:part2·p0.9999   sample            3153920.000                ns/op
+Day4Bench.part2:part2·p1.00     sample            3153920.000                ns/op
+Day5Bench.part1                 sample   35798     139535.211 ±     526.946  ns/op
+Day5Bench.part1:part1·p0.00     sample             108160.000                ns/op
+Day5Bench.part1:part1·p0.50     sample             144896.000                ns/op
+Day5Bench.part1:part1·p0.90     sample             157696.000                ns/op
+Day5Bench.part1:part1·p0.95     sample             160512.000                ns/op
+Day5Bench.part1:part1·p0.99     sample             173568.000                ns/op
+Day5Bench.part1:part1·p0.999    sample             282624.000                ns/op
+Day5Bench.part1:part1·p0.9999   sample            1745756.365                ns/op
+Day5Bench.part1:part1·p1.00     sample            1878016.000                ns/op
+Day5Bench.part2                 sample   38001     131976.845 ±     804.692  ns/op
+Day5Bench.part2:part2·p0.00     sample             103168.000                ns/op
+Day5Bench.part2:part2·p0.50     sample             128256.000                ns/op
+Day5Bench.part2:part2·p0.90     sample             151040.000                ns/op
+Day5Bench.part2:part2·p0.95     sample             154880.000                ns/op
+Day5Bench.part2:part2·p0.99     sample             170240.000                ns/op
+Day5Bench.part2:part2·p0.999    sample             292864.000                ns/op
+Day5Bench.part2:part2·p0.9999   sample            2404335.616                ns/op
+Day5Bench.part2:part2·p1.00     sample            4087808.000                ns/op
+Day6Bench.part1                 sample   92439      27172.016 ±     205.845  ns/op
+Day6Bench.part1:part1·p0.00     sample              18176.000                ns/op
+Day6Bench.part1:part1·p0.50     sample              24800.000                ns/op
+Day6Bench.part1:part1·p0.90     sample              37376.000                ns/op
+Day6Bench.part1:part1·p0.95     sample              39296.000                ns/op
+Day6Bench.part1:part1·p0.99     sample              50752.000                ns/op
+Day6Bench.part1:part1·p0.999    sample              84439.040                ns/op
+Day6Bench.part1:part1·p0.9999   sample            1227497.472                ns/op
+Day6Bench.part1:part1·p1.00     sample            2224128.000                ns/op
+Day6Bench.part2                 sample   91652      27367.531 ±     218.089  ns/op
+Day6Bench.part2:part2·p0.00     sample              17984.000                ns/op
+Day6Bench.part2:part2·p0.50     sample              24896.000                ns/op
+Day6Bench.part2:part2·p0.90     sample              37568.000                ns/op
+Day6Bench.part2:part2·p0.95     sample              38400.000                ns/op
+Day6Bench.part2:part2·p0.99     sample              46332.160                ns/op
+Day6Bench.part2:part2·p0.999    sample              73733.248                ns/op
+Day6Bench.part2:part2·p0.9999   sample            1268506.624                ns/op
+Day6Bench.part2:part2·p1.00     sample            1900544.000                ns/op
+Day7Bench.part1                 sample    4813    1038916.827 ±    9821.091  ns/op
+Day7Bench.part1:part1·p0.00     sample             834560.000                ns/op
+Day7Bench.part1:part1·p0.50     sample            1008640.000                ns/op
+Day7Bench.part1:part1·p0.90     sample            1181696.000                ns/op
+Day7Bench.part1:part1·p0.95     sample            1202176.000                ns/op
+Day7Bench.part1:part1·p0.99     sample            2091909.120                ns/op
+Day7Bench.part1:part1·p0.999    sample            3505127.424                ns/op
+Day7Bench.part1:part1·p0.9999   sample            4874240.000                ns/op
+Day7Bench.part1:part1·p1.00     sample            4874240.000                ns/op
+Day7Bench.part2                 sample    5957     839120.126 ±    7402.631  ns/op
+Day7Bench.part2:part2·p0.00     sample             648192.000                ns/op
+Day7Bench.part2:part2·p0.50     sample             832512.000                ns/op
+Day7Bench.part2:part2·p0.90     sample             932864.000                ns/op
+Day7Bench.part2:part2·p0.95     sample             945152.000                ns/op
+Day7Bench.part2:part2·p0.99     sample            1739612.160                ns/op
+Day7Bench.part2:part2·p0.999    sample            2631139.328                ns/op
+Day7Bench.part2:part2·p0.9999   sample            3493888.000                ns/op
+Day7Bench.part2:part2·p1.00     sample            3493888.000                ns/op
+Day8Bench.part1                 sample   72495      34829.809 ±     444.060  ns/op
+Day8Bench.part1:part1·p0.00     sample              26400.000                ns/op
+Day8Bench.part1:part1·p0.50     sample              32096.000                ns/op
+Day8Bench.part1:part1·p0.90     sample              39168.000                ns/op
+Day8Bench.part1:part1·p0.95     sample              42560.000                ns/op
+Day8Bench.part1:part1·p0.99     sample              60352.000                ns/op
+Day8Bench.part1:part1·p0.999    sample             113413.120                ns/op
+Day8Bench.part1:part1·p0.9999   sample            1558550.938                ns/op
+Day8Bench.part1:part1·p1.00     sample            3784704.000                ns/op
+Day8Bench.part2                 sample   12839     389406.248 ±    2716.930  ns/op
+Day8Bench.part2:part2·p0.00     sample             297984.000                ns/op
+Day8Bench.part2:part2·p0.50     sample             392192.000                ns/op
+Day8Bench.part2:part2·p0.90     sample             436736.000                ns/op
+Day8Bench.part2:part2·p0.95     sample             445952.000                ns/op
+Day8Bench.part2:part2·p0.99     sample             513945.600                ns/op
+Day8Bench.part2:part2·p0.999    sample            1679523.840                ns/op
+Day8Bench.part2:part2·p0.9999   sample            2620719.104                ns/op
+Day8Bench.part2:part2·p1.00     sample            2695168.000                ns/op
+Day9Bench.part1                 sample   41477     120405.101 ±     607.471  ns/op
+Day9Bench.part1:part1·p0.00     sample              82688.000                ns/op
+Day9Bench.part1:part1·p0.50     sample             111616.000                ns/op
+Day9Bench.part1:part1·p0.90     sample             154880.000                ns/op
+Day9Bench.part1:part1·p0.95     sample             166656.000                ns/op
+Day9Bench.part1:part1·p0.99     sample             177408.000                ns/op
+Day9Bench.part1:part1·p0.999    sample             246528.000                ns/op
+Day9Bench.part1:part1·p0.9999   sample            1822951.834                ns/op
+Day9Bench.part1:part1·p1.00     sample            2285568.000                ns/op
+Day9Bench.part2                 sample   35180     142192.086 ±     552.962  ns/op
+Day9Bench.part2:part2·p0.00     sample             124800.000                ns/op
+Day9Bench.part2:part2·p0.50     sample             143872.000                ns/op
+Day9Bench.part2:part2·p0.90     sample             155904.000                ns/op
+Day9Bench.part2:part2·p0.95     sample             158976.000                ns/op
+Day9Bench.part2:part2·p0.99     sample             172288.000                ns/op
+Day9Bench.part2:part2·p0.999    sample             286349.312                ns/op
+Day9Bench.part2:part2·p0.9999   sample            2056284.570                ns/op
+Day9Bench.part2:part2·p1.00     sample            2314240.000                ns/op
+Day10Bench.part1                sample  174499       3771.179 ±     147.483  ns/op
+Day10Bench.part1:part1·p0.00    sample               2700.000                ns/op
+Day10Bench.part1:part1·p0.50    sample               3400.000                ns/op
+Day10Bench.part1:part1·p0.90    sample               4000.000                ns/op
+Day10Bench.part1:part1·p0.95    sample               4096.000                ns/op
+Day10Bench.part1:part1·p0.99    sample               7200.000                ns/op
+Day10Bench.part1:part1·p0.999   sample              20288.000                ns/op
+Day10Bench.part1:part1·p0.9999  sample             784332.800                ns/op
+Day10Bench.part1:part1·p1.00    sample            3858432.000                ns/op
+Day10Bench.part2                sample  128629       4998.084 ±     100.210  ns/op
+Day10Bench.part2:part2·p0.00    sample               3500.000                ns/op
+Day10Bench.part2:part2·p0.50    sample               4896.000                ns/op
+Day10Bench.part2:part2·p0.90    sample               5296.000                ns/op
+Day10Bench.part2:part2·p0.95    sample               5400.000                ns/op
+Day10Bench.part2:part2·p0.99    sample               9600.000                ns/op
+Day10Bench.part2:part2·p0.999   sample              24192.000                ns/op
+Day10Bench.part2:part2·p0.9999  sample             703081.472                ns/op
+Day10Bench.part2:part2·p1.00    sample            1347584.000                ns/op
+Day11Bench.part1                sample     209   24308838.890 ±  355051.613  ns/op
+Day11Bench.part1:part1·p0.00    sample           21299200.000                ns/op
+Day11Bench.part1:part1·p0.50    sample           24281088.000                ns/op
+Day11Bench.part1:part1·p0.90    sample           25755648.000                ns/op
+Day11Bench.part1:part1·p0.95    sample           26099712.000                ns/op
+Day11Bench.part1:part1·p0.99    sample           31336038.400                ns/op
+Day11Bench.part1:part1·p0.999   sample           33030144.000                ns/op
+Day11Bench.part1:part1·p0.9999  sample           33030144.000                ns/op
+Day11Bench.part1:part1·p1.00    sample           33030144.000                ns/op
+Day11Bench.part2                sample     242   20868612.231 ±  288031.128  ns/op
+Day11Bench.part2:part2·p0.00    sample           18317312.000                ns/op
+Day11Bench.part2:part2·p0.50    sample           20643840.000                ns/op
+Day11Bench.part2:part2·p0.90    sample           22491955.200                ns/op
+Day11Bench.part2:part2·p0.95    sample           23343923.200                ns/op
+Day11Bench.part2:part2·p0.99    sample           26199654.400                ns/op
+Day11Bench.part2:part2·p0.999   sample           27656192.000                ns/op
+Day11Bench.part2:part2·p0.9999  sample           27656192.000                ns/op
+Day11Bench.part2:part2·p1.00    sample           27656192.000                ns/op
+Day12Bench.part1                sample   79769      31538.223 ±     291.995  ns/op
+Day12Bench.part1:part1·p0.00    sample              24288.000                ns/op
+Day12Bench.part1:part1·p0.50    sample              29376.000                ns/op
+Day12Bench.part1:part1·p0.90    sample              35776.000                ns/op
+Day12Bench.part1:part1·p0.95    sample              38464.000                ns/op
+Day12Bench.part1:part1·p0.99    sample              60672.000                ns/op
+Day12Bench.part1:part1·p0.999   sample              88024.320                ns/op
+Day12Bench.part1:part1·p0.9999  sample            1096951.808                ns/op
+Day12Bench.part1:part1·p1.00    sample            2091008.000                ns/op
+Day12Bench.part2                sample   73914      34124.280 ±     451.299  ns/op
+Day12Bench.part2:part2·p0.00    sample              28576.000                ns/op
+Day12Bench.part2:part2·p0.50    sample              33344.000                ns/op
+Day12Bench.part2:part2·p0.90    sample              36352.000                ns/op
+Day12Bench.part2:part2·p0.95    sample              37568.000                ns/op
+Day12Bench.part2:part2·p0.99    sample              52854.400                ns/op
+Day12Bench.part2:part2·p0.999   sample              87061.760                ns/op
+Day12Bench.part2:part2·p0.9999  sample            1409912.832                ns/op
+Day12Bench.part2:part2·p1.00    sample            5406720.000                ns/op
+Day13Bench.part1                sample  126186       5270.533 ±     335.014  ns/op
+Day13Bench.part1:part1·p0.00    sample               4200.000                ns/op
+Day13Bench.part1:part1·p0.50    sample               4896.000                ns/op
+Day13Bench.part1:part1·p0.90    sample               5296.000                ns/op
+Day13Bench.part1:part1·p0.95    sample               5296.000                ns/op
+Day13Bench.part1:part1·p0.99    sample               9392.000                ns/op
+Day13Bench.part1:part1·p0.999   sample              23054.048                ns/op
+Day13Bench.part1:part1·p0.9999  sample            1041069.158                ns/op
+Day13Bench.part1:part1·p1.00    sample            9666560.000                ns/op
+Day13Bench.part2                sample   83943      15062.870 ±     213.436  ns/op
+Day13Bench.part2:part2·p0.00    sample              12688.000                ns/op
+Day13Bench.part2:part2·p0.50    sample              14688.000                ns/op
+Day13Bench.part2:part2·p0.90    sample              15888.000                ns/op
+Day13Bench.part2:part2·p0.95    sample              16000.000                ns/op
+Day13Bench.part2:part2·p0.99    sample              28288.000                ns/op
+Day13Bench.part2:part2·p0.999   sample              43264.000                ns/op
+Day13Bench.part2:part2·p0.9999  sample            1091641.344                ns/op
+Day13Bench.part2:part2·p1.00    sample            1824768.000                ns/op
+Day14Bench.part1                sample   32587     153295.529 ±    1537.827  ns/op
+Day14Bench.part1:part1·p0.00    sample             109056.000                ns/op
+Day14Bench.part1:part1·p0.50    sample             148480.000                ns/op
+Day14Bench.part1:part1·p0.90    sample             163072.000                ns/op
+Day14Bench.part1:part1·p0.95    sample             169728.000                ns/op
+Day14Bench.part1:part1·p0.99    sample             284672.000                ns/op
+Day14Bench.part1:part1·p0.999   sample            1173143.552                ns/op
+Day14Bench.part1:part1·p0.9999  sample            1794819.686                ns/op
+Day14Bench.part1:part1·p1.00    sample            9338880.000                ns/op
+Day14Bench.part2                sample     277   18891047.740 ± 8173096.479  ns/op
+Day14Bench.part2:part2·p0.00    sample            8019968.000                ns/op
+Day14Bench.part2:part2·p0.50    sample            8765440.000                ns/op
+Day14Bench.part2:part2·p0.90    sample            9630515.200                ns/op
+Day14Bench.part2:part2·p0.95    sample          165176934.400                ns/op
+Day14Bench.part2:part2·p0.99    sample          198055034.880                ns/op
+Day14Bench.part2:part2·p0.999   sample          203161600.000                ns/op
+Day14Bench.part2:part2·p0.9999  sample          203161600.000                ns/op
+Day14Bench.part2:part2·p1.00    sample          203161600.000                ns/op
+Day15Bench.part1                sample  149196       8450.121 ±     129.530  ns/op
+Day15Bench.part1:part1·p0.00    sample               6200.000                ns/op
+Day15Bench.part1:part1·p0.50    sample               8208.000                ns/op
+Day15Bench.part1:part1·p0.90    sample               8896.000                ns/op
+Day15Bench.part1:part1·p0.95    sample               8992.000                ns/op
+Day15Bench.part1:part1·p0.99    sample              15088.000                ns/op
+Day15Bench.part1:part1·p0.999   sample              25376.000                ns/op
+Day15Bench.part1:part1·p0.9999  sample             716351.590                ns/op
+Day15Bench.part1:part1·p1.00    sample            2445312.000                ns/op
+Day15Bench.part2                sample      15  369762850.133 ± 5554552.380  ns/op
+Day15Bench.part2:part2·p0.00    sample          362807296.000                ns/op
+Day15Bench.part2:part2·p0.50    sample          368574464.000                ns/op
+Day15Bench.part2:part2·p0.90    sample          379794227.200                ns/op
+Day15Bench.part2:part2·p0.95    sample          380108800.000                ns/op
+Day15Bench.part2:part2·p0.99    sample          380108800.000                ns/op
+Day15Bench.part2:part2·p0.999   sample          380108800.000                ns/op
+Day15Bench.part2:part2·p0.9999  sample          380108800.000                ns/op
+Day15Bench.part2:part2·p1.00    sample          380108800.000                ns/op
+Day16Bench.part1                sample   16478     303863.548 ±    2099.990  ns/op
+Day16Bench.part1:part1·p0.00    sample             240384.000                ns/op
+Day16Bench.part1:part1·p0.50    sample             285696.000                ns/op
+Day16Bench.part1:part1·p0.90    sample             349696.000                ns/op
+Day16Bench.part1:part1·p0.95    sample             356864.000                ns/op
+Day16Bench.part1:part1·p0.99    sample             629760.000                ns/op
+Day16Bench.part1:part1·p0.999   sample            1339822.080                ns/op
+Day16Bench.part1:part1·p0.9999  sample            2322256.282                ns/op
+Day16Bench.part1:part1·p1.00    sample            2457600.000                ns/op
+Day16Bench.part2                sample    3154    1588253.869 ±   17948.759  ns/op
+Day16Bench.part2:part2·p0.00    sample            1339392.000                ns/op
+Day16Bench.part2:part2·p0.50    sample            1546240.000                ns/op
+Day16Bench.part2:part2·p0.90    sample            1665024.000                ns/op
+Day16Bench.part2:part2·p0.95    sample            1697792.000                ns/op
+Day16Bench.part2:part2·p0.99    sample            2967347.200                ns/op
+Day16Bench.part2:part2·p0.999   sample            4584161.280                ns/op
+Day16Bench.part2:part2·p0.9999  sample            9928704.000                ns/op
+Day16Bench.part2:part2·p1.00    sample            9928704.000                ns/op
+Day17Bench.part1                sample    4118    1215214.220 ±    8678.464  ns/op
+Day17Bench.part1:part1·p0.00    sample             906240.000                ns/op
+Day17Bench.part1:part1·p0.50    sample            1204224.000                ns/op
+Day17Bench.part1:part1·p0.90    sample            1294336.000                ns/op
+Day17Bench.part1:part1·p0.95    sample            1306624.000                ns/op
+Day17Bench.part1:part1·p0.99    sample            2134220.800                ns/op
+Day17Bench.part1:part1·p0.999   sample            3044986.880                ns/op
+Day17Bench.part1:part1·p0.9999  sample            5079040.000                ns/op
+Day17Bench.part1:part1·p1.00    sample            5079040.000                ns/op
+Day17Bench.part2                sample     282   17885111.376 ±  279009.403  ns/op
+Day17Bench.part2:part2·p0.00    sample           15499264.000                ns/op
+Day17Bench.part2:part2·p0.50    sample           17727488.000                ns/op
+Day17Bench.part2:part2·p0.90    sample           19159449.600                ns/op
+Day17Bench.part2:part2·p0.95    sample           20763443.200                ns/op
+Day17Bench.part2:part2·p0.99    sample           24027136.000                ns/op
+Day17Bench.part2:part2·p0.999   sample           25395200.000                ns/op
+Day17Bench.part2:part2·p0.9999  sample           25395200.000                ns/op
+Day17Bench.part2:part2·p1.00    sample           25395200.000                ns/op
+Day18Bench.part1                sample   17942     278679.685 ±    2038.983  ns/op
+Day18Bench.part1:part1·p0.00    sample             212224.000                ns/op
+Day18Bench.part1:part1·p0.50    sample             284160.000                ns/op
+Day18Bench.part1:part1·p0.90    sample             308070.400                ns/op
+Day18Bench.part1:part1·p0.95    sample             313856.000                ns/op
+Day18Bench.part1:part1·p0.99    sample             549888.000                ns/op
+Day18Bench.part1:part1·p0.999   sample            1351913.472                ns/op
+Day18Bench.part1:part1·p0.9999  sample            3195153.613                ns/op
+Day18Bench.part1:part1·p1.00    sample            6201344.000                ns/op
+Day18Bench.part2                sample   15148     331245.951 ±    2679.514  ns/op
+Day18Bench.part2:part2·p0.00    sample             276480.000                ns/op
+Day18Bench.part2:part2·p0.50    sample             321024.000                ns/op
+Day18Bench.part2:part2·p0.90    sample             348160.000                ns/op
+Day18Bench.part2:part2·p0.95    sample             355840.000                ns/op
+Day18Bench.part2:part2·p0.99    sample             386821.120                ns/op
+Day18Bench.part2:part2·p0.999   sample            1553029.120                ns/op
+Day18Bench.part2:part2·p0.9999  sample            6641082.368                ns/op
+Day18Bench.part2:part2·p1.00    sample            7864320.000                ns/op
+Day19Bench.part1                sample    1205    4164238.340 ±   45773.656  ns/op
+Day19Bench.part1:part1·p0.00    sample            3293184.000                ns/op
+Day19Bench.part1:part1·p0.50    sample            4132864.000                ns/op
+Day19Bench.part1:part1·p0.90    sample            4415488.000                ns/op
+Day19Bench.part1:part1·p0.95    sample            4574412.800                ns/op
+Day19Bench.part1:part1·p0.99    sample            6379438.080                ns/op
+Day19Bench.part1:part1·p0.999   sample            8224522.240                ns/op
+Day19Bench.part1:part1·p0.9999  sample            8232960.000                ns/op
+Day19Bench.part1:part1·p1.00    sample            8232960.000                ns/op
+Day19Bench.part2                sample      91   56034720.352 ± 1710445.155  ns/op
+Day19Bench.part2:part2·p0.00    sample           50200576.000                ns/op
+Day19Bench.part2:part2·p0.50    sample           53805056.000                ns/op
+Day19Bench.part2:part2·p0.90    sample           63609241.600                ns/op
+Day19Bench.part2:part2·p0.95    sample           64277708.800                ns/op
+Day19Bench.part2:part2·p0.99    sample           71303168.000                ns/op
+Day19Bench.part2:part2·p0.999   sample           71303168.000                ns/op
+Day19Bench.part2:part2·p0.9999  sample           71303168.000                ns/op
+Day19Bench.part2:part2·p1.00    sample           71303168.000                ns/op
+Day20Bench.part1                sample     166   30779219.277 ±  498918.702  ns/op
+Day20Bench.part1:part1·p0.00    sample           27230208.000                ns/op
+Day20Bench.part1:part1·p0.50    sample           30474240.000                ns/op
+Day20Bench.part1:part1·p0.90    sample           33049804.800                ns/op
+Day20Bench.part1:part1·p0.95    sample           34471936.000                ns/op
+Day20Bench.part1:part1·p0.99    sample           37659607.040                ns/op
+Day20Bench.part1:part1·p0.999   sample           38010880.000                ns/op
+Day20Bench.part1:part1·p0.9999  sample           38010880.000                ns/op
+Day20Bench.part1:part1·p1.00    sample           38010880.000                ns/op
+Day20Bench.part2                sample     130   38955606.646 ±  678430.579  ns/op
+Day20Bench.part2:part2·p0.00    sample           34144256.000                ns/op
+Day20Bench.part2:part2·p0.50    sample           38600704.000                ns/op
+Day20Bench.part2:part2·p0.90    sample           41923379.200                ns/op
+Day20Bench.part2:part2·p0.95    sample           44367872.000                ns/op
+Day20Bench.part2:part2·p0.99    sample           45818839.040                ns/op
+Day20Bench.part2:part2·p0.999   sample           45940736.000                ns/op
+Day20Bench.part2:part2·p0.9999  sample           45940736.000                ns/op
+Day20Bench.part2:part2·p1.00    sample           45940736.000                ns/op
+Day21Bench.part1                sample   11416     438745.385 ±    2384.727  ns/op
+Day21Bench.part1:part1·p0.00    sample             327680.000                ns/op
+Day21Bench.part1:part1·p0.50    sample             442368.000                ns/op
+Day21Bench.part1:part1·p0.90    sample             481280.000                ns/op
+Day21Bench.part1:part1·p0.95    sample             487936.000                ns/op
+Day21Bench.part1:part1·p0.99    sample             506368.000                ns/op
+Day21Bench.part1:part1·p0.999   sample            1706829.824                ns/op
+Day21Bench.part1:part1·p0.9999  sample            2436605.952                ns/op
+Day21Bench.part1:part1·p1.00    sample            2445312.000                ns/op
+Day21Bench.part2                sample   12895     388219.960 ±    3129.029  ns/op
+Day21Bench.part2:part2·p0.00    sample             287744.000                ns/op
+Day21Bench.part2:part2·p0.50    sample             388608.000                ns/op
+Day21Bench.part2:part2·p0.90    sample             422912.000                ns/op
+Day21Bench.part2:part2·p0.95    sample             430080.000                ns/op
+Day21Bench.part2:part2·p0.99    sample             452608.000                ns/op
+Day21Bench.part2:part2·p0.999   sample            1828814.848                ns/op
+Day21Bench.part2:part2·p0.9999  sample            6619247.411                ns/op
+Day21Bench.part2:part2·p1.00    sample            8093696.000                ns/op
