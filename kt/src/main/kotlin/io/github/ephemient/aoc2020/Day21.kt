@@ -21,8 +21,7 @@ class Day21(lines: List<String>) {
 
     fun part2(): String? {
         val ret = TreeMap<String, String>()
-        val mapping = mapping.entries
-            .associateTo(mutableMapOf()) { (k, vs) -> k to vs.toMutableSet() }
+        val mapping = mapping.mapValuesTo(mutableMapOf()) { (_, vs) -> vs.toMutableSet() }
         while (mapping.isNotEmpty()) {
             val (k, vs) = mapping.entries.find { it.value.size == 1 } ?: return null
             val v = vs.single()
