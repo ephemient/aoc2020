@@ -9,10 +9,10 @@ import Control.Monad.State (evalState, evalStateT, gets, modify')
 import Control.Monad.Trans (lift)
 import Data.Function (on)
 import Data.List (foldl')
-import qualified Data.Map as Map (empty, insert, lookup)
+import qualified Data.IntMap as IntMap (empty, insert, lookup)
 import Data.Sequence (Seq(Empty, (:<|)), (|>))
 import qualified Data.Sequence as Seq (empty, fromList, length, mapWithIndex, take)
-import qualified Data.Set as Set (empty, insert, member)
+import qualified Data.IntSet as IntSet (empty, insert, member)
 import Data.String (IsString)
 import Data.Text (Text)
 import Data.Void (Void)
@@ -42,27 +42,30 @@ day22a input = do
 
 playRecursive :: Seq Int -> Seq Int -> Seq Int
 playRecursive as bs =
-    snd $ evalState (evalStateT (game as bs) Set.empty) Map.empty where
+    snd $ evalState (evalStateT (game as bs) IntSet.empty) IntMap.empty where
     game Empty Empty = pure (EQ, Seq.empty)
     game Empty bs' = pure (LT, bs')
     game as' Empty = pure (GT, as')
     game as'@(a :<| as'') bs'@(b :<| bs'') = do
-        seen <- gets $ Set.member (as', bs')
+        seen <- gets $ IntSet.member hash'
         if seen then pure (GT, as') else do
-            modify' $ Set.insert (as', bs')
+            modify' $ IntSet.insert hash'
             lift (compare' a as'' b bs'') >>= \case
                 LT -> game as'' (bs'' |> b |> a)
                 GT -> game (as'' |> a |> b) bs''
+      where hash' = hash as' bs'
     compare' a as' b bs'
       | a > Seq.length as' || b > Seq.length bs' = pure $ compare a b
-      | otherwise = gets (Map.lookup (as'', bs'')) >>= \case
+      | otherwise = gets (IntMap.lookup hash') >>= \case
         Just cached -> pure cached
         Nothing -> do
-            (cmp, _) <- evalStateT (game as'' bs'') Set.empty
-            cmp <$ modify' (Map.insert (as'', bs'') cmp)
+            (cmp, _) <- evalStateT (game as'' bs'') IntSet.empty
+            cmp <$ modify' (IntMap.insert hash' cmp)
       where
         as'' = Seq.take a as'
         bs'' = Seq.take b bs'
+        hash' = hash as'' bs''
+    hash as' bs' = foldl' ((+) . (31 *)) (31 * foldl' ((+) . (31 *)) 0 as') bs'
 
 day22b :: Text -> Either (ParseErrorBundle Text Void) Int
 day22b input = do
