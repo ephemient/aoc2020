@@ -1,9 +1,8 @@
 ifndef SESSION
 SESSION = $(file < $(HOME)/.aocrc)
 endif
-TZ := UTC+5
 YEAR := 2020
-DAYS := $(shell seq 1 $$(expr '(' $$(date +%s) - $$(date +%s --date=$(YEAR)-12-01) ')' / 86400 + 1) | head -n25)
+DAYS := $(shell seq 1 $$(expr '(' $$(date +%s) - $$(TZ=UTC+5 date +%s --date=$(YEAR)-12-01) ')' / 86400 + 1) | head -n25)
 
 all: $(DAYS:%=day%.txt)
 
