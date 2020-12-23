@@ -19,7 +19,7 @@ step arr x = do
     c <- readArray arr b
     y <- readArray arr c
     let pred' z = if z == lo then hi else pred z
-        t:_ = dropWhile (`elem` [a, b, c]) . iterate pred' $ pred' x
+        t = until (`notElem` [a, b, c]) pred' $ pred' x
     u <- readArray arr t
     writeArray arr x y
     writeArray arr t a
