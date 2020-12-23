@@ -159,6 +159,11 @@ import Day21 (day21a, day21b)
 import Day22 (day22a, day22b)
 ```
 
+## [Day 23: Crab Cups](/src/Day23.hs)
+```haskell
+import Day23 (day23a, day23b)
+```
+
 ---
 
 ```haskell
@@ -216,4 +221,5 @@ main = do
     run 21 (putStrLn <=< justOrFail <=< rightOrFail)
         [fmap (Just . show) . day21a, fmap (fmap T.unpack) . day21b]
     run 22 (print <=< rightOrFail) [day22a, day22b]
+    run 23 print [day23a . T.unpack, day23b . T.unpack]
 ```

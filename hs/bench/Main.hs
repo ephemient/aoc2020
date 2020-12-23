@@ -2,6 +2,7 @@ module Main (main) where
 
 import Criterion.Main (bench, bgroup, defaultMain, env, nf)
 import Data.Text (Text)
+import qualified Data.Text as T (unpack)
 import qualified Data.Text.IO as TIO (readFile)
 import Day1 (day1a, day1b)
 import Day2 (day2a, day2b)
@@ -25,6 +26,7 @@ import Day19 (day19a, day19b)
 import Day20 (day20a, day20b)
 import Day21 (day21a, day21b)
 import Day22 (day22a, day22b)
+import Day23 (day23a, day23b)
 import Paths_aoc2020 (getDataFileName)
 
 getDayInput :: Int -> IO Text
@@ -119,5 +121,9 @@ main = defaultMain
   , env (getDayInput 22) $ \input -> bgroup "Day 22"
       [ bench "part 1" $ nf day22a input
       , bench "part 2" $ nf day22b input
+      ]
+  , env (T.unpack <$> getDayInput 23) $ \input -> bgroup "Day 23"
+      [ bench "part 1" $ nf day23a input
+      , bench "part 2" $ nf day23b input
       ]
   ]

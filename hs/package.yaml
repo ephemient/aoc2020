@@ -25,6 +25,7 @@ dependencies:
 library:
   source-dirs: src
   dependencies:
+  - array
   - containers
   - deepseq
   - megaparsec
