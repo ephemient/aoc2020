@@ -28,6 +28,7 @@ library:
   - containers
   - deepseq
   - megaparsec
+  - mtl
   - parser-combinators
   - split
   - text
@@ -65,6 +66,7 @@ tests:
     dependencies:
     - QuickCheck
     - aoc2020
+    - containers
     - hspec
     - text
 
