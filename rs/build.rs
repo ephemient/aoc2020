@@ -30,5 +30,5 @@ fn main() -> io::Result<()> {
         consts.add_value_raw(&format!("DAY{}", day), "&[&str]", &format!("&{:?}", lines));
     }
     consts.finish();
-    return Ok(());
+    Ok(())
 }

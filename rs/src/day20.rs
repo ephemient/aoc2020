@@ -21,7 +21,7 @@ impl Tile {
     {
         let mut bits = Vec::new();
         let mut height = 0;
-        while let Some(line) = lines.next() {
+        for line in lines {
             let line = line.as_ref();
             if line.is_empty() {
                 break;
@@ -111,7 +111,7 @@ impl Display for Tile {
             self.width, self.height
         )?;
         for y in 0..self.height {
-            write!(f, "\n")?;
+            writeln!(f)?;
             for x in 0..self.width {
                 write!(f, "{}", if self[(x, y)] { "#" } else { "." })?;
             }
@@ -346,7 +346,7 @@ where
     // }
     Ok(bitmap
         .into_iter()
-        .flat_map(|line| line)
+        .flatten()
         .filter(|c| *c == '#')
         .count())
 }
