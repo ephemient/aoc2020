@@ -192,4 +192,12 @@ fun main(args: Array<String>) {
         println(day23.part2())
         println()
     }
+
+    if (days?.contains(24) != false) {
+        val day24 = Day24(resources["day24.txt"])
+        println("Day 24")
+        println(day24.part1())
+        println(day24.part2())
+        println()
+    }
 }
