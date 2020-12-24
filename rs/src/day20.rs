@@ -344,9 +344,5 @@ where
     // for line in bitmap.iter() {
     //     eprintln!("{}", line.iter().collect::<String>());
     // }
-    Ok(bitmap
-        .into_iter()
-        .flatten()
-        .filter(|c| *c == '#')
-        .count())
+    Ok(bitmap.into_iter().flatten().filter(|c| *c == '#').count())
 }
