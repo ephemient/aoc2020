@@ -164,6 +164,11 @@ import Day22 (day22a, day22b)
 import Day23 (day23a, day23b)
 ```
 
+## [Day 24: Lobby Layout](/src/Day24.hs)
+```haskell
+import Day24 (day24a, day24b)
+```
+
 ---
 
 ```haskell
@@ -222,4 +227,5 @@ main = do
         [fmap (Just . show) . day21a, fmap (fmap T.unpack) . day21b]
     run 22 (print <=< rightOrFail) [day22a, day22b]
     run 23 print [day23a . T.unpack, day23b . T.unpack]
+    run 24 (print <=< rightOrFail) [day24a, day24b]
 ```
