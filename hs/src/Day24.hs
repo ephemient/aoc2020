@@ -5,59 +5,46 @@ Description:    <https://adventofcode.com/2020/day/24 Day 24: Lobby Layout>
 {-# LANGUAGE FlexibleContexts, OverloadedStrings, TupleSections, TypeFamilies #-}
 module Day24 (day24a, day24b) where
 
-import Data.List (foldl1')
-import qualified Data.Map as Map (filter, filterWithKey, fromListWith, keysSet)
-import Data.Semigroup (Max(Max), Min(Min))
-import Data.Set (Set)
-import qualified Data.Set as Set (member, size, toList)
+import Data.Bits ((.&.))
+import Data.List (foldl')
+import qualified Data.IntMap.Strict as IntMap (filterWithKey, fromListWith, keysSet)
+import Data.IntSet (IntSet)
+import qualified Data.IntSet as IntSet (delete, empty, insert, member, size, toList)
 import Data.String (IsString)
 import Data.Text (Text)
 import Data.Void (Void)
 import Text.Megaparsec (MonadParsec, ParseErrorBundle, Token, Tokens, choice, eof, many, parse, some)
 import Text.Megaparsec.Char (char, space, string)
-import Text.Printf (printf)
 
-parser :: (MonadParsec e s m, IsString (Tokens s), Token s ~ Char) => m (Set (Int, Int))
-parser = Map.keysSet . Map.filter odd . Map.fromListWith (+) . map (, 1) <$>
-    many (foldl1' (.+) <$> some direction <* space) where
+parser :: (MonadParsec e s m, IsString (Tokens s), Token s ~ Char) => m IntSet
+parser = foldl' insertOrRemove IntSet.empty <$> many (line <* space) where
+    line = foldl' (+&) 0 <$> some direction
     direction = choice
-      [ (1, 0) <$ char 'e', (1, -1) <$ string "se", (0, -1) <$ string "sw"
-      , (-1, 0) <$ char 'w', (-1, 1) <$ string "nw", (0, 1) <$ string "ne"
+      [ 0x00010000 <$ char 'e',    0x00000001 <$ string "ne"
+      , 0x7fff0000 <$ char 'w',    0x00007fff <$ string "sw"
+      , 0x00017fff <$ string "se", 0x7fff0001 <$ string "nw"
       ]
-    (a, b) .+ (c, d) = (a + c, b + d)
+    insertOrRemove s k
+      | IntSet.member k s = IntSet.delete k s
+      | otherwise = IntSet.insert k s
 
-step :: Set (Int, Int) -> Set (Int, Int)
-step s = Map.keysSet $ Map.filterWithKey ok $ Map.fromListWith (+)
-  [ ((x + dx, y + dy), 1)
-  | (x, y) <- Set.toList s
-  , dx <- [-1..1]
-  , dy <- [-1..1]
-  , abs (dx + dy) < 2
+(+&) :: Int -> Int -> Int
+a +& b = (a + b) .&. 0x7fff7fff
+
+step :: IntSet -> IntSet
+step s = IntMap.keysSet $ IntMap.filterWithKey ok $ IntMap.fromListWith (+)
+  [ (p +& d, 1 :: Int)
+  | p <- IntSet.toList s
+  , d <- [0x1, 0x7fff, 0x10000, 0x17fff, 0x7fff0000, 0x7fff0001]
   ] where
+    ok pos 1 = pos `IntSet.member` s
     ok _ 2 = True
-    ok pos 3 = pos `Set.member` s
     ok _ _ = False
 
 day24a :: Text -> Either (ParseErrorBundle Text Void) Int
-day24a = fmap Set.size . parse (parser <* eof) ""
+day24a = fmap IntSet.size . parse (parser <* eof) ""
 
 day24b :: Text -> Either (ParseErrorBundle Text Void) Int
 day24b input = do
     s0 <- parse (parser <* eof) "" input
-    pure $ Set.size $ iterate step s0 !! 100
-
-showSet :: Set (Int, Int) -> String
-showSet s
-  | Just (Min minX, Min minY, Max maxX, Max maxY) <-
-        mconcat $ Just . proj <$> Set.toList s
-  = unlines $ printf "%d (%d..%d, %d..%d)" (Set.size s) minX maxX minY maxY :
-      [ [ if d /= 0
-            then if fx == 0 then '|' else if y == 0 then '-' else ' '
-            else if (x, y) `Set.member` s then '#' else '.'
-        | fx <- [2 * minX..2 * maxX]
-        , let (x, d) = (fx - y) `divMod` 2
-        ]
-      | y <- [minY..maxY]
-      ]
-  | otherwise = "(empty)"
-  where proj (x', y) = (Min x, Min y, Max x, Max y) where x = x' + y
+    pure . IntSet.size $ iterate step s0 !! 100
