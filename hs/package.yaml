@@ -28,7 +28,6 @@ library:
   - array
   - containers
   - deepseq
-  - finite-typelits
   - megaparsec
   - mtl
   - parser-combinators
