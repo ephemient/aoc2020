@@ -9,7 +9,7 @@ def step(arr, x):
     y = arr[c]
     t = x
     while True:
-        t = t - 1 if t > 0 else len(arr) -1
+        t = t - 1 if t > 0 else len(arr) - 1
         if t not in (a, b, c):
             break
     u = arr[t]
