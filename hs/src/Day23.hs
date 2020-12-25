@@ -7,45 +7,45 @@ module Day23 (day23a, day23b) where
 
 import Control.Monad (foldM_, zipWithM_)
 import Control.Monad.ST (ST, runST)
-import Data.Array.ST (Ix, MArray, STUArray, getBounds, newArray_, readArray, writeArray)
+import Data.Vector.Unboxed.Mutable (STVector)
+import qualified Data.Vector.Unboxed.Mutable as MV (length, unsafeNew, unsafeRead, unsafeWrite)
 import Data.Char (digitToInt, isDigit)
 import Data.List ((\\))
 
-step :: (MArray a e m, Enum e, Ix e) => a e e -> e -> m e
-step arr x = do
-    (lo, hi) <- getBounds arr
-    a <- readArray arr x
-    b <- readArray arr a
-    c <- readArray arr b
-    y <- readArray arr c
-    let pred' z = if z == lo then hi else pred z
+step :: STVector s Int -> Int -> ST s Int
+step vec x = do
+    a <- MV.unsafeRead vec x
+    b <- MV.unsafeRead vec a
+    c <- MV.unsafeRead vec b
+    y <- MV.unsafeRead vec c
+    let pred' z = pred $ if z == 0 then MV.length vec else z
         t = until (`notElem` [a, b, c]) pred' $ pred' x
-    u <- readArray arr t
-    writeArray arr x y
-    writeArray arr t a
-    writeArray arr c u
+    u <- MV.unsafeRead vec t
+    MV.unsafeWrite vec x y
+    MV.unsafeWrite vec t a
+    MV.unsafeWrite vec c u
     pure y
 
-newArray' :: [Int] -> ST s (STUArray s Int Int)
-newArray' xs = do
-    arr <- newArray_ (minimum xs, maximum xs)
-    arr <$ zipWithM_ (writeArray arr) xs (drop 1 $ cycle xs)
+newVector :: [Int] -> ST s (STVector s Int)
+newVector xs = do
+    vec <- MV.unsafeNew $ length xs
+    vec <$ zipWithM_ (MV.unsafeWrite vec) xs (drop 1 $ cycle xs)
 
 day23a :: String -> Int
 day23a input = runST $ do
-    let nums@(x:_) = digitToInt <$> filter isDigit input
-    arr <- newArray' nums
-    foldM_ (const . step arr) x $ replicate 100 ()
-    let f i acc = readArray arr i >>= \case
-            1 -> pure acc
-            j -> f j $! 10 * acc + j
-    f 1 0
+    let nums@(x:_) = pred . digitToInt <$> filter isDigit input
+    vec <- newVector nums
+    foldM_ (const . step vec) x $ replicate 100 ()
+    let f i acc = MV.unsafeRead vec i >>= \case
+            0 -> pure acc
+            j -> f j $! 10 * acc + j + 1
+    f 0 0
 
 day23b :: String -> Int
 day23b input = runST $ do
-    let nums@(x:_) = digitToInt <$> filter isDigit input
-    arr <- newArray' $ nums ++ ([1..1000000] \\ nums)
-    foldM_ (const . step arr) x $ replicate 10000000 ()
-    y <- readArray arr 1
-    z <- readArray arr y
-    pure $ y * z
+    let nums@(x:_) = pred . digitToInt <$> filter isDigit input
+    vec <- newVector $ nums ++ [9..999999]
+    foldM_ (const . step vec) x $ replicate 10000000 ()
+    y <- MV.unsafeRead vec 0
+    z <- MV.unsafeRead vec y
+    pure $ (y + 1) * (z + 1)
