@@ -169,6 +169,11 @@ import Day23 (day23a, day23b)
 import Day24 (day24a, day24b)
 ```
 
+## [Day 25: Combo Breaker](/src/Day25.hs)
+```haskell
+import Day25 (day25)
+```
+
 ---
 
 ```haskell
@@ -228,4 +233,5 @@ main = do
     run 22 (print <=< rightOrFail) [day22a, day22b]
     run 23 print [day23a . T.unpack, day23b . T.unpack]
     run 24 (print <=< rightOrFail) [day24a, day24b]
+    run 25 (print <=< justOrFail) [day25]
 ```
