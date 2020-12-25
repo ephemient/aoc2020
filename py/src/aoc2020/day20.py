@@ -81,7 +81,7 @@ def assemble(tiles):
     unused, borders, dest = set(tiles), defaultdict(set), [[]]
     for tile_id, tile in tiles.items():
         for variant in tile.variants():
-            borders[variant.top()].add(tile_id)
+            borders[variant.top()].add((tile_id, tile))
 
     def go():
         if not unused:
@@ -93,12 +93,12 @@ def assemble(tiles):
             top = dest[-2][len(
                 last_row)][1].bottom() if len(dest) > 1 else None
             candidates = (borders[left] if left is not None else
-                          borders[top] if top is not None else tiles.keys())
-            for tile_id in candidates:
+                          borders[top] if top is not None else tiles.items())
+            for tile_id, tile in candidates:
                 if tile_id not in unused:
                     continue
                 unused.remove(tile_id)
-                for variant in tiles[tile_id].variants():
+                for variant in tile.variants():
                     if (left is not None and variant.left() != left
                             or top is not None and variant.top() != top):
                         continue
@@ -113,11 +113,11 @@ def assemble(tiles):
             candidates = borders[top]
             next_row = []
             dest.append(next_row)
-            for tile_id in candidates:
+            for tile_id, tile in candidates:
                 if tile_id not in unused:
                     continue
                 unused.remove(tile_id)
-                for variant in tiles[tile_id].variants():
+                for variant in tile.variants():
                     if variant.top() != top:
                         continue
                     next_row.append((tile_id, variant))
