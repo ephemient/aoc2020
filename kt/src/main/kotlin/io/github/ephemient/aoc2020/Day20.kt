@@ -11,13 +11,10 @@ class Day20(lines: List<String>) {
                 )
             }
         }
-        val borders = mutableMapOf<Int, MutableSet<Pair<Int, Tile>>>().apply {
+        val borders = mutableMapOf<Int, MutableSet<Int>>().apply {
             for ((id, basicTile) in tiles) {
                 for (tile in basicTile.variants()) {
-                    getOrPut(tile.top) { mutableSetOf() }.add(id to basicTile)
-                    getOrPut(tile.left) { mutableSetOf() }.add(id to basicTile)
-                    getOrPut(tile.bottom) { mutableSetOf() }.add(id to basicTile)
-                    getOrPut(tile.right) { mutableSetOf() }.add(id to basicTile)
+                    getOrPut(tile.top) { mutableSetOf() }.add(id)
                 }
             }
         }
@@ -71,27 +68,37 @@ class Day20(lines: List<String>) {
         return bitmap.sumOf { it.count { it == '#' } }
     }
 
-    private abstract class Tile {
-        abstract val width: Int
-        abstract val height: Int
-        abstract operator fun get(x: Int, y: Int): Boolean
+    private interface Tile {
+        val width: Int
+        val height: Int
+        operator fun get(x: Int, y: Int): Boolean
 
-        override fun hashCode(): Int = (0 until height).fold(0) { acc, y ->
-            (0 until width).fold(acc) { acc2, x -> acc2 * 31 + if (this[x, y]) 1 else 0 } * 31
-        }
-        override fun equals(other: Any?): Boolean = other is Tile &&
-            width == other.width && height == other.height &&
-            (0 until height).all { y -> (0 until width).all { x -> this[x, y] == other[x, y] } }
-        override fun toString(): String = (0 until height).joinToString("\n") { y ->
-            (0 until width).joinToString("") { x -> if (this[x, y]) "#" else "." }
-        }
+        val top: Int get() =
+            (0 until width).fold(0) { acc, x -> (acc shl 1) or if (this[x, 0]) 1 else 0 }
+        val left: Int get() =
+            (0 until height).fold(0) { acc, y -> (acc shl 1) or if (this[0, y]) 1 else 0 }
+        val bottom: Int get() =
+            (0 until width).fold(0) { acc, x -> (acc shl 1) or if (this[x, height - 1]) 1 else 0 }
+        val right: Int get() =
+            (0 until height).fold(0) { acc, y -> (acc shl 1) or if (this[width - 1, y]) 1 else 0 }
+
+        fun variants(): List<Tile> = listOf(
+            this,
+            TransposeTile(this),
+            FlipTile(this),
+            TransposeTile(FlipTile(this)),
+            FlipTile(TransposeTile(this)),
+            TransposeTile(FlipTile(TransposeTile(this))),
+            FlipTile(TransposeTile(FlipTile(this))),
+            TransposeTile(FlipTile(TransposeTile(FlipTile(this)))),
+        )
     }
 
     private class BasicTile(
         override val width: Int,
         override val height: Int,
         private val bits: BooleanArray,
-    ) : Tile() {
+    ) : Tile {
         init {
             require(bits.size == width * height)
         }
@@ -104,44 +111,24 @@ class Day20(lines: List<String>) {
         override operator fun get(x: Int, y: Int): Boolean = bits[x + y * width]
     }
 
-    private class FlipTile(private val tile: Tile) : Tile() {
+    private class FlipTile(private val tile: Tile) : Tile {
         override val width: Int get() = tile.width
         override val height: Int get() = tile.height
         override operator fun get(x: Int, y: Int): Boolean = tile[x, height - 1 - y]
     }
 
-    private class TransposeTile(private val tile: Tile) : Tile() {
+    private class TransposeTile(private val tile: Tile) : Tile {
         override val width: Int get() = tile.height
         override val height: Int get() = tile.width
         override operator fun get(x: Int, y: Int): Boolean = tile[y, x]
     }
 
     companion object {
-        private val Tile.top: Int get() =
-            (0 until width).fold(0) { acc, x -> (acc shl 1) or if (this[x, 0]) 1 else 0 }
-        private val Tile.left: Int get() =
-            (0 until height).fold(0) { acc, y -> (acc shl 1) or if (this[0, y]) 1 else 0 }
-        private val Tile.bottom: Int get() =
-            (0 until width).fold(0) { acc, x -> (acc shl 1) or if (this[x, height - 1]) 1 else 0 }
-        private val Tile.right: Int get() =
-            (0 until height).fold(0) { acc, y -> (acc shl 1) or if (this[width - 1, y]) 1 else 0 }
-
-        private fun Tile.variants(): List<Tile> = listOf(
-            this,
-            TransposeTile(this),
-            FlipTile(this),
-            TransposeTile(FlipTile(this)),
-            FlipTile(TransposeTile(this)),
-            TransposeTile(FlipTile(TransposeTile(this))),
-            FlipTile(TransposeTile(FlipTile(this))),
-            TransposeTile(FlipTile(TransposeTile(FlipTile(this)))),
-        )
-
         @ExperimentalStdlibApi
         @Suppress("ComplexCondition", "ComplexMethod")
         private fun assembleImage(
             tiles: Map<Int, Tile>,
-            borders: Map<Int, Set<Pair<Int, Tile>>>,
+            borders: Map<Int, Set<Int>>,
         ): List<List<Pair<Int, Tile>>>? {
             val unused = tiles.keys.toMutableSet()
             val dest = mutableListOf(mutableListOf<Pair<Int, Tile>>())
@@ -154,11 +141,11 @@ class Day20(lines: List<String>) {
                     val candidates = when {
                         left != null -> borders[left].orEmpty()
                         top != null -> borders[top].orEmpty()
-                        else -> tiles.map { it.toPair() }
-                    }.filter { it.first in unused }
-                    for ((id, tile) in candidates) {
+                        else -> tiles.keys
+                    }.filter { it in unused }
+                    for (id in candidates) {
                         if (!unused.remove(id)) continue
-                        for (variant in tile.variants()) {
+                        for (variant in tiles[id]!!.variants()) {
                             if (left != null && variant.left != left ||
                                 top != null && variant.top != top
                             ) continue
@@ -174,10 +161,10 @@ class Day20(lines: List<String>) {
                 ) {
                     val nextRow = mutableListOf<Pair<Int, Tile>>().also(dest::add)
                     val top = lastRow.first().second.bottom
-                    val candidates = borders[top].orEmpty().filter { it.first in unused }
-                    for ((id, tile) in candidates) {
+                    val candidates = borders[top].orEmpty().filter { it in unused }
+                    for (id in candidates) {
                         if (!unused.remove(id)) continue
-                        for (variant in tile.variants()) {
+                        for (variant in tiles[id]!!.variants()) {
                             if (variant.top != top) continue
                             val pair = (id to variant).also(nextRow::add)
                             if (callRecursive(Unit)) return@DeepRecursiveFunction true
