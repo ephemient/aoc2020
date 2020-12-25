@@ -10,7 +10,6 @@ import Control.Monad.ST (ST, runST)
 import Data.Vector.Unboxed.Mutable (STVector)
 import qualified Data.Vector.Unboxed.Mutable as MV (length, unsafeNew, unsafeRead, unsafeWrite)
 import Data.Char (digitToInt, isDigit)
-import Data.List ((\\))
 
 step :: STVector s Int -> Int -> ST s Int
 step vec x = do
