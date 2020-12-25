@@ -5,11 +5,12 @@ class Day25(lines: List<String>) {
     private val pub2 = lines[1].toInt()
 
     fun part1(): Int {
-        val e = generateSequence(1) { it * 7 % modulus }.indexOf(pub2)
-        return pub1.toBigInteger().modPow(e.toBigInteger(), modulus.toBigInteger()).intValueExact()
-    }
-
-    companion object {
-        private const val modulus = 20201227
+        var e = 0
+        var n = 1
+        while (n != pub2) {
+            e++
+            n = 7 * n % 20201227
+        }
+        return pub1.toBigInteger().modPow(e.toBigInteger(), 20201227.toBigInteger()).intValueExact()
     }
 }
