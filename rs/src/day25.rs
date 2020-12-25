@@ -11,12 +11,21 @@ where
     let pub1: u32 = lines.next().ok_or(util::Error)?.as_ref().parse()?;
     let pub2: u32 = lines.next().ok_or(util::Error)?.as_ref().parse()?;
     drop(lines);
-    let e = iter::successors(Some(1), |n| Some(7 * n % 20201227).filter(|m| *m != 1))
+    let mut r = 1u64;
+    let mut b = pub1 as u64;
+    let mut e = iter::successors(Some(1), |n| Some(7 * n % 20201227).filter(|m| *m != 1))
         .enumerate()
         .find(|(_, n)| *n == pub2)
         .ok_or(util::Error)?
         .0;
-    Ok((1..e).fold(pub1 as u64, |n, _| pub1 as u64 * n % 20201227) as u32)
+    while e != 0 {
+        if e % 2 != 0 {
+            r = r * b % 20201227;
+        }
+        b = b * b % 20201227;
+        e /= 2;
+    }
+    Ok(r as u32)
 }
 
 #[cfg(test)]
