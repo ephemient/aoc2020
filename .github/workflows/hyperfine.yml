@@ -1,0 +1,156 @@
+name: Hyperfine
+
+on:
+  workflow_dispatch:
+
+jobs:
+  haskell:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get Day
+        id: get-day
+        run: echo "::set-output name=day::$(seq 1 $(expr '(' $(date +%s) - $(TZ=UTC+5 date +%s --date=2020-12-01) ')' / 86400 + 1) | head -n25 | tail -n1)"
+      - uses: actions/cache@v2
+        with:
+          key: inputs-${{ steps.get-day.outputs.day }}
+          restore-keys: inputs-
+          path: day*.txt
+      - name: Get inputs
+        run: make
+        env:
+          SESSION: ${{ secrets.SESSION }}
+      - uses: actions/setup-haskell@v1
+        with:
+          stack-version: latest
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('**/stack.*') }}-${{ hashFiles('**/package.yaml') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('**/stack.*') }}-
+          path: ~/.stack
+      - run: stack build --ghc-options -O2
+        working-directory: hs
+      - uses: actions/upload-artifact@v2
+        with:
+          name: aoc2020-hs
+          path: hs/.stack-work/dist/*/*/build/aoc2020-exe/aoc2020-exe
+
+  kotlin:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get Day
+        id: get-day
+        run: echo "::set-output name=day::$(seq 1 $(expr '(' $(date +%s) - $(TZ=UTC+5 date +%s --date=2020-12-01) ')' / 86400 + 1) | head -n25 | tail -n1)"
+      - uses: actions/cache@v2
+        with:
+          key: inputs-${{ steps.get-day.outputs.day }}
+          restore-keys: inputs-
+          path: day*.txt
+      - name: Get inputs
+        run: make
+        env:
+          SESSION: ${{ secrets.SESSION }}
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('**/*gradle*') }}
+          path: ~/.gradle
+      - run: ./gradlew distZip
+        working-directory: kt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: aoc2020-kt
+          path: kt/build/distributions/aoc2020.zip
+
+  rust:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get Day
+        id: get-day
+        run: echo "::set-output name=day::$(seq 1 $(expr '(' $(date +%s) - $(TZ=UTC+5 date +%s --date=2020-12-01) ')' / 86400 + 1) | head -n25 | tail -n1)"
+      - uses: actions/cache@v2
+        with:
+          key: inputs-${{ steps.get-day.outputs.day }}
+          restore-keys: inputs-
+          path: day*.txt
+      - name: Get inputs
+        run: make
+        env:
+          SESSION: ${{ secrets.SESSION }}
+      - id: rust-toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          profile: minimal
+          default: true
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ steps.rust-toolchain.outputs.rustc_hash }}-${{ hashFiles('**/Cargo.*') }}-${{ steps.get-week.outputs.iso-week }}
+          restore-keys: ${{ runner.os }}-${{ steps.rust-toolchain.outputs.rustc_hash }}-${{ hashFiles('**/Cargo.*') }}-
+          path: ~/.cargo
+      - run: cargo build --release
+        working-directory: rs
+      - uses: actions/upload-artifact@v2
+        with:
+          name: aoc2020-rs
+          path: rs/target/release/aoc2020
+
+  hyperfine:
+    needs: [ haskell, kotlin, rust ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get Day
+        id: get-day
+        run: echo "::set-output name=day::$(seq 1 $(expr '(' $(date +%s) - $(TZ=UTC+5 date +%s --date=2020-12-01) ')' / 86400 + 1) | head -n25 | tail -n1)"
+      - uses: actions/cache@v2
+        with:
+          key: inputs-${{ steps.get-day.outputs.day }}
+          restore-keys: inputs-
+          path: day*.txt
+      - name: Get inputs
+        run: make
+        env:
+          SESSION: ${{ secrets.SESSION }}
+      - name: sudo apt install hyperfine
+        run: |
+          wget https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine_1.11.0_amd64.deb
+          sudo apt install ./hyperfine_1.11.0_amd64.deb
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - uses: actions/download-artifact@v2
+      - name: Run pipenv install
+        id: pipenv
+        run: |
+          python -m pip install --upgrade pipenv
+          pipenv install
+          echo "::set-output venv=$(pipenv --venv)"
+        working-directory: py
+      - run: |
+          unzip aoc2020-kt
+          chmod +x aoc2020-hs aoc2020/bin/aoc2020 aoc2020-rs
+      - name: Run hyperfine
+        run: |
+          hyperfine \
+            -n Haskell './aoc2020-hs' \
+            -n Kotlin 'aoc2020/bin/aoc2020' \
+            -n Python '${{ steps.pipenv.venv }}/bin/aoc2020' \
+            -n Rust './aoc2020-rs' \
+            --export-markdown docs/hyperfine.md
+      - uses: EndBug/add-and-commit@v5
+        with:
+          add: docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

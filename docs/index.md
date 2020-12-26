@@ -8,3 +8,7 @@
 [Python pytest benchmarks](benchmark.svg)
 
 [Rust Criterion benchmarks](criterion/report/index.html)
+
+## Total running time (via [Hyperfine](https://github.com/sharkdp/hyperfine))
+
+{% include_relative hyperfine.md %}
