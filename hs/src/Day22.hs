@@ -56,6 +56,8 @@ playRecursive as bs =
       where hash' = hash as' bs'
     compare' a as' b bs'
       | a > Seq.length as' || b > Seq.length bs' = pure $ compare a b
+      | a > 0, b > 0, maxA <- maximum as'', maxA > maximum bs'', maxA >= a + b
+      = pure GT
       | otherwise = gets (IntMap.lookup hash') >>= \case
         Just cached -> pure cached
         Nothing -> do
