@@ -1,5 +1,13 @@
 version: 2
 updates:
+  - package-ecosystem: bundler
+    directory: /docs
+    schedule:
+      interval: daily
+  - package-ecosystem: gradle
+    directory: /kt
+    schedule:
+      interval: daily
   - package-ecosystem: pip
     directory: /py
     schedule:
