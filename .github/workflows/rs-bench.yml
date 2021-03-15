@@ -29,7 +29,7 @@ jobs:
       - id: rust-toolchain
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: nightly
+          toolchain: beta
           profile: minimal
           default: true
       - uses: actions/cache@v2

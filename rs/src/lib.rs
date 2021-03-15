@@ -1,5 +1,3 @@
-#![feature(min_const_generics)]
-
 #[macro_use]
 extern crate lazy_static;
 
