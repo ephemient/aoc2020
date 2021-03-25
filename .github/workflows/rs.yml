@@ -19,11 +19,6 @@ jobs:
       - name: Get Day
         id: get-day
         run: echo "::set-output name=day::$(seq 1 $(expr '(' $(date +%s) - $(TZ=UTC+5 date +%s --date=2020-12-01) ')' / 86400 + 1) | head -n25 | tail -n1)"
-      - name: Get ISO Week
-        id: get-week
-        run: echo "::set-output name=iso-week::$(date +%G%V%u)"
-        env:
-          TZ: UTC+5
       - uses: actions/cache@v2
         with:
           key: inputs-${{ steps.get-day.outputs.day }}
@@ -36,13 +31,13 @@ jobs:
       - id: rust-toolchain
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: beta
+          toolchain: stable
           profile: minimal
           default: true
       - uses: actions/cache@v2
         with:
-          key: ${{ runner.os }}-${{ steps.rust-toolchain.outputs.rustc_hash }}-${{ hashFiles('**/Cargo.*') }}-${{ steps.get-week.outputs.iso-week }}
-          restore-keys: ${{ runner.os }}-${{ steps.rust-toolchain.outputs.rustc_hash }}-${{ hashFiles('**/Cargo.*') }}-
+          key: ${{ runner.os }}-${{ steps.rust-toolchain.outputs.rustc_hash }}-${{ hashFiles('**/Cargo.*') }}
+          restore-keys: ${{ runner.os }}-${{ steps.rust-toolchain.outputs.rustc_hash }}-
           path: ~/.cargo
       - name: Run cargo test
         run: |
