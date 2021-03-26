@@ -184,7 +184,7 @@ import qualified Data.Text as T (unpack)
 import qualified Data.Text.IO as TIO (readFile)
 import Paths_aoc2020 (getDataFileName)
 import System.Environment (getArgs)
-import Text.Megaparsec (ParseErrorBundle, ShowErrorComponent, Stream, errorBundlePretty)
+import Text.Megaparsec (ParseErrorBundle, ShowErrorComponent, TraversableStream, VisualStream, errorBundlePretty)
 import Text.Read (readMaybe)
 
 getDayInput :: Int -> IO Text
@@ -193,7 +193,7 @@ getDayInput i = getDataFileName ("day" ++ show i ++ ".txt") >>= TIO.readFile
 justOrFail :: (MonadFail m) => Maybe a -> m a
 justOrFail = maybe (fail "(⊥)") return
 
-rightOrFail :: (ShowErrorComponent e, Stream s, MonadFail m) =>
+rightOrFail :: (ShowErrorComponent e, TraversableStream s, VisualStream s, MonadFail m) =>
     Either (ParseErrorBundle s e) a -> m a
 rightOrFail = either (fail . errorBundlePretty) return
 
