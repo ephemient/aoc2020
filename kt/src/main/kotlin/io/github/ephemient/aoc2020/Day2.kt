@@ -2,7 +2,7 @@ package io.github.ephemient.aoc2020
 
 class Day2(lines: List<String>) {
     private val rules = lines.map {
-        val (lo, hi, char, string) = pattern.matchEntire(it)!!.destructured
+        val (lo, hi, char, string) = requireNotNull(pattern.matchEntire(it)).destructured
         Rule(lo.toInt(), hi.toInt(), char.single(), string)
     }
 

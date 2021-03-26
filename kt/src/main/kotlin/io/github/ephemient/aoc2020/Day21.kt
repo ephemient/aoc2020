@@ -11,7 +11,7 @@ class Day21(lines: List<String>) {
         .flatMap { (lhs, rhs) -> rhs.map { it to lhs } }
         .groupingBy { it.first }
         .aggregate { _, acc: MutableSet<String>?, (_, lhs), first ->
-            if (first) lhs.toMutableSet() else acc!!.apply { retainAll(lhs) }
+            if (first) lhs.toMutableSet() else requireNotNull(acc).apply { retainAll(lhs) }
         }
 
     fun part1(): Int {

@@ -45,20 +45,22 @@ class Day19(lines: List<String>) {
         private fun String.toRule(): Pair<Int, List<List<Item>>> {
             val (lhs, rhs) = split(":", limit = 2)
             return lhs.toInt() to rhs.splitToSequence("|").map { branch ->
-                branch.splitToSequence(' ').mapNotNull { item ->
-                    when {
-                        item.isEmpty() -> null
-                        item.startsWith("\"") && item.endsWith("\"") -> {
-                            require(item.length > 2)
-                            Item.Literal(item.substring(1..item.lastIndex - 1))
+                requireNotNull(
+                    branch.splitToSequence(' ').mapNotNull { item ->
+                        when {
+                            item.isEmpty() -> null
+                            item.startsWith("\"") && item.endsWith("\"") -> {
+                                require(item.length > 2)
+                                Item.Literal(item.substring(1..item.lastIndex - 1))
+                            }
+                            else -> Item.Reference(item.toInt())
                         }
-                        else -> Item.Reference(item.toInt())
-                    }
-                }.toList().ifEmpty { throw IllegalArgumentException() }
+                    }.toList().ifEmpty { null }
+                )
             }.toList()
         }
 
-        private fun Map<Int, List<List<Item>>>.getPattern(key: Int): String = this[key]!!
+        private fun Map<Int, List<List<Item>>>.getPattern(key: Int): String = getValue(key)
             .joinToString(separator = "|", prefix = "(?:", postfix = ")") { branch ->
                 branch.joinToString("") { item ->
                     when (item) {

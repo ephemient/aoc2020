@@ -30,7 +30,7 @@ jobs:
           path: ~/.gradle
       - run: |
           ./gradlew --info jmh
-          sort -V < build/reports/jmh/results.txt > ../docs/results.txt
+          sort -V < build/results/jmh/results.txt > ../docs/results.txt
         working-directory: kt
       - uses: EndBug/add-and-commit@v5
         with:

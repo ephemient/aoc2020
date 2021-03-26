@@ -19,7 +19,7 @@ class Day20(lines: List<String>) {
             }
         }
         @OptIn(ExperimentalStdlibApi::class)
-        assembleImage(tiles, borders)!!
+        requireNotNull(assembleImage(tiles, borders))
     }
 
     fun part1(): Long = with(image.first()) { first().first.toLong() * last().first.toLong() } *
@@ -145,7 +145,7 @@ class Day20(lines: List<String>) {
                     }.filter { it in unused }
                     for (id in candidates) {
                         if (!unused.remove(id)) continue
-                        for (variant in tiles[id]!!.variants()) {
+                        for (variant in tiles.getValue(id).variants()) {
                             if (left != null && variant.left != left ||
                                 top != null && variant.top != top
                             ) continue
@@ -164,7 +164,7 @@ class Day20(lines: List<String>) {
                     val candidates = borders[top].orEmpty().filter { it in unused }
                     for (id in candidates) {
                         if (!unused.remove(id)) continue
-                        for (variant in tiles[id]!!.variants()) {
+                        for (variant in tiles.getValue(id).variants()) {
                             if (variant.top != top) continue
                             val pair = (id to variant).also(nextRow::add)
                             if (callRecursive(Unit)) return@DeepRecursiveFunction true

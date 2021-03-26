@@ -16,7 +16,7 @@ class Day18(private val lines: List<String>) {
         abstract fun eval(): Long
 
         protected fun atom(): Long = if (input[i].isDigit()) {
-            var start = i
+            val start = i
             do { i++ } while (i < input.length && input[i].isDigit())
             input.substring(start until i).toLong().also { skipSpace() }
         } else {
@@ -29,7 +29,7 @@ class Day18(private val lines: List<String>) {
         }
 
         protected fun skipSpace() {
-            while (i < input.length && Character.isSpace(input[i])) i++
+            while (i < input.length && input[i].isWhitespace()) i++
         }
     }
 

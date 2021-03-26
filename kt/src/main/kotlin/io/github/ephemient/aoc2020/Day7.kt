@@ -2,7 +2,7 @@ package io.github.ephemient.aoc2020
 
 class Day7(lines: List<String>) {
     private val bags = lines.associate { line ->
-        val (key, items) = linePattern.matchEntire(line)!!.destructured
+        val (key, items) = requireNotNull(linePattern.matchEntire(line)).destructured
         key to itemPattern.findAll(items).map { match ->
             val (count, item) = match.destructured
             count.toInt() to item
