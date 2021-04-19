@@ -63,9 +63,9 @@
         },
         "py-cpuinfo": {
             "hashes": [
-                "sha256:9aa2e49675114959697d25cf57fec41c29b55887bff3bc4809b44ac6f5730097"
+                "sha256:5f269be0e08e33fd959de96b34cd4aeeeacac014dd8305f70eb28d06de2345c5"
             ],
-            "version": "==7.0.0"
+            "version": "==8.0.0"
         },
         "pygal": {
             "hashes": [
@@ -101,11 +101,11 @@
                 "histogram"
             ],
             "hashes": [
-                "sha256:01f79d38d506f5a3a0a9ada22ded714537bbdfc8147a881a35c1655db07289d9",
-                "sha256:ad4314d093a3089701b24c80a05121994c7765ce373478c8f4ba8d23c9ba9528"
+                "sha256:36d2b08c4882f6f997fd3126a3d6dfd70f3249cde178ed8bbc0b73db7c20f809",
+                "sha256:40e263f912de5a81d891619032983557d62a3d85843f9a9f30b98baea0cd7b47"
             ],
             "index": "pypi",
-            "version": "==3.2.3"
+            "version": "==3.4.1"
         },
         "toml": {
             "hashes": [
