@@ -8,6 +8,6 @@ all: $(DAYS:%=day%.txt)
 
 day%.txt:
 	$(if $(findstring $(@:day%.txt=%),$(DAYS)),,sleep $$(($$(date +%s --date=$(YEAR)-12-$(@:day%.txt=%)) - $$(date +%s))))
-	curl -b "session=$(SESSION)" -o "day$(@:day%.txt=%).txt" "https://adventofcode.com/$(YEAR)/day/$(@:day%.txt=%)/input"
+	curl -b "session=$(SESSION)" -o "day$(@:day%.txt=%).txt" -f "https://adventofcode.com/$(YEAR)/day/$(@:day%.txt=%)/input"
 
 .PHONY: all
