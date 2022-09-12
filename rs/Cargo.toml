@@ -27,7 +27,7 @@ lazy_static = "1"
 regex = "1"
 
 [dev-dependencies]
-criterion = "0.3"
+criterion = "0.4"
 pretty_assertions = "1.0"
 
 [[bench]]
